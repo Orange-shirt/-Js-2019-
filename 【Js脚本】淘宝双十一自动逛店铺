@@ -1,1 +1,57 @@
 
+//请将淘宝打开任务界面
+"auto";
+
+device.width
+
+var t=20;
+for(t=20;t>0;t--){
+    sleep(500);
+    toast(t+"秒后开始运行，请将淘宝打开至活动界面，运行期间请不要进行任何操作！");
+    sleep(500);
+}
+
+launch("com.taobao.taobao");
+sleep(2000);
+waitForActivity("com.taobao.browser.BrowserActivity")
+var i = 0;
+//修改下面的x和y
+var x = 875;
+var y = 1160;
+
+toast("“点击位置”即为程序将要自动点击的位置，请确保浮窗点击位置是“浏览店铺”的按钮")
+var w = floaty.rawWindow(
+    <frame gravity="center" bg="#FFFFFFFF">
+        <text id="text">点击位置</text>
+    </frame>
+    );
+w.setSize(100, 100);
+w.setPosition(x, y);
+sleep(8000);
+w.close()
+sleep(2000);
+
+
+var time=1;
+for(i=20;i>0;i--){
+    toast("脚本还将点击浏览店铺"+i+"次");
+    sleep(2000);
+    waitForActivity("com.taobao.browser.BrowserActivity")
+    
+    click(x,y);
+    toast("等待淘宝加载页面……/n请不要操作！！");
+    sleep(6000);
+    toast("正在进行第"+time+"次点击，请不要操作！！！");
+    swipe(500, 1200, 500, 800, 1000);
+    swipe(500, 1200, 500, 800, 1000);
+    swipe(500, 1200, 500, 800, 1000);
+    swipe(500, 1200, 500, 800, 1000);
+    sleep(13000);
+    toast("执行完毕！即将进行下一个，若没有完成请停止脚本并手动操作！");
+    time++;
+    sleep(5000);
+    
+    back()
+    sleep(3000);
+}
+toast("点击“浏览店铺”任务已完成");
