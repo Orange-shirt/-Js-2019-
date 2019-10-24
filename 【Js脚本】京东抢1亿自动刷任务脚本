@@ -1,0 +1,226 @@
+//如有疑问或者建议请打开这个链接进行反馈 https://wj.qq.com/s2/4847356/63d5/
+
+var window = floaty.window(
+    <frame>
+        <button id="action" text="点击停止脚本" w="120" h="40" bg="#77FFFFFF"textColor="#FF000000"/>
+    </frame>
+);
+window.exitOnClose();
+var execution = null;
+window.action.click(()=>{
+    if(window.action.getText() == '点击停止脚本'){
+        sleep();
+        window.action.setText('继续运行脚本');
+    }else{
+        if(execution){
+            execution.getEngine().forceStop();
+        }
+        window.action.setText('点击停止脚本');
+    }
+});
+window.action.longClick(()=>{
+   window.setAdjustEnabled(!window.isAdjustEnabled());
+   return true;
+});
+setInterval(()=>{}, 1000);
+
+auto.waitFor();
+
+
+app.openAppSetting("com.jingdong.app.mall");
+var jishu=10;
+for (jishu=10;jishu>0;jishu--){
+    toast(jishu+"秒后开始运行，请强行停止京东");
+    sleep(1000);
+    }
+    
+var options = ["🔘 嗯，已经强行停止了", "⁉️ 我并不知道该怎么强行停止…","🔴 我并不想强行停止它"]
+var i = dialogs.select("请问您强行停止“京东”了吗？", options);
+if(i == 0){
+    toast("ok，继续运行脚本");
+    sleep(2000);
+}
+if(i==1)
+{
+    alert("很抱歉，不强行停止“京东”会造成运行问题，您可以尝试百度一下具体方法");
+    toast("已停止运行脚本！")
+    exit()
+}
+if(i==2)
+{
+    var queren=confirm("不强行停止“京东”可能会造成脚本运行问题，您确定要继续运行脚本吗？");
+    if(queren){
+        toast("继续运行脚本……");
+        sleep(2000);
+        }
+        else{
+            toast("已取消继续运行脚本！");
+            exit()
+            }
+    }
+
+var width=device.width;
+var height=device.height;
+
+if (width==1080,height==1920){
+    sleep(1000);
+    toast("设备分辨率"+width+"*"+height);
+    }
+else{
+    var optionsd=["🔘 改好了，运行吧！","❓ 怎么改？改哪儿？","⭕️ 不想改，冒险继续运行","⛔️ 还没改呢！停止运行"];
+    var op=dialogs.select("您的设备分辨率为"+width+"*"+height+"\n您有修改脚本内的五处点击位置的所有x，y坐标值吗？",optionsd);
+    if(op==0){
+        toast("OK，继续运行…")
+        sleep(2000);
+        }
+        if(op==1){
+            toast("脚本将在3分钟后自动停止");
+            dialogs.build({
+    //对话框标题
+    title: "❓ 帮助：\n您需要修改5处坐标值",
+    //对话框内容
+    content: "您首先需要找到5个坐标点，获取坐标请先打开【系统设置】→【开发者选项】→【指针位置】\n（开发者选项默认隐藏于系统中，需要连续点击【关于手机】中的安卓版本号才能打开，有些机型可能是其他方法）\n打开后屏幕上会出现实时指针坐标位置信息X与Y的值，请先打开京东在［主界面搜索框］取一个点并记录下点的x和y坐标值\n\n接着点进搜索框中在搜索界面的［🔍］图标，取点并记录X与Y的坐标值\n\n接着搜索“抢一亿”等出现活动入口界面中的［立即养红包］按钮上再取一点记录下X与Y坐标值\n\n点击进入之后再在［领金币］按钮上取一点记录下X和Y坐标值\n\n最后再在“逛逛好店”旁边的按钮再取一点记录下X和Y的坐标值\n\n当您找其了全部的5个点的坐标之后，在脚本中的相应位置按照注释修改即可成功运行\n\n如有疑问请联系作者，或复制打开脚本内的链接进行反馈",
+    //确定键内容
+    positive: "关闭本对话框",
+    //取消键内容
+    //中性键内容
+    negative: "", }).on("positive", ()=>{
+        toast("已停止运行脚本");
+        exit()
+}).on("negative", ()=>{
+    app.openUrl("https://wj.qq.com/s2/4847356/63d5/");;
+}).show();
+sleep(180000);
+exit()
+            }
+            if(op==2){                
+                    var asconfirm=confirm("您确定要在不修改坐标值的情况下还要继续运行本脚本吗？\n在不修改坐标值的情况下运行本脚本可能会不断乱点！！！")
+                    if(asconfirm){
+                        toast("继续运行脚本");
+                        sleep(3000);
+                        }
+                        else{
+                            toast("已停止运行脚本");
+                            exit()
+                            }
+                        }
+                            
+                    if(op==3){
+                        toast("已停止运行脚本");
+                        exit()
+                        }
+                }
+
+
+sleep(3000);
+toast("正在打开京东……");
+
+launch("com.jingdong.app.mall");
+sleep(3000);
+toast("点击搜索框");
+//⚠️↘⚠️↓⚠️↓⚠️↙⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️
+click(545,235);//←这里是京东主界面的搜索框的坐标，修改括号内的坐标数值即可，格式为(x,y)
+//⚠️↗⚠️↑⚠️↑⚠️↖⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️
+sleep(2000);
+toast("即将搜索进入活动，请稍等…");
+setClip("抢一亿");
+sleep(5000);
+setText(getClip());
+toast("正在尝试搜索进入活动……");
+
+//⚠️↘⚠️↓⚠️↓⚠️↙⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️
+click(1010,157);//←这里是搜索图标的坐标，修改括号内的坐标数值即可，格式为(x,y)
+//⚠️↗⚠️↑⚠️↑⚠️↖⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️
+sleep(5000);
+
+
+//⚠️↘⚠️↓⚠️↓⚠️↙⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️
+click(565,1580);//←这里是按钮“立即养红包”的坐标，修改括号内的坐标数值即可，格式为(x,y)
+//⚠️↗⚠️↑⚠️↑⚠️↖⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️
+var wait=10;
+for(wait=10;wait>0;wait--){
+    toast("等待加载……剩余"+wait+"秒");
+    sleep(1000);
+    }
+    
+    
+//⚠️↘⚠️↓⚠️↓⚠️↙⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️
+click(972,1765);//←这里是按钮“领金币”的坐标，修改括号内的坐标数值即可，格式为(x,y)
+//⚠️↗⚠️↑⚠️↑⚠️↖⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️
+
+sleep(3000);
+
+var i = 0;
+//修改下面的x和y
+
+//⚠️⚠️↘⚠️↓⚠️↙⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️
+var x = 925;//←‼️特别注意‼️这里是“逛逛好店”旁边的按钮的x的坐标，直接改数值不要少了分号哦！
+var y = 845;//←‼️特别注意‼️这里是“逛逛好店”旁边的按钮的y的坐标，直接改数值不要少了分号哦！
+//⚠️↗⚠️↑⚠️↑⚠️↖⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️
+
+
+for(i=0;i<25;i++){
+
+    toast("正在进行逛店铺任务，这是第" + (i+1) + "次逛店铺");
+    waitForActivity("com.jingdong.app.mall.WebActivity")
+    
+    click(x,y);
+    sleep(3000);
+    back()
+    sleep(3000);
+    click(920, 800);
+    sleep(3000);
+}
+
+toast("逛店铺25次已完成，即将开始执行“浏览3个会场”任务");
+sleep(3000);
+
+var ii=0;
+var yy=y+210;
+for(ii==0;ii<3;ii++){
+    toast("正在进行浏览会场任务，这是第"+(ii+1)+"次浏览会场");
+    waitForActivity("com.jingdong.app.mall.WebActivity");
+    click(x,yy);
+    sleep(3000);
+    back()
+    sleep(3000);
+    click(920,800);
+    sleep(3000);
+    }
+    
+toast("浏览会场3次已完成，即将开始执行“逛商品25次”任务");
+sleep(3000);    
+    
+    
+var iii=0;
+var yyy=yy+210;
+for(iii=0;iii<25;iii++){
+    toast("正在进行逛商品任务，这是第"+(iii+1)+"次逛商品");
+    waitForActivity("com.jingdong.app.mall.WebActivity");
+    click(x,yyy);
+    sleep(3000);
+    back()
+    sleep(3000);
+    click(920,800);
+    sleep(3000);
+    }
+    
+toast("逛商品25次已完成，即将开始执行“逛互动4次”任务");
+sleep(3000);
+    
+var iiii=0;
+var yyyy=yyy+210;
+for(iiii==0;iiii<4;iiii++){
+    toast("正在进行逛互动任务，这是第"+(iiii+1)+"次逛互动");
+    waitForActivity("com.jingdong.app.mall.WebActivity");
+    click(x,yyyy);
+    sleep(3000);
+    back()
+    sleep(3000);
+    click(920,800);
+    sleep(3000);
+    }
+toast("所有任务已完成，感谢使用！")
+sleep(3000);
+toast("脚本作者 @橘衫下邂逅的时光");
+ exit()
