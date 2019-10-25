@@ -1,0 +1,293 @@
+//如有任何问题或者有任何建议请复制打开此链接进行反馈https://wj.qq.com/s2/4847356/63d5
+dialogs.alert("请在系统设置的无障碍服务内找到\n“淘宝双十一开喵铺自动刷任务”\n并开启“无障碍权限”");
+
+
+
+auto.waitFor();
+
+var window = floaty.window(
+    <frame>
+        <button id="action" text="点击停止脚本" w="120" h="40" bg="#77FFFFFF"textColor="#FF000000"/>
+    </frame>
+);
+window.exitOnClose();
+var execution = null;
+window.action.click(()=>{
+    if(window.action.getText() == '点击停止脚本'){
+        sleep();
+        window.action.setText('继续运行脚本');
+    }else{
+        if(execution){
+            execution.getEngine().forceStop();
+        }
+        window.action.setText('点击停止脚本');
+    }
+});
+window.action.longClick(()=>{
+   window.setAdjustEnabled(!window.isAdjustEnabled());
+   return true;
+});
+setInterval(()=>{}, 1000);
+
+var height = device.height;
+var width = device.width;
+toast("设备宽" + width + "\n" + "设备高" + height + "\n" + "手机型号" + device.model + "\n安卓版本" + device.release);
+sleep(3000);
+
+if (height == 1920) { //设置脚本坐标点击所适合的屏幕宽高。
+setScreenMetrics(1080, 1920);
+toast("脚本已开始运行"+"\n"+"运行期间请不要操作！");
+lingqu()
+} else if (height == 2340) {
+setScreenMetrics(1080, 2340);
+toast("设备高" + height);
+lingqu()
+}
+else if (height == 2160) {
+setScreenMetrics(1080, 2160);
+toast("设备高" + height);
+lingqu();
+}
+function lingqu() {
+app.launchApp("手机淘宝");
+sleep(3000);
+toast("正在打开手机淘宝……")
+sleep(3000);
+click(600, 1235);//进入活动页
+sleep(6000);
+
+click(547, 1264);//点猫 领金币
+// //浏览15秒领金币
+sleep(1500);
+click(911, 1716);
+
+sleep(1500);
+if (text("签到").exists()) {
+text("签到").findOne().click();
+sleep(1600);
+toast("签到成功")
+}
+sleep(1500);
+while (text("去进店").exists()) {
+//要支持的动作
+toast("正在完成“去进店”任务……");
+text("去进店").findOne().click();
+sleep(2500);
+swipe(width / 2, height - 600, width / 2, 0, 500);
+sleep(3500);
+swipe(width / 2, height - 600, width / 2, 0, 500);
+sleep(10000);
+swipe(width / 2, height - 600, width / 2, 0, 500);
+sleep(9000);
+back();
+sleep(1000);
+click(996,456);
+sleep(3000);
+click(911, 1716);
+sleep(2000);
+}
+while (text("去浏览").exists()) {
+//要支持的动作
+toast("正在完成“去浏览”任务……");
+text("去浏览").findOne().click();
+sleep(1500);
+swipe(width / 2, height - 500, width / 2, 0, 500);
+sleep(2500);
+swipe(width / 2, height - 500, width / 2, 0, 500);
+sleep(10000);
+swipe(width / 2, height - 500, width / 2, 0, 500);
+sleep(8000);
+back();
+sleep(1600);
+click(996,456);
+sleep(3000);
+click(911, 1716);
+sleep(2000);
+}
+
+while (text("去浏览").exists()) {
+//要支持的动作
+toast("正在完成“去浏览”任务……");
+text("去浏览").findOne().click();
+sleep(1500);
+swipe(width / 2, height - 500, width / 2, 0, 500);
+sleep(2500);
+swipe(width / 2, height - 500, width / 2, 0, 500);
+sleep(10000);
+swipe(width / 2, height - 500, width / 2, 0, 500);
+sleep(8000);
+back();
+sleep(1600);
+click(996,456);
+sleep(3000);
+click(911, 1716);
+sleep(2000);
+}
+
+while (text("去浏览").exists()) {
+//要支持的动作
+toast("正在完成“去浏览”任务……");
+text("去浏览").findOne().click();
+sleep(1500);
+swipe(width / 2, height - 500, width / 2, 0, 500);
+sleep(2500);
+swipe(width / 2, height - 500, width / 2, 0, 500);
+sleep(10000);
+swipe(width / 2, height - 500, width / 2, 0, 500);
+sleep(8000);
+back();
+sleep(1600);
+click(996,456);
+sleep(3000);
+click(911, 1716);
+sleep(2000);
+}
+
+while (text("去浏览").exists()) {
+//要支持的动作
+toast("正在完成“去浏览”任务……");
+text("去浏览").findOne().click();
+sleep(1500);
+swipe(width / 2, height - 500, width / 2, 0, 500);
+sleep(2500);
+swipe(width / 2, height - 500, width / 2, 0, 500);
+sleep(10000);
+swipe(width / 2, height - 500, width / 2, 0, 500);
+sleep(8000);
+back();
+sleep(1600);
+click(996,456);
+sleep(3000);
+click(911, 1716);
+sleep(2000);
+}
+while (text("去加群").exists()) {
+//要支持的动作
+toast("正在完成“去加群”任务……");
+text("去加群").findOne().click();
+sleep(3000);
+back();
+sleep(1600);
+click(996,456);
+sleep(3000);
+click(911, 1716);
+sleep(2000);
+}
+
+sleep(1600);
+click(996,456);
+sleep(3000);
+click(911, 1716);
+sleep(2000);
+while (text("去浏览").exists()) {
+//要支持的动作
+toast("正在完成“去浏览”任务……");
+text("去浏览").findOne().click();
+sleep(1500);
+swipe(width / 2, height - 500, width / 2, 0, 500);
+sleep(2500);
+swipe(width / 2, height - 500, width / 2, 0, 500);
+sleep(10000);
+swipe(width / 2, height - 500, width / 2, 0, 500);
+sleep(8000);
+back();
+sleep(1600);
+click(996,456);
+sleep(3000);
+click(911, 1716);
+sleep(2000);
+}
+while (text("去签到").exists()) {
+//要支持的动作
+toast("正在完成“去签到”任务……");
+text("去签到").findOne().click();
+sleep(1500);
+swipe(width / 2, height - 500, width / 2, 0, 500);
+sleep(2500);
+swipe(width / 2, height - 500, width / 2, 0, 500);
+sleep(10000);
+swipe(width / 2, height - 500, width / 2, 0, 500);
+sleep(8000);
+back();
+sleep(1600);
+click(996,456);
+sleep(3000);
+click(911, 1716);
+sleep(2000);
+}
+
+while (text("去加群").exists()) {
+//要支持的动作
+toast("正在完成“去加群”任务……");
+text("去加群").findOne().click();
+sleep(3000);
+back();
+sleep(1600);
+click(996,456);
+sleep(3000);
+click(911, 1716);
+sleep(2000);
+}
+
+sleep(1600);
+click(996,456);
+sleep(3000);
+click(911, 1716);
+sleep(2000);
+while (text("去浏览").exists()) {
+//要支持的动作
+toast("正在完成“去浏览”任务……");
+text("去浏览").findOne().click();
+sleep(1500);
+swipe(width / 2, height - 500, width / 2, 0, 500);
+sleep(2500);
+swipe(width / 2, height - 500, width / 2, 0, 500);
+sleep(10000);
+swipe(width / 2, height - 500, width / 2, 0, 500);
+sleep(8000);
+back();
+sleep(1600);
+click(996,456);
+sleep(3000);
+click(911, 1716);
+sleep(2000);
+}
+while (text("去签到").exists()) {
+//要支持的动作
+toast("正在完成“去签到”任务……");
+text("去签到").findOne().click();
+sleep(1500);
+swipe(width / 2, height - 500, width / 2, 0, 500);
+sleep(2500);
+swipe(width / 2, height - 500, width / 2, 0, 500);
+sleep(10000);
+swipe(width / 2, height - 500, width / 2, 0, 500);
+sleep(8000);
+back();
+sleep(1600);
+click(996,456);
+sleep(3000);
+click(911, 1716);
+sleep(2000);
+}
+while (text("去加群").exists()) {
+//要支持的动作
+toast("正在完成“去加群”任务……");
+text("去加群").findOne().click();
+sleep(3000);
+back();
+sleep(1600);
+click(996,456);
+sleep(3000);
+click(911, 1716);
+sleep(2000);
+}
+
+
+toast("已检测不到“去进店”“去浏览”“去签到”“去加群”");
+sleep(3000);
+toast("如有遗漏请自行操作或再次运行")
+sleep(3000);
+toast("脚本处理优化\n@橘衫下邂逅的时光");
+exit()
+}
