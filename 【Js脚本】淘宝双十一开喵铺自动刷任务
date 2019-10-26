@@ -17,9 +17,10 @@ window.action.click(()=>{
         sleep();
     }else{
         if(execution){
-            execution.getEngine().forceStop();
+            toast("点击了停止运行脚本"+"\n"+"停止运行脚本喽～");
+            exit()
         }
-        }
+      }
 });
 window.action.longClick(()=>{
    window.setAdjustEnabled(!window.isAdjustEnabled());
@@ -31,31 +32,31 @@ var width = device.width;
 toast("设备宽" + width + "\n" + "设备高" + height + "\n" + "手机型号" + device.model + "\n安卓版本" + device.release);
 sleep(3000);
 
-if (height == 1920) { //设置脚本坐标点击所适合的屏幕宽高。
-setScreenMetrics(1080, 1920);
-toast("脚本已开始运行"+"\n"+"运行期间请不要操作！");
-lingqu()
-} else if (height == 2340) {
-setScreenMetrics(1080, 2340);
-toast("脚本已开始运行"+"\n"+"运行期间请不要操作！");
-lingqu()
-}
-else if (height == 2160) {
-setScreenMetrics(1080, 2160);
-toast("脚本已开始运行"+"\n"+"运行期间请不要操作！");
-lingqu();
-}
-else if (height == 2232) {
-    setScreenMetrics(1080,2232);
-    toast("脚本已开始运行"+"\n"+"运行期间请不要操作！");
+if (width == 1080) {
+    setScreenMetrics(width,height);
+    toast("您的设备分辨率为"+"\n"+height+"*"+width+"\n"+"脚本已开始运行！！"+"\n"+"运行期间请不要操作！！！");
+    sleep(3000);
     lingqu();
     }
+    else{
+        var shirt =dialogs.confirm("您的手机分辨率为"+"\n"+height+"*"+width+"\n"+"可能不支持此分辨率"+"\n"+"确定要继续运行脚本吗？");
+        if(shirt){
+            setScreenMetrics(width,height);
+            toast("设备分辨率为"+"\n"+height+"*"+width+"\n"+"脚本已开始运行"+"\n"+"运行期间请不要操作！");
+            sleep(3000);
+            lingqu();
+            }
+            else{
+                toast("已停止运行脚本");
+                exit()
+                }
+        }
     
 function lingqu() {
+toast("正在打开手机淘宝……");
 app.launchApp("手机淘宝");
 sleep(3000);
-toast("正在打开手机淘宝……")
-sleep(3000);
+toast("正在打开活动页面……");
 click(600, 1235);//进入活动页
 sleep(6000);
 
@@ -71,6 +72,9 @@ sleep(1600);
 toast("签到成功")
 }
 sleep(1500);
+
+var times=0;
+
 while (text("去进店").exists()) {
 //要支持的动作
 toast("正在完成“去进店”任务……");
@@ -88,6 +92,13 @@ click(996,456);
 sleep(3000);
 click(911, 1716);
 sleep(2000);
+
+times++;
+if(times>50){
+    dialogs.alert("淘宝可能出现了BUG，请关闭淘宝后重新运行脚本吧～");
+    toast("已停止运行脚本");
+    exit()
+    }
 }
 while (text("去浏览").exists()) {
 //要支持的动作
@@ -106,6 +117,13 @@ click(996,456);
 sleep(3000);
 click(911, 1716);
 sleep(2000);
+
+times++;
+if(times>50){
+    dialogs.alert("淘宝可能出现了BUG，请关闭淘宝后重新运行脚本吧～");
+    toast("已停止运行脚本");
+    exit()
+    }
 }
 
 while (text("去浏览").exists()) {
@@ -125,6 +143,13 @@ click(996,456);
 sleep(3000);
 click(911, 1716);
 sleep(2000);
+
+times++;
+if(times>50){
+    dialogs.alert("淘宝可能出现了BUG，请关闭淘宝后重新运行脚本吧～");
+    toast("已停止运行脚本");
+    exit()
+    }
 }
 
 while (text("去浏览").exists()) {
@@ -144,6 +169,13 @@ click(996,456);
 sleep(3000);
 click(911, 1716);
 sleep(2000);
+
+times++;
+if(times>50){
+    dialogs.alert("淘宝可能出现了BUG，请关闭淘宝后重新运行脚本吧～");
+    toast("已停止运行脚本");
+    exit()
+    }
 }
 
 while (text("去浏览").exists()) {
@@ -163,80 +195,18 @@ click(996,456);
 sleep(3000);
 click(911, 1716);
 sleep(2000);
-}
-while (text("去加群").exists()) {
-//要支持的动作
-toast("正在完成“去加群”任务……");
-text("去加群").findOne().click();
-sleep(3000);
-back();
-sleep(1600);
-click(996,456);
-sleep(3000);
-click(911, 1716);
-sleep(2000);
+
+times++;
+if(times>50){
+    dialogs.alert("淘宝可能出现了BUG，请关闭淘宝后重新运行脚本吧～");
+    toast("已停止运行脚本");
+    exit()
+    }
 }
 
-sleep(1600);
-click(996,456);
-sleep(3000);
-click(911, 1716);
-sleep(2000);
-while (text("去浏览").exists()) {
-//要支持的动作
-toast("正在完成“去浏览”任务……");
-text("去浏览").findOne().click();
-sleep(1500);
-swipe(width / 2, height - 500, width / 2, 0, 500);
-sleep(2500);
-swipe(width / 2, height - 500, width / 2, 0, 500);
-sleep(10000);
-swipe(width / 2, height - 500, width / 2, 0, 500);
-sleep(8000);
-back();
-sleep(1600);
-click(996,456);
-sleep(3000);
-click(911, 1716);
-sleep(2000);
-}
+//在这里写一个如果不是特定的Activity则停止运行脚本或者抛出错误
 
-while (text("去加群").exists()) {
-//要支持的动作
-toast("正在完成“去加群”任务……");
-text("去加群").findOne().click();
-sleep(3000);
-back();
-sleep(1600);
-click(996,456);
-sleep(3000);
-click(911, 1716);
-sleep(2000);
-}
 
-sleep(1600);
-click(996,456);
-sleep(3000);
-click(911, 1716);
-sleep(2000);
-while (text("去浏览").exists()) {
-//要支持的动作
-toast("正在完成“去浏览”任务……");
-text("去浏览").findOne().click();
-sleep(1500);
-swipe(width / 2, height - 500, width / 2, 0, 500);
-sleep(2500);
-swipe(width / 2, height - 500, width / 2, 0, 500);
-sleep(10000);
-swipe(width / 2, height - 500, width / 2, 0, 500);
-sleep(8000);
-back();
-sleep(1600);
-click(996,456);
-sleep(3000);
-click(911, 1716);
-sleep(2000);
-}
 
 while (text("去加群").exists()) {
 //要支持的动作
@@ -249,6 +219,119 @@ click(996,456);
 sleep(3000);
 click(911, 1716);
 sleep(2000);
+
+times++;
+if(times>50){
+    dialogs.alert("淘宝可能出现了BUG，请关闭淘宝后重新运行脚本吧～");
+    toast("已停止运行脚本");
+    exit()
+    }
+}
+
+sleep(1600);
+click(996,456);
+sleep(3000);
+click(911, 1716);
+sleep(2000);
+
+
+while (text("去浏览").exists()) {
+//要支持的动作
+toast("正在完成“去浏览”任务……");
+text("去浏览").findOne().click();
+sleep(1500);
+swipe(width / 2, height - 500, width / 2, 0, 500);
+sleep(2500);
+swipe(width / 2, height - 500, width / 2, 0, 500);
+sleep(10000);
+swipe(width / 2, height - 500, width / 2, 0, 500);
+sleep(8000);
+back();
+sleep(1600);
+click(996,456);
+sleep(3000);
+click(911, 1716);
+sleep(2000);
+
+times++;
+if(times>50){
+    dialogs.alert("淘宝可能出现了BUG，请关闭淘宝后重新运行脚本吧～");
+    toast("已停止运行脚本");
+    exit()
+    }
+}
+
+while (text("去加群").exists()) {
+//要支持的动作
+toast("正在完成“去加群”任务……");
+text("去加群").findOne().click();
+sleep(3000);
+back();
+sleep(1600);
+click(996,456);
+sleep(3000);
+click(911, 1716);
+sleep(2000);
+
+times++;
+if(times>50){
+    dialogs.alert("淘宝可能出现了BUG，请关闭淘宝后重新运行脚本吧～");
+    toast("已停止运行脚本");
+    exit()
+    }
+}
+
+sleep(1600);
+click(996,456);
+sleep(3000);
+click(911, 1716);
+sleep(2000);
+
+
+while (text("去浏览").exists()) {
+//要支持的动作
+toast("正在完成“去浏览”任务……");
+text("去浏览").findOne().click();
+sleep(1500);
+swipe(width / 2, height - 500, width / 2, 0, 500);
+sleep(2500);
+swipe(width / 2, height - 500, width / 2, 0, 500);
+sleep(10000);
+swipe(width / 2, height - 500, width / 2, 0, 500);
+sleep(8000);
+back();
+sleep(1600);
+click(996,456);
+sleep(3000);
+click(911, 1716);
+sleep(2000);
+
+times++;
+if(times>50){
+    dialogs.alert("淘宝可能出现了BUG，请关闭淘宝后重新运行脚本吧～");
+    toast("已停止运行脚本");
+    exit()
+    }
+}
+
+while (text("去加群").exists()) {
+//要支持的动作
+toast("正在完成“去加群”任务……");
+text("去加群").findOne().click();
+sleep(3000);
+back();
+sleep(1600);
+click(996,456);
+sleep(3000);
+click(911, 1716);
+sleep(2000);
+
+times++;
+if(times>50){
+    dialogs.alert("淘宝可能出现了BUG，请关闭淘宝后重新运行脚本吧～");
+    toast("已停止运行脚本");
+    exit()
+    }
 }
 
 
