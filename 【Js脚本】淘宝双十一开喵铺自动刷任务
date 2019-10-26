@@ -15,19 +15,16 @@ var execution = null;
 window.action.click(()=>{
     if(window.action.getText() == '点击停止脚本'){
         sleep();
-        window.action.setText('继续运行脚本');
     }else{
         if(execution){
             execution.getEngine().forceStop();
         }
-        window.action.setText('点击停止脚本');
-    }
+        }
 });
 window.action.longClick(()=>{
    window.setAdjustEnabled(!window.isAdjustEnabled());
    return true;
 });
-setInterval(()=>{}, 1000);
 
 var height = device.height;
 var width = device.width;
@@ -40,14 +37,20 @@ toast("脚本已开始运行"+"\n"+"运行期间请不要操作！");
 lingqu()
 } else if (height == 2340) {
 setScreenMetrics(1080, 2340);
-toast("设备高" + height);
+toast("脚本已开始运行"+"\n"+"运行期间请不要操作！");
 lingqu()
 }
 else if (height == 2160) {
 setScreenMetrics(1080, 2160);
-toast("设备高" + height);
+toast("脚本已开始运行"+"\n"+"运行期间请不要操作！");
 lingqu();
 }
+else if (height == 2232) {
+    setScreenMetrics(1080,2232);
+    toast("脚本已开始运行"+"\n"+"运行期间请不要操作！");
+    lingqu();
+    }
+    
 function lingqu() {
 app.launchApp("手机淘宝");
 sleep(3000);
@@ -197,24 +200,6 @@ sleep(3000);
 click(911, 1716);
 sleep(2000);
 }
-while (text("去签到").exists()) {
-//要支持的动作
-toast("正在完成“去签到”任务……");
-text("去签到").findOne().click();
-sleep(1500);
-swipe(width / 2, height - 500, width / 2, 0, 500);
-sleep(2500);
-swipe(width / 2, height - 500, width / 2, 0, 500);
-sleep(10000);
-swipe(width / 2, height - 500, width / 2, 0, 500);
-sleep(8000);
-back();
-sleep(1600);
-click(996,456);
-sleep(3000);
-click(911, 1716);
-sleep(2000);
-}
 
 while (text("去加群").exists()) {
 //要支持的动作
@@ -252,24 +237,7 @@ sleep(3000);
 click(911, 1716);
 sleep(2000);
 }
-while (text("去签到").exists()) {
-//要支持的动作
-toast("正在完成“去签到”任务……");
-text("去签到").findOne().click();
-sleep(1500);
-swipe(width / 2, height - 500, width / 2, 0, 500);
-sleep(2500);
-swipe(width / 2, height - 500, width / 2, 0, 500);
-sleep(10000);
-swipe(width / 2, height - 500, width / 2, 0, 500);
-sleep(8000);
-back();
-sleep(1600);
-click(996,456);
-sleep(3000);
-click(911, 1716);
-sleep(2000);
-}
+
 while (text("去加群").exists()) {
 //要支持的动作
 toast("正在完成“去加群”任务……");
@@ -284,7 +252,7 @@ sleep(2000);
 }
 
 
-toast("已检测不到“去进店”“去浏览”“去签到”“去加群”");
+toast("似乎已完成了任务，已检测不到"+"\n"+"    “去进店”“去浏览”“去加群”");
 sleep(3000);
 toast("如有遗漏请自行操作或再次运行")
 sleep(3000);
