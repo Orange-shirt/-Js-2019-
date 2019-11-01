@@ -1,57 +1,58 @@
 dialogs_js();
-function dialogs_js(){
-log("软件脚本已开始运行，如果没有弹出菜单请强行停止再打开本软件！");
-var options_ = ["▶️ 开始运行脚本", "⏹ 停止运行脚本", "🌐 向作者反馈问题","💬 QQ分享给好友","*️⃣ 脚本介绍&作者信息"]
-var i = dialogs.select("欢迎使用 :D"+"\n"+"请选择一个要进行的选项", options_);
-if(i<0){
-    toastLog("没有选择，已停止运行脚本");
-    exit();
+
+function dialogs_js() {
+    log("软件脚本已开始运行，如果没有弹出菜单请强行停止再打开本软件！");
+    var options_ = ["▶️ 开始运行脚本", "⏹ 停止运行脚本", "🌐 向作者反馈问题", "💬 QQ分享给好友", "*️⃣ 脚本介绍&作者信息"]
+    var i = dialogs.select("欢迎使用 :D" + "\n" + "请选择一个要进行的选项", options_);
+    if (i < 0) {
+        toastLog("没有选择，已停止运行脚本");
+        exit();
+    } else if (i == 0) {
+        toastLog(options_[i]);
+        sleep(2000);
+    } else if (i == 1) {
+        toastLog(options_[i]);
+        exit();
+    } else if (i == 2) {
+        toastLog(options_[i]);
+        app.openUrl("https://wj.qq.com/s2/4847356/63d5");
+        dialogs_js();
+    } else if (i == 3) {
+        var xiazai = ("下载链接戳https://dwz.cn/o7o3UolG");
+        toastLog(options_[i]);
+        var content = ("嘿！分享一个好用的软件给你，它几乎可以完美代替双手完成“淘宝双十一开喵铺”的任务哦，该软件基于“Auto.js”制作，且作者开放了脚本代码！软件离线运行安全可靠！快来下载试试看吧～" + xiazai);
+        app.startActivity({
+            action: "android.intent.action.SEND",
+            type: "text/*",
+            extras: {
+                "android.intent.extra.TEXT": content
+            },
+            packageName: "com.tencent.mobileqq",
+            className: "com.tencent.mobileqq.activity.JumpActivity"
+        });
+        dialogs_js();
+    } else if (i == 4) {
+        alert("脚本作者\n@橘衫下邂逅的时光", "\n小部分代码参考了\n@暗夜协奏者 的脚本代码\n\n此脚本为兴趣制作\n仅供参考，严禁售卖");
+        dialogs_js();
     }
-else if(i == 0){
-    toastLog(options_[i]);
-    sleep(2000);
-}else if(i==1){
-    toastLog(options_[i]);
-    exit();
-}else if(i==2){
-    toastLog(options_[i]);
-    app.openUrl("https://wj.qq.com/s2/4847356/63d5");
-    dialogs_js();
-}else if(i==3){
-    var xiazai=("下载链接戳https://dwz.cn/o7o3UolG");
-    toastLog(options_[i]);
-    var content = ("嘿！分享一个好用的软件给你，它几乎可以完美代替双手完成“淘宝双十一开喵铺”的任务哦，该软件基于“Auto.js”制作，且作者开放了脚本代码！软件离线运行安全可靠！快来下载试试看吧～"+xiazai);
-app.startActivity({
-    action: "android.intent.action.SEND",
-    type: "text/*",
-    extras: {
-      "android.intent.extra.TEXT": content
-    },
-    packageName: "com.tencent.mobileqq",
-    className: "com.tencent.mobileqq.activity.JumpActivity"
-    });
-    dialogs_js();
-   }else if(i==4){
-       alert("脚本作者\n@橘衫下邂逅的时光","\n部分代码参考并使用了\n@暗夜协奏者 的脚本代码\n\n此脚本为兴趣制作\n仅供参考，严禁售卖");
-       dialogs_js();
-       }
-   }
-   //下面是悬浮窗
-   var window = floaty.window(
+}
+//下面是悬浮窗
+var window = floaty.window(
     <frame>
         <button id="action" text="点击停止脚本" w="120" h="40" bg="#F0EB4336"/>
     </frame>
 );
-setInterval(()=>{}, 1000);
+setInterval(() => {}, 1000);
 var execution = null;
 //记录按键被按下时的触摸坐标
-var x = 0, y = 0;
+var x = 0,
+    y = 0;
 //记录按键被按下时的悬浮窗位置
 var windowX, windowY;
 //记录按键被按下的时间以便判断长按等动作
 var downTime;
-window.action.setOnTouchListener(function(view, event){
-    switch(event.getAction()){
+window.action.setOnTouchListener(function(view, event) {
+    switch (event.getAction()) {
         case event.ACTION_DOWN:
             x = event.getRawX();
             y = event.getRawY();
@@ -64,34 +65,78 @@ window.action.setOnTouchListener(function(view, event){
             window.setPosition(windowX + (event.getRawX() - x),
                 windowY + (event.getRawY() - y));
             //如果按下的时间超过1.5秒判断为长按，退出脚本
-            if(new Date().getTime() - downTime > 1500){
-                exit();
+            if (new Date().getTime() - downTime > 1500) {
+                toast("长按可以移动位置哦～");
             }
             return true;
         case event.ACTION_UP:
             //手指弹起时如果偏移很小则判断为点击
-            if(Math.abs(event.getRawY() - y) < 5 && Math.abs(event.getRawX() - x) < 5){
+            if (Math.abs(event.getRawY() - y) < 5 && Math.abs(event.getRawX() - x) < 5) {
                 onClick();
             }
             return true;
     }
     return true;
 });
-function onClick(){
+
+function onClick() {
     dialogs.alert("已停止运行脚本！");
     engines.stopAllAndToast();
 }
 
 toastLog("等待无障碍权限开启……\n您必须手动授予本软件无障碍权限\n否则本软件将无法工作！");
 auto.waitFor();
-toastLog("无障碍权限已开启"+"\n"+"继续运行脚本……");
+toastLog("无障碍权限已开启" + "\n" + "继续运行脚本……");
+sleep(2000);
+app.openAppSetting("com.taobao.taobao");
 sleep(2000);
 
+/*var deng_AppSetting=20;
+for(deng_AppSetting==20;deng_AppSetting>0;deng_AppSetting--){
+    sleep(1000);
+    toastLog("请先手动强行停止手机淘宝\n"+deng_AppSetting+"秒后将打开手机淘宝……");
+    }*/
 
 
 var height = device.height;
 var width = device.width;
 
+function StopTB() {
+    if (app.openAppSetting("com.taobao.taobao") == false) {
+        dialogs.alert("❎错误！您的设备\n好像没有安装淘宝啊？！", "此脚本是为淘宝所设计的，如需使用请下载最新版本的手机淘宝APP再来运行本脚本吧～");
+        engines.stopAllAndToast();
+    }
+    if (text("手机淘宝").exists()) {
+        toast("检测到“手机淘宝”设置页\n即将尝试自动停止");
+        sleep(2000);
+        if (text("强行停止").exists()) {
+            text("强行停止").findOne().click();
+            sleep(2000);
+            if (text("确定").exists()) {
+                text("确定").findOne().click();
+                sleep(2000);
+            } else {
+                var deng_AppSetting = 20;
+                for (deng_AppSetting == 20; deng_AppSetting > 0; deng_AppSetting--) {
+                    sleep(1000);
+                    toastLog("请先手动强行停止手机淘宝\n" + deng_AppSetting + "秒后将打开手机淘宝……");
+                }
+            }
+        } else {
+            var deng_AppSetting = 20;
+            for (deng_AppSetting == 20; deng_AppSetting > 0; deng_AppSetting--) {
+                sleep(1000);
+                toastLog("请先手动强行停止手机淘宝\n" + deng_AppSetting + "秒后将打开手机淘宝……");
+            }
+        }
+    } else {
+        var deng_AppSetting = 20;
+        for (deng_AppSetting == 20; deng_AppSetting > 0; deng_AppSetting--) {
+            sleep(1000);
+            toastLog("请先手动强行停止手机淘宝\n" + deng_AppSetting + "秒后将打开手机淘宝……");
+        }
+    }
+}
 /*这里统一设定点击坐标
 这里的点都是经过测试得出来的。由于后面换了思路用不着了，但考虑到有些手机可能找不到文字点暂且留着
 if (width==1080,height==1920){
@@ -131,357 +176,699 @@ if (width==1080,height==1920){
               toastLog("您的设备分辨率为"+"\n"+height+"*"+width+"\n"+"脚本已开始运行！！"+"\n"+"运行期间请不要操作！！！");
               sleep(2000);   
             }       
-           */     
-toastLog("正在打开手机淘宝……");
-launch("com.taobao.taobao");
-if (launch("com.taobao.taobao")==false){
-    dialogs.alert("❎错误！您的设备\n好像没有安装淘宝啊？！","此脚本是为淘宝所设计的，如需使用请下载最新版本的手机淘宝APP再来运行本脚本吧～");
-    engines.stopAllAndToast();
-    }
-waitForActivity("com.taobao.tao.TBMainActivity");
+           */
+currentActivity();
 
-sleep(2000);
-if(text("立即登录").exists()){
-    dialogs.alert("您似乎没有登录淘宝账号哦！","未登录淘宝账号的情况下脚本将不能正常运行，请登录淘宝之后再重新运行本脚本吧");
-    engines.stopAllAndToast();
+function openTBandsearch() {
+    toastLog("正在打开手机淘宝……");
+    launch("com.taobao.taobao");
+    if (launch("com.taobao.taobao") == false) {
+        dialogs.alert("❎错误！您的设备\n好像没有安装淘宝啊？！", "此脚本是为淘宝所设计的，如需使用请下载最新版本的手机淘宝APP再来运行本脚本吧～");
+        engines.stopAllAndToast();
     }
-
-var check_jishi=5;
-for(check_jishi==5;check_jishi>0;check_jishi--){
-    toastLog("即将搜索进入活动,请检查淘宝主界面"+"\n"+"若屏幕上有弹窗请关闭，即将继续"+check_jishi);
-    sleep(2000);
+    /*
+    waitForActivity("com.taobao.tao.TBMainActivity");
+    */
+    var deng_TbApp = 10;
+    for (deng_TbApp == 10; deng_TbApp > 0; deng_TbApp--) {
+        toastLog("正在等待淘宝主界面打开\n剩余" + deng_TbApp + "秒……\n若已处于淘宝请返回淘宝主界面");
+        sleep(2000);
     }
-className("android.view.View").desc("搜索").clickable(true).findOne().click()
-sleep(2000)
-/*这几行代码在搜索框内设定文字并自动搜索进入，但一弄成App就用不了了。。。
-id("searchEdit").waitFor()
-id("searchEdit").findOne().setText("双十一合伙人")
-id("searchbtn").findOne().click()
-*/
-setClip("双十一合伙人");
-var deng_clip=5;
-for(deng_clip==5;deng_clip>0;deng_clip--){
-    sleep(1000);
-    toastLog("请等待"+deng_clip+"秒……\n因为有的设备会安装有Fv悬浮球会有5秒的弹窗");
-    }
-setText(getClip());
-sleep(1000);
-if(text("搜索").exists()){
-           text("搜索").findOne().click();
-}
-
-function jinhuodong(){
-waitForActivity("com.taobao.browser.BrowserActivity");
-
-var deng=10;
-for(deng==10;deng>0;deng--){
-    toastLog("正在等待加载活动"+"\n"+"剩余"+deng+"秒……");
-    sleep(1000);
-    }
-    
-var refresh=1;
-if(text("重新加载").exists()){
-    text("重新加载").findOne().click();
-    toastLog("可能是您的网络问题"+"n"+"正在刷新重试……"+"n"+"这是第"+refresh+"次刷新");
-    refresh++;
-    sleep(5000);
-     if(text("重新加载").exists()){
-       text("重新加载").findOne().click();
-       toastLog("可能是您的网络问题"+"\n"+"正在刷新重试……"+"\n"+"这是第"+refresh+"次刷新");
-       refresh++;
-       sleep(5000);
-       if(text("重新加载").exists()){
-         text("重新加载").findOne().click();
-         toastLog("可能是您的网络问题"+"\n"+"正在刷新重试……"+"\n"+"这是第"+refresh+"次刷新");
-         refresh++;
-         sleep(5000);
-         if(text("重新加载").exists()){
-           text("重新加载").findOne().click();
-           toastLog("可能是您的网络问题"+"\n"+"正在刷新重试……"+"\n"+"这是第"+refresh+"次刷新");
-           refresh++;
-           sleep(5000);
-           if(text("重新加载").exists()){
-             text("重新加载").findOne().click();
-             toastLog("可能是您的网络问题"+"\n"+"正在刷新重试……"+"\n"+"这是第"+refresh+"次刷新");
-             sleep(5000);
-             if(text("重新加载").exists()){
-               dialogs.alert("已经刷新5次了还是未能进入活动页面，请检查网络后再重新运行脚本吧～");
-               exit();
-               }  
-             }
-           }
-         }
-       }
-     }
-  if(text("点击重试").exists()){
-    text("点击重试").findOne().click();
-    toastLog("可能是您的网络问题"+"n"+"正在刷新重试……"+"n"+"这是第"+refresh+"次刷新");
-    refresh++;
-    sleep(5000);
-     if(text("点击重试").exists()){
-       text("点击重试").findOne().click();
-       toastLog("可能是您的网络问题"+"\n"+"正在刷新重试……"+"\n"+"这是第"+refresh+"次刷新");
-       refresh++;
-       sleep(5000);
-       if(text("点击重试").exists()){
-         text("点击重试").findOne().click();
-         toastLog("可能是您的网络问题"+"\n"+"正在刷新重试……"+"\n"+"这是第"+refresh+"次刷新");
-         refresh++;
-         sleep(5000);
-         if(text("点击重试").exists()){
-           text("点击重试").findOne().click();
-           toastLog("可能是您的网络问题"+"\n"+"正在刷新重试……"+"\n"+"这是第"+refresh+"次刷新");
-           refresh++;
-           sleep(5000);
-           if(text("点击重试").exists()){
-             text("点击重试").findOne().click();
-             toastLog("可能是您的网络问题"+"\n"+"正在刷新重试……"+"\n"+"这是第"+refresh+"次刷新");
-             sleep(5000);
-             if(text("点击重试").exists()){
-               dialogs.alert("已经刷新5次了还是未能进入活动页面，可能是网络问题也有是淘宝出现了BUG，建议您关掉淘宝后再重新运行脚本吧～");
-               exit();
-               }  
-             }
-           }
-         }
-       }
-     }
-   }
-
-function click_mp(){
-if (text("直接收下").exists()){
-    text("直接收下").findOne().click();
-    }
-//点击我的喵币
-textContains("我的喵币").waitFor()
-var O=textContains("我的喵币").findOne().bounds()
-click(O.centerX(),O.centerY());
-var jishi_8s=8;
-for(jishi_8s==8;jishi_8s>0;jishi_8s--){
-    sleep(1000);
-    toastLog("由于点击喵铺可能会升级\n因此您需要等"+jishi_8s+"秒");
-    }
-if (text("开心收下").exists()){
-        sleep(5000);
-        text("开心收下").findOne().click();
-        //开心收下继续点击我的喵币
-        textContains("我的喵币").waitFor()
-         text("我的喵币").findOne().click();
-     if (text("开心收下").exists()){
-        sleep(5000);
-        text("开心收下").findOne().click();
-        //开心收下继续点击我的喵币
-        textContains("我的喵币").waitFor()
-        text("我的喵币").findOne().click();
-        if (text("开心收下").exists()){
-           sleep(5000);
-           text("开心收下").findOne().click();
-        //开心收下继续点击我的喵币
-           textContains("我的喵币").waitFor()
-           text("我的喵币").findOne().click();
-           }
-        else if (text("去找喵币").exists()){
-                text("去找喵币").findOne().click();
-                sleep(2000);
-               }
+    if (currentActivity() == "com.taobao.tao.TBMainActivity") {
+        sleep(2000);
+        if (text("立即登录").exists()) {
+            dialogs.alert("您似乎没有登录淘宝账号哦！", "未登录淘宝账号的情况下脚本将不能正常运行，请登录淘宝之后再重新运行本脚本吧");
+            engines.stopAllAndToast();
         }
-        else if (text("去找喵币").exists()){
-                text("去找喵币").findOne().click();
-                sleep(2000);
-               }
-     }
-if (text("去找喵币").exists()){
-       text("去找喵币").findOne().click();
-       sleep(2000);
-      }
+
+        var check_jishi = 5;
+        for (check_jishi == 5; check_jishi > 0; check_jishi--) {
+            toastLog("即将搜索进入活动,请检查淘宝主界面" + "\n" + "若屏幕上有弹窗请关闭\n即将继续，剩余" + check_jishi + "秒");
+            sleep(2000);
+        }
+    } else {
+        dialogs.alert("检测到当前不是淘宝主界面", "若您在计时结束前已处于淘宝主界面但仍然看到此提示，您可以尝试重新运行脚本或者重启手机再试试\n点击确定停止运行脚本！");
+        engines.stopAllAndToast();
+    }
+
+
+    className("android.view.View").desc("搜索").clickable(true).findOne().click();
+    sleep(2000);
+    /*这几行代码在搜索框内设定文字并自动搜索进入，但一弄成App就用不了了。。。
+    id("searchEdit").waitFor()
+    id("searchEdit").findOne().setText("双十一合伙人")
+    id("searchbtn").findOne().click()
+    */
+    setClip("双十一合伙人");
+    var deng_clip = 5;
+    for (deng_clip == 5; deng_clip > 0; deng_clip--) {
+        sleep(1000);
+        toastLog("请等待" + deng_clip + "秒……\n因为有的设备会安装有Fv悬浮球会有5秒的弹窗");
+    }
+    setText(getClip());
+    sleep(1000);
+    if (text("搜索").exists()) {
+        text("搜索").findOne().click();
+    }
 }
 
-function click_XX(){
-if (text("x7000").exists()){
-    var XO=textContains("x7000").findOne().bounds()    
-    var x5=XO.centerX()+290;
-    var y5=XO.centerY()-295;
-    click(x5,y5);
+function jinhuodong() {
+    sleep(3000);
+    if (currentActivity() == "com.taobao.browser.BrowserActivity") {
+        toastLog("正确的Activity");
+    } else {
+        var deng_rightActivity = 10;
+        for (deng_rightActivity == 10; deng_rightActivity > 0; deng_rightActivity--) {
+            toastLog("jinhuodong():\n检测不到对的Activity\n等待" + deng_rightActivity + "秒后重新检测……")
+            sleep(2000);
+        }
+        if (currentActivity() == "com.taobao.browser.BrowserActivity") {
+            toastLog("正确的Activity");
+        } else {
+            dialogs.alert("检测不到正确的Activity", "这可能是由于误触导致的，在脚本运行时请不要进行任何操作\n\n您可以尝试重新运行一次，点击确定停止运行脚本！");
+            engines.stopAllAndToast();
+        }
     }
-  }
 
-function click_quqiandao(){
-if (text("去签到").exists()){
-    text("去签到").findOne().click();
-    var jishi_10s=10;
-    for(jishi_10s==10;jishi_10s>0;jishi_10s--){
-    toastLog("正在等待加载……"+"\n"+"剩余"+jishi_10s+"秒");
-    sleep(1000);
+    var deng = 10;
+    for (deng == 10; deng > 0; deng--) {
+        toastLog("正在等待加载活动" + "\n" + "剩余" + deng + "秒……");
+        sleep(1000);
     }
-    if(text("兑换好礼（每天10:00上新）").exists()){
-        text("去完成 >").findOne().click();
-        sleep(4000);
-        if(text("签到").exists()){
-            text("签到").findOne().click();
+
+    var refresh = 1;
+    if (text("重新加载").exists()) {
+        text("重新加载").findOne().click();
+        toastLog("可能是您的网络问题" + "n" + "正在刷新重试……" + "n" + "这是第" + refresh + "次刷新");
+        refresh++;
+        sleep(5000);
+        if (text("重新加载").exists()) {
+            text("重新加载").findOne().click();
+            toastLog("可能是您的网络问题" + "\n" + "正在刷新重试……" + "\n" + "这是第" + refresh + "次刷新");
+            refresh++;
+            sleep(5000);
+            if (text("重新加载").exists()) {
+                text("重新加载").findOne().click();
+                toastLog("可能是您的网络问题" + "\n" + "正在刷新重试……" + "\n" + "这是第" + refresh + "次刷新");
+                refresh++;
+                sleep(5000);
+                if (text("重新加载").exists()) {
+                    text("重新加载").findOne().click();
+                    toastLog("可能是您的网络问题" + "\n" + "正在刷新重试……" + "\n" + "这是第" + refresh + "次刷新");
+                    refresh++;
+                    sleep(5000);
+                    if (text("重新加载").exists()) {
+                        text("重新加载").findOne().click();
+                        toastLog("可能是您的网络问题" + "\n" + "正在刷新重试……" + "\n" + "这是第" + refresh + "次刷新");
+                        sleep(5000);
+                        if (text("重新加载").exists()) {
+                            dialogs.alert("已经刷新5次了还是未能进入活动页面，请检查网络后再重新运行脚本吧～");
+                            exit();
+                        }
+                    }
+                }
             }
         }
-        if(text("淘宝人生成就").exists()){
-            click(907,1103);
-           }
-       sleep(2000);
-      back();
     }
-  }
-
-function click_qujindian(){
-while (text("去进店").exists()) {
-//要支持的动作
-toastLog("正在完成“去进店”任务……");
-text("去进店").findOne().click();
-sleep(2500);
-swipe(width / 2, height - 600, width / 2, 0, 500);
-sleep(3500);
-swipe(width / 2, height - 600, width / 2, 0, 500);
-sleep(10000);
-swipe(width / 2, height - 600, width / 2, 0, 500);
-sleep(9000);
-back();
-sleep(1000);
-if (text("x7000").exists()){
-    var XO=textContains("x7000").findOne().bounds()    
-    var x5=XO.centerX()+290;
-    var y5=XO.centerY()-295;
-    click(x5,y5);
+    if (text("刷新重试").exists()) {
+        text("刷新重试").findOne().click();
+        toastLog("可能是您的网络问题" + "n" + "正在刷新重试……" + "n" + "这是第" + refresh + "次刷新");
+        refresh++;
+        sleep(5000);
+        if (text("刷新重试").exists()) {
+            text("刷新重试").findOne().click();
+            toastLog("可能是您的网络问题" + "\n" + "正在刷新重试……" + "\n" + "这是第" + refresh + "次刷新");
+            refresh++;
+            sleep(5000);
+            if (text("刷新重试").exists()) {
+                text("刷新重试").findOne().click();
+                toastLog("可能是您的网络问题" + "\n" + "正在刷新重试……" + "\n" + "这是第" + refresh + "次刷新");
+                refresh++;
+                sleep(5000);
+                if (text("刷新重试").exists()) {
+                    text("刷新重试").findOne().click();
+                    toastLog("可能是您的网络问题" + "\n" + "正在刷新重试……" + "\n" + "这是第" + refresh + "次刷新");
+                    refresh++;
+                    sleep(5000);
+                    if (text("刷新重试").exists()) {
+                        text("刷新重试").findOne().click();
+                        toastLog("可能是您的网络问题" + "\n" + "正在刷新重试……" + "\n" + "这是第" + refresh + "次刷新");
+                        sleep(5000);
+                        if (text("刷新重试").exists()) {
+                            dialogs.alert("已经刷新5次了还是未能进入活动页面，可能是网络问题也有是淘宝出现了BUG，建议您关掉淘宝后再重新运行脚本吧～");
+                            exit();
+                        }
+                    }
+                }
+            }
+        }
     }
-sleep(3000);
-click_mp();
-sleep(2000);
-
-times++;
-if(times>60){
-    dialogs.alert("淘宝可能出现了BUG，请关闭淘宝后重新运行脚本吧～");
-    toastLog("已停止运行脚本");
-    exit()
-    }
-  }
 }
 
-function click_quliulan(){
-while (text("去浏览").exists()) {
-toastLog("正在完成“去浏览”任务……");
-text("去浏览").findOne().click();
-sleep(3000);
-var Activity_TMmain=currentActivity();
-if(Activity_TMmain="com.taobao.tao.TBMainActivity"){
-    swipe(width / 2, height - 500, width / 2, 0, 500);
-    sleep(2500);
-    swipe(width / 2, height - 500, width / 2, 0, 500);
-    sleep(10000);
-    swipe(width / 2, height - 500, width / 2, 0, 500);
-    sleep(8000);
-    if(text("返回双11合伙人 >").exists()){
-        text("返回双11合伙人 >").findOne().click();
-      jinhuodong();
-     click_mp();
-      }
+function click_mp() {
+    if (currentActivity() == "com.taobao.browser.BrowserActivity") {
+        toastLog("正确的Activity");
+    } else {
+        var deng_rightActivity = 10;
+        for (deng_rightActivity == 10; deng_rightActivity > 0; deng_rightActivity--) {
+            toastLog("click_mp():\n检测不到对的Activity\n等待" + deng_rightActivity + "秒后重新检测……")
+            sleep(2000);
+        }
+        if (currentActivity() == "com.taobao.browser.BrowserActivity") {
+            toastLog("正确的Activity");
+        } else {
+            dialogs.alert("检测不到正确的Activity", "这可能是由于误触导致的，在脚本运行时请不要进行任何操作\n\n您可以尝试重新运行一次，点击确定停止运行脚本！");
+            engines.stopAllAndToast();
+        }
     }
-else{
-     swipe(width / 2, height - 500, width / 2, 0, 500);
-     sleep(2500);
-     swipe(width / 2, height - 500, width / 2, 0, 500);
-     sleep(10000);
-     swipe(width / 2, height - 500, width / 2, 0, 500);
-     sleep(8000);
-     back()
-     if (back()==false){
-         back();
-              if (back()==false){
-                 back();
-                 if (back()==false){
-                   back();
-             }
-           }
-         }
-     sleep(1600);
-     click_XX();
-     sleep(3000);
-     click_mp();
-     sleep(2000);
-     }
-times++;
-if(times>60){
-    dialogs.alert("淘宝可能出现了BUG，请关闭淘宝后重新运行脚本吧～");
-    toastLog("已停止运行脚本");
-    exit()
-      }
-    }
- }
 
-function click_qujiaqun(){
-while (text("去加群").exists()) {
-//要支持的动作
-toastLog("正在完成“去加群”任务……");
-text("去加群").findOne().click();
-sleep(3000);
-back();
-sleep(1600);
-click_XX();
-sleep(3000);
-click_mp();
-sleep(3000);
+    toastLog("寻找文字……");
+    sleep(2000);
+    if (text("开心收下").exists()) {
+        text("开心收下").findOne().click();
+    }
+    if (text("翻倍领取").exists()) {
+        text("翻倍领取").findOne().click();
+        var deng_zhibo = 10;
+        for (deng_zhibo == 10; deng_zhibo > 0; deng_zhibo--) {
+            toastLog("点击翻倍领取会进入直播页\n请等待" + deng_zhibo + "秒");
+        }
+        back();
+        if (back() == false) {
+            back();
+            if (back() == false) {
+                back();
+                if (back() == false) {
+                    back();
+                    if (back() == false) {
+                        dialogs.alert("嘛耶。。。n竟然返回失败了……", "建议您重启手机再运行本脚本吧～");
+                        engines.stopAllAndToast();
 
-times++;
-if(times>60){
-    dialogs.alert("淘宝可能出现了BUG，请关闭淘宝后重新运行脚本吧～");
-    toastLog("已停止运行脚本");
-    exit()
-     }
-   }
- }
-function click_quliulan2(){
-   if(text("去浏览").exists()){
-      while(text("去浏览").exists()){
-      //判断是否有去浏览
-      text("去浏览").findOne().click();
-      sleep(2000)
-var Activity_TMmain=currentActivity();
-if(Activity_TMmain="com.taobao.tao.TBMainActivity"){    
-     swipe(width / 2, height - 500, width / 2, 0, 500);
-     sleep(2500);
-     swipe(width / 2, height - 500, width / 2, 0, 500);
-     sleep(2500);
-     swipe(width / 2, height - 500, width / 2, 0, 500);
-     sleep(2500);
-     swipe(width / 2, height - 500, width / 2, 0, 500);
-     sleep(10000);
-     swipe(width / 2, height - 500, width / 2, 0, 500);
-     sleep(8000);     //这个地方如果网络不好，自己加时间(单位是毫秒)，1000毫秒为1秒
-       back()
-        sleep(2000)
-      if(text("返回双11合伙人 >").exists()){
-        text("返回双11合伙人 >").findOne().click();
-      jinhuodong();
-     click_mp();
-      }
+                    }
+                }
+            }
+        }
+    } else if (text("直接收下").exists()) {
+        text("直接收下").findOne().click();
     }
-else{
-     sleep(4000);
-     swipe(width / 2, height - 500, width / 2, 0, 500);
-     sleep(2500);
-     swipe(width / 2, height - 500, width / 2, 0, 500);
-     sleep(2500);
-     swipe(width / 2, height - 500, width / 2, 0, 500);
-     sleep(2500);
-     swipe(width / 2, height - 500, width / 2, 0, 500);
-     sleep(10000);
-     swipe(width / 2, height - 500, width / 2, 0, 500);
-     sleep(8000);//这个地方如果网络不好，自己加时间(单位是毫秒)，1000毫秒为1秒
-      back()
-      sleep(2000)
+    sleep(2000);
+    if (text("盖楼赢红包").exists()) {
+        text("盖楼赢红包").findOne().click();
+        var deng_duiwu = 10;
+        for (deng_duiwu == 10; deng_duiwu > 0; deng_duiwu--) {
+            toastLog("等待加载队伍\n（盖楼大挑战）……\n剩余" + deng_duiwu + "秒");
+            sleep(1000);
+        }
+        back();
+        if (back() == false) {
+            back();
+            if (back() == false) {
+                back();
+                if (back() == false) {
+                    back();
+                    if (back() == false) {
+                        dialogs.alert("嘛耶。。。n竟然返回失败了……", "建议您重启手机再运行本脚本吧～");
+                        engines.stopAllAndToast();
+                    }
+                }
+            }
+        }
     }
-   }
-  }
- }
- 
+    sleep(2000);
+    if (text("开心收下").exists()) {
+        text("开心收下").findOne().click();
+    }
+
+    if (text("翻倍领取").exists()) {
+        text("翻倍领取").findOne().click();
+        var deng_zhibo = 10;
+        for (deng_zhibo == 10; deng_zhibo > 0; deng_zhibo--) {
+            toastLog("点击翻倍领取会进入直播页n请等待" + deng_zhibo + "秒");
+        }
+        back();
+        if (back() == false) {
+            back();
+            if (back() == false) {
+                back();
+                if (back() == false) {
+                    back();
+                    if (back() == false) {
+                        dialogs.alert("嘛耶。。。n竟然返回失败了……", "建议您重启手机再运行本脚本吧～");
+                        engines.stopAllAndToast();
+                    }
+                }
+            }
+        }
+
+    } else if (text("直接收下").exists()) {
+        text("直接收下").findOne().click();
+    }
+    /*
+    textContains("升级领红包").waitFor()
+    var O=textContains("升级领红包").findOne().bounds()
+    click(O.centerX(),O.centerY());
+    */
+    sleep(2000);
+
+    clickOshengji();
+
+    function clickOshengji() {
+        if (currentActivity() == "com.taobao.browser.BrowserActivity") {
+            toastLog("正确的Activity");
+        } else {
+            var deng_rightActivity = 10;
+            for (deng_rightActivity == 10; deng_rightActivity > 0; deng_rightActivity--) {
+                toastLog("clickOshengji():\n检测不到对的Activity\n等待" + deng_rightActivity + "秒后重新检测……")
+                sleep(2000);
+            }
+            if (currentActivity() == "com.taobao.browser.BrowserActivity") {
+                toastLog("正确的Activity");
+            } else {
+                dialogs.alert("检测不到正确的Activity", "这可能是由于误触导致的，在脚本运行时请不要进行任何操作\n\n您可以尝试重新运行一次，点击确定停止运行脚本！");
+                engines.stopAllAndToast();
+            }
+        }
+
+
+        if (text("升级领红包").exists()) {
+            text("升级领红包").findOne().click();
+            var jishi_8s = 8;
+            for (jishi_8s == 8; jishi_8s > 0; jishi_8s--) {
+                sleep(1000);
+                toastLog("由于点击喵铺可能会升级\n因此您需要等" + jishi_8s + "秒");
+            }
+        } else {
+            toastLog("没有找到“升级领红包”*1\n即将重找……");
+            sleep(3000);
+            if (text("升级领红包").exists()) {
+                text("升级领红包").findOne().click();
+                var jishi_8s = 8;
+                for (jishi_8s == 8; jishi_8s > 0; jishi_8s--) {
+                    sleep(1000);
+                    toastLog("由于点击喵铺可能会升级\n因此您需要等" + jishi_8s + "秒");
+                }
+            } else {
+                toastLog("没有找到“升级领红包”*2\n即将重找……");
+                sleep(3000);
+                if (text("升级领红包").exists()) {
+                    text("升级领红包").findOne().click();
+                    var jishi_8s = 8;
+                    for (jishi_8s == 8; jishi_8s > 0; jishi_8s--) {
+                        sleep(1000);
+                        toastLog("由于点击喵铺可能会升级\n因此您需要等" + jishi_8s + "秒");
+                    }
+                } else {
+                    toastLog("没有找到“升级领红包”*3\n即将重找……");
+                    sleep(3000);
+                    if (text("升级领红包").exists()) {
+                        text("升级领红包").findOne().click();
+                        var jishi_8s = 8;
+                        for (jishi_8s == 8; jishi_8s > 0; jishi_8s--) {
+                            sleep(1000);
+                            toastLog("由于点击喵铺可能会升级\n因此您需要等" + jishi_8s + "秒");
+                        }
+                    } else {
+                        toastLog("找了3遍了竟然还没找到……");
+                        dialogs.alert("找不到“升级领红包”按钮", "软件似乎在当前页面上找不到“升级领红包”按钮，建议您重试一次或者重启手机再试试，还是不行请联系作者反馈吧……");
+                        engines.stopAllAndToast();
+                    }
+                }
+            }
+        }
+    }
+    sleep(2000);
+
+    if (text("开心收下").exists()) {
+        text("开心收下").findOne().click();
+        sleep(2000);
+        clickOshengji();
+        sleep(2000);
+        if (text("开心收下").exists()) {
+            text("开心收下").findOne().click();
+            sleep(2000);
+            clickOshengji();
+            sleep(2000);
+            if (text("开心收下").exists()) {
+                text("开心收下").findOne().click();
+                sleep(2000);
+                clickOshengji();
+            }
+        }
+    }
+
+
+    if (text("去找喵币").exists()) {
+        text("去找喵币").findOne().click();
+        sleep(2000);
+        if (text("签到").exists()) {    
+            text("签到").findOne().click();    
+            sleep(1600);    
+            toast("签到成功")
+        }
+    } else {
+        toastLog("找不到“去找喵币按钮”即将重找……*1")
+        sleep(2000);
+        if (text("去找喵币").exists()) {
+            sleep(2000);
+            text("去找喵币").findOne().click();
+            sleep(2000);
+            if (text("签到").exists()) {    
+                text("签到").findOne().click();    
+                sleep(1600);    
+                toast("签到成功")
+            }
+        } else {
+            toastLog("找不到“去找喵币按钮”即将重找……*2")
+            sleep(2000);
+            if (text("去找喵币").exists()) {
+                sleep(2000);
+                text("去找喵币").findOne().click();
+                sleep(2000);
+                if (text("签到").exists()) {    
+                    text("签到").findOne().click();    
+                    sleep(1600);    
+                    toast("签到成功")
+                }
+            } else {
+                toastLog("找不到“去找喵币按钮”即将重找……*3")
+                sleep(2000);
+                if (text("去找喵币").exists()) {
+                    sleep(2000);
+                    text("去找喵币").findOne().click();
+                    sleep(2000);
+                    if (text("签到").exists()) {    
+                        text("签到").findOne().click();    
+                        sleep(1600);    
+                        toast("签到成功")
+                    }
+                } else {
+                    dialogs.alert("找不到“去找喵币”按钮……", "您可以尝试关闭手机淘宝再次运行脚本\n点击确定关闭脚本运行！");
+                    engines.stopAllAndToast();
+                }
+            }
+        }
+    }
+}
+
+function click_XX() {
+    if (currentActivity() == "com.taobao.browser.BrowserActivity") {
+        toastLog("正确的Activity");
+    } else {
+        var deng_rightActivity = 10;
+        for (deng_rightActivity == 10; deng_rightActivity > 0; deng_rightActivity--) {
+            toastLog("click_XX():\n检测不到对的Activity\n等待" + deng_rightActivity + "秒后重新检测……")
+            sleep(2000);
+        }
+        if (currentActivity() == "com.taobao.browser.BrowserActivity") {
+            toastLog("正确的Activity");
+        } else {
+            dialogs.alert("检测不到正确的Activity", "这可能是由于误触导致的，在脚本运行时请不要进行任何操作\n\n您可以尝试重新运行一次，点击确定停止运行脚本！");
+            engines.stopAllAndToast();
+        }
+    }
+
+
+    if (text("x7000").exists()) {
+        var XO = textContains("x7000").findOne().bounds()
+        var x5 = XO.centerX() + 290;
+        var y5 = XO.centerY() - 295;
+        click(x5, y5);
+    }
+}
+
+function click_quqiandao() {
+    if (currentActivity() == "com.taobao.browser.BrowserActivity") {
+        toastLog("正确的Activity");
+    } else {
+        var deng_rightActivity = 10;
+        for (deng_rightActivity == 10; deng_rightActivity > 0; deng_rightActivity--) {
+            toastLog("click_quqiandao():\n检测不到对的Activity\n等待" + deng_rightActivity + "秒后重新检测……")
+            sleep(2000);
+        }
+        if (currentActivity() == "com.taobao.browser.BrowserActivity") {
+            toastLog("正确的Activity");
+        } else {
+            dialogs.alert("检测不到正确的Activity", "这可能是由于误触导致的，在脚本运行时请不要进行任何操作\n\n您可以尝试重新运行一次，点击确定停止运行脚本！");
+            engines.stopAllAndToast();
+        }
+    }
+
+
+    if (text("去签到").exists()) {
+        text("去签到").findOne().click();
+        var jishi_10s = 10;
+        for (jishi_10s == 10; jishi_10s > 0; jishi_10s--) {
+            toastLog("正在等待加载……" + "\n" + "剩余" + jishi_10s + "秒");
+            sleep(1000);
+        }
+        if (text("兑换好礼（每天10:00上新）").exists()) {
+            text("去完成 >").findOne().click();
+            sleep(4000);
+            if (text("签到").exists()) {
+                text("签到").findOne().click();
+            }
+        }
+        if (text("淘宝人生成就").exists()) {
+            if (text("领取奖励").exists()) {
+                text("领取奖励").findOne().click();
+            } else {
+                toastLog("找不到“领取奖励”按钮\n即将点击设定点\n如果点错了请停止运行脚本！");
+                click(907, 1103);
+            }
+        }
+        sleep(2000);
+        back();
+        if (back() == false) {
+            back();
+            if (back() == false) {
+                back();
+                if (back() == false) {
+                    back();
+                    if (back() == false) {
+                        dialogs.alert("嘛耶。。。n竟然返回失败了……", "建议您重启手机再运行本脚本吧～");
+                        engines.stopAllAndToast();
+                    }
+                }
+            }
+        }
+
+    }
+}
+
+function click_qujindian() {
+    if (currentActivity() == "com.taobao.browser.BrowserActivity") {
+        toastLog("正确的Activity");
+    } else {
+        var deng_rightActivity = 10;
+        for (deng_rightActivity == 10; deng_rightActivity > 0; deng_rightActivity--) {
+            toastLog("click_qujindian():\n检测不到对的Activity\n等待" + deng_rightActivity + "秒后重新检测……")
+            sleep(2000);
+        }
+        if (currentActivity() == "com.taobao.browser.BrowserActivity") {
+            toastLog("正确的Activity");
+        } else {
+            dialogs.alert("检测不到正确的Activity", "这可能是由于误触导致的，在脚本运行时请不要进行任何操作\n\n您可以尝试重新运行一次，点击确定停止运行脚本！");
+            engines.stopAllAndToast();
+        }
+    }
+
+    while (text("去进店").exists()) {
+        //要支持的动作
+        toastLog("正在完成“去进店”任务……");
+        text("去进店").findOne().click();
+        sleep(2500);
+        swipe(width / 2, height - 600, width / 2, 0, 500);
+        sleep(3500);
+        swipe(width / 2, height - 600, width / 2, 0, 500);
+        sleep(10000);
+        swipe(width / 2, height - 600, width / 2, 0, 500);
+        sleep(9000);
+        back();
+        if (back() == false) {
+            back();
+            if (back() == false) {
+                back();
+                if (back() == false) {
+                    back();
+                    if (back() == false) {
+                        dialogs.alert("嘛耶。。。n竟然返回失败了……", "建议您重启手机再运行本脚本吧～");
+                        engines.stopAllAndToast();
+                    }
+                }
+            }
+        }
+
+        sleep(1000);
+        if (text("x7000").exists()) {
+            var XO = textContains("x7000").findOne().bounds()
+            var x5 = XO.centerX() + 290;
+            var y5 = XO.centerY() - 295;
+            click(x5, y5);
+        }
+        sleep(3000);
+        click_mp();
+        sleep(2000);
+
+        times++;
+        if (times > 60) {
+            dialogs.alert("淘宝可能出现了BUG，请关闭淘宝后重新运行脚本吧～");
+            toastLog("已停止运行脚本");
+            exit()
+        }
+    }
+}
+
+function click_qujiaqun() {
+    if (currentActivity() == "com.taobao.browser.BrowserActivity") {
+        toastLog("正确的Activity");
+    } else {
+        var deng_rightActivity = 10;
+        for (deng_rightActivity == 10; deng_rightActivity > 0; deng_rightActivity--) {
+            toastLog("click_qujiaqun():\n检测不到对的Activity\n等待" + deng_rightActivity + "秒后重新检测……")
+            sleep(2000);
+        }
+        if (currentActivity() == "com.taobao.browser.BrowserActivity") {
+            toastLog("正确的Activity");
+        } else {
+            dialogs.alert("检测不到正确的Activity", "这可能是由于误触导致的，在脚本运行时请不要进行任何操作\n\n您可以尝试重新运行一次，点击确定停止运行脚本！");
+            engines.stopAllAndToast();
+        }
+    }
+    while (text("去加群").exists()) {
+        //要支持的动作
+        toastLog("正在完成“去加群”任务……");
+        text("去加群").findOne().click();
+        sleep(3000);
+        back();
+        if (back() == false) {
+            back();
+            if (back() == false) {
+                back();
+                if (back() == false) {
+                    back();
+                    if (back() == false) {
+                        dialogs.alert("嘛耶。。。n竟然返回失败了……", "建议您重启手机再运行本脚本吧～");
+                        engines.stopAllAndToast();
+                    }
+                }
+            }
+        }
+
+        sleep(1600);
+        click_XX();
+        sleep(3000);
+        click_mp();
+        sleep(3000);
+
+        times++;
+        if (times > 60) {
+            dialogs.alert("淘宝可能出现了BUG，请关闭淘宝后重新运行脚本吧～");
+            toastLog("已停止运行脚本");
+            exit();
+        }
+    }
+}
+
+function click_quliulan2() { 
+    if (currentActivity() == "com.taobao.browser.BrowserActivity") {
+        toastLog("正确的Activity");
+    } else {
+        var deng_rightActivity = 10;
+        for (deng_rightActivity == 10; deng_rightActivity > 0; deng_rightActivity--) {
+            toastLog("click_quliulan2():\n检测不到对的Activity\n等待" + deng_rightActivity + "秒后重新检测……")
+            sleep(2000);
+        }
+        if (currentActivity() == "com.taobao.browser.BrowserActivity") {
+            toastLog("正确的Activity");
+        } else {
+            dialogs.alert("检测不到正确的Activity", "这可能是由于误触导致的，在脚本运行时请不要进行任何操作\n\n您可以尝试重新运行一次，点击确定停止运行脚本！");
+            engines.stopAllAndToast();
+        }
+    }
+    if (text("去浏览").exists()) {    
+        while (text("去浏览").exists()) {
+            text("去浏览").findOne().click();    
+            sleep(5000);
+            toastLog("当前为浏览15秒的页面");
+            sleep(4000);
+            swipe(width / 2, height - 500, width / 2, 0, 500);
+            sleep(2500);
+            swipe(width / 2, height - 500, width / 2, 0, 500);
+            sleep(2500);
+            swipe(width / 2, height - 500, width / 2, 0, 500);
+            sleep(2500);
+            swipe(width / 2, height - 500, width / 2, 0, 500);
+            sleep(10000);
+            swipe(width / 2, height - 500, width / 2, 0, 500);
+            sleep(8000); //这个地方如果网络不好，自己加时间(单位是毫秒)，1000毫秒为1秒   
+
+            if (currentActivity() == "com.taobao.tao.TBMainActivity") {
+                className("android.view.View").desc("搜索").clickable(true).findOne().click();
+
+
+                sleep(2000)
+                setClip("双十一合伙人");
+                var deng_clip = 5;
+                for (deng_clip == 5; deng_clip > 0; deng_clip--) {
+                    sleep(1000);
+                    toastLog("请等待" + deng_clip + "秒……\n因为有的设备会安装有Fv悬浮球会有5秒的弹窗");
+                }
+                setText(getClip());
+                sleep(1000);
+                if (text("搜索").exists()) {
+                    text("搜索").findOne().click();
+                } else {
+                    sleep(2000);
+                    if (text("搜索").exists()) {
+                        text("搜索").findOne().click();
+                    } else {
+                        sleep(2000);
+                        if (text("搜索").exists()) {
+                            text("搜索").findOne().click();
+                        } else {
+                            sleep(2000);
+                            if (text("搜索").exists()) {
+                                text("搜索").findOne().click();
+                            } else {
+                                dialogs.alert("竟然找不到搜索按钮了……\n您可以重新再试一次……\n点击确定关闭脚本");
+                                engines.stopAllAndToast();
+                            }
+                        }
+                    }
+                }
+                jinhuodong();
+                click_mp();
+            } else {
+
+                back();
+                if (back() == false) {
+                    back();
+                    sleep(2000);
+                    if (back() == false) {
+                        back();
+                        sleep(2000);
+                        if (back() == false) {
+                            back();
+                            sleep(2000);
+                            if (back() == false) {
+                                dialogs.alert("嘛耶。。。n竟然返回失败了……", "建议您重启手机再运行本脚本吧～");
+                                engines.stopAllAndToast();
+                            }
+                        }
+                    }
+                }
+                sleep(2000);
+            } 
+        }  
+    }
+}
+
+StopTB();
+openTBandsearch();
 jinhuodong();
-var loop=1;
-var times=1;
-for (loop==1;loop<=5;loop++){
+var loop = 1;
+var times = 1;
+for (loop == 1; loop <= 5; loop++) {
     click_mp();
     click_quliulan2();
     click_qujindian();
@@ -489,8 +876,8 @@ for (loop==1;loop<=5;loop++){
     click_qujiaqun();
     click_XX();
     sleep(3000);
-    toastLog("已完成检测并循环"+loop+"次")
-    }
+    toastLog("已完成检测并循环" + loop + "次")
+}
 
-dialogs.alert("✔️脚本已运行完毕","似乎已完成了任务，已检测不到\n“去签到”“去进店”“去浏览”“去加群”\n如有遗漏请自行操作或再次运行\n\n脚本作者@橘衫下邂逅的时光");
+dialogs.alert("✔️脚本已运行完毕", "似乎已完成了任务，已检测不到\n“去签到”“去进店”“去浏览”“去加群”\n如有遗漏请自行操作或再次运行\n\n脚本作者@橘衫下邂逅的时光");
 exit()
