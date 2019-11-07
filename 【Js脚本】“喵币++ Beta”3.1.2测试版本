@@ -2,22 +2,27 @@ dialogs_js();
 
 function dialogs_js() {
     log("软件脚本已开始运行，如果没有弹出菜单请强行停止再打开本软件！");
-    var options_ = ["▶️ 开始运行脚本", "⏹ 停止运行脚本", "🌐 向作者反馈问题", "💬 QQ分享给好友", "*️⃣ 脚本介绍&作者信息"]
+    var options_ = ["▶️ 开始运行脚本", "🕒 定时运行脚本", "⏹ 停止运行脚本", "🌐 向作者反馈问题", "💬 QQ分享给好友", "*️⃣ 脚本介绍&作者信息"]
     var i = dialogs.select("欢迎使用 (◍•ᴗ•◍)❤" + "\n" + "请选择一个要进行的选项", options_);
     if (i < 0) {
-        toastLog("没有选择，已停止运行脚本");
-        exit();
+        toastLog("没有选择");
+        dialogs_js();
     } else if (i == 0) {
         toastLog(options_[i]);
         sleep(2000);
-    } else if (i == 1) {
+        toastLog("等待无障碍权限开启……\n您必须手动授予本软件无障碍权限\n否则本软件将无法工作！");
+        auto.waitFor();
+        toastLog("无障碍权限已开启" + "\n" + "继续运行脚本……");
+        sleep(1000);
+        Set_Back_way();
+    } else if (i == 2) {
         toastLog(options_[i]);
         exit();
-    } else if (i == 2) {
+    } else if (i == 3) {
         toastLog(options_[i]);
         app.openUrl("https://wj.qq.com/s2/4847356/63d5");
         dialogs_js();
-    } else if (i == 3) {
+    } else if (i == 4) {
         var xiazai = ("下载链接戳https://dwz.cn/uWVygsE6");
         toastLog(options_[i]);
         var content = ("嘿！分享一个好用的软件给你，它几乎可以完美代替双手完成“淘宝双十一开喵铺”的任务哦，该软件基于“Auto.js”制作，且作者开放了脚本代码！软件离线运行安全可靠！快来下载试试看吧～" + xiazai);
@@ -31,63 +36,301 @@ function dialogs_js() {
             className: "com.tencent.mobileqq.activity.JumpActivity"
         });
         dialogs_js();
-    } else if (i == 4) {
-        alert("脚本作者⊂((・▽・))⊃\n@橘衫下邂逅的时光", "(作者人很好的～😃)\n\n\n小部分代码参考了\n@暗夜协奏者 的脚本代码\n感谢人家优秀的代码啦～(*^_^*)\n\n此脚本为兴趣制作\n仅供参考，严禁售卖");
+    } else if (i == 5) {
+        alert("喵币++ 3.1.2Beta\n脚本作者⊂((・▽・))⊃\n@橘衫下邂逅的时光", "(作者人很好的～😃)\n\n\n小部分代码参考了\n@暗夜协奏者 的脚本代码\n感谢人家优秀的代码啦～(*^_^*)\n\n此脚本为兴趣制作\n仅供参考，严禁售卖");
         dialogs_js();
+    } else if (i == 1) {
+        toastLog("等待无障碍权限开启……\n您必须手动授予本软件无障碍权限\n否则本软件将无法工作！");
+        auto.waitFor();
+        toastLog("无障碍权限已开启" + "\n" + "继续运行脚本……");
+        sleep(1000);
+        toastLog("为保证脚本正常运行\n请授予本软件悬浮窗权限");
+        var test_rawWindow = floaty.rawWindow(
+            <frame gravity="center" bg="#00000000"/>
+        );
+        test_rawWindow.setSize(-1, -1);
+        test_rawWindow.setTouchable(false);
+        setTimeout(() => {
+            test_rawWindow.close();
+        }, 1000);
+        toastLog("悬浮窗权限已开启！");
+        wait_Time_over();
     }
 }
 
 
-//💟🕎⛎设定返回方法及滑动速度的代码
-var options_hq = ["🔙 普通的返回\n(使用无障碍权限)", "#⃣ 使用ROOT返回\n(必须授予本软件ROOT权限)", "👉👉🏻👉🏼👉🏽👉🏾👉🏿 \n从屏幕中间从左向内滑动\n(全面屏手势返回 例如:小米MIUI)", "              👈🏿👈🏾👈🏽👈🏼👈🏻👈 \n从屏幕中间从右向内滑动\n(全面屏手势返回 例如:华为EMUI)", "👆👆🏻👆🏼👆🏽👆🏾👆🏿 \n从屏幕左侧下方向上滑动\n(全面屏手势返回 例如:锤子Smartisan UI)", "               ☝🏿☝🏾☝🏽☝🏼☝🏻☝️ \n从屏幕右侧下方向上滑动\n(全面屏手势返回)"]
-var i_back = dialogs.select(" Hi! ( ╹▽╹ )\n请选择一个方法\n用于实现返回操作", options_hq);
-if (i_back >= 0) {
-    toastLog("您选择的是" + options_hq[i_back]);
-    sleep(2000);
-    var options_select = options_hq[i_back];
-} else {
-    toastLog("没有选择返回方法！");
-    exit();
-}
-if (i_back >= 2){
-    var options_hd = ["200毫秒\n(默认，如果太快请选其它)", "500毫秒", "800毫秒", "1秒(1000毫秒)", "1.5秒（1500毫秒）", "2秒（2000毫秒）"]
-var iix = dialogs.select("Ok! (・∀・) 您选择了:\n" + options_select + "\n请选择滑动速度\n单位:毫秒（1秒=1000毫秒）", options_hd);
-}if (iix == 0) {
-    var gestures_speed = 200;
-    toastLog("滑动速度设定为\n" + gestures_speed + "毫秒");
-    sleep(2000);
-}
-if (iix == 1) {
-    var gestures_speed = 500;
-    toastLog("滑动速度设定为\n" + gestures_speed + "毫秒");
-    sleep(2000);
-}
-if (iix == 2) {
-    var gestures_speed = 800;
-    toastLog("滑动速度设定为\n" + gestures_speed + "毫秒");
-    sleep(2000);
-}
-if (iix == 3) {
-    var gestures_speed = 1000;
-    toastLog("滑动速度设定为\n" + gestures_speed + "毫秒");
-    sleep(2000);
-}
-if (iix == 4) {
-    var gestures_speed = 1500;
-    toastLog("滑动速度设定为\n" + gestures_speed + "毫秒");
-    sleep(2000);
-}
-if (iix == 5) {
-    var gestures_speed = 2000;
-    toastLog("滑动速度设定为\n" + gestures_speed + "毫秒");
-    sleep(2000);
-}
-if (iix < 0) {
-    toastLog("没有选择滑动速度");
-    exit();
+function Set_Back_way() {
+    //💟🕎⛎设定返回方法及滑动速度的代码
+    var options_hq = ["🔙 普通的返回\n(使用无障碍权限)", "#⃣ 使用ROOT返回\n(必须授予本软件ROOT权限)", "👉👉🏻👉🏼👉🏽👉🏾👉🏿 \n从屏幕中间从左向内滑动\n(全面屏手势返回 例如:小米MIUI)", "              👈🏿👈🏾👈🏽👈🏼👈🏻👈 \n从屏幕中间从右向内滑动\n(全面屏手势返回 例如:华为EMUI)", "👆👆🏻👆🏼👆🏽👆🏾👆🏿 \n从屏幕左侧下方向上滑动\n(全面屏手势返回 例如:锤子Smartisan UI)", "               ☝🏿☝🏾☝🏽☝🏼☝🏻☝️ \n从屏幕右侧下方向上滑动\n(全面屏手势返回)"]
+    var i_back = dialogs.select(" Hi! ( ╹▽╹ )\n请选择一个方法\n用于实现返回操作", options_hq);
+    if (i_back >= 0) {
+        toastLog("您选择的是" + options_hq[i_back]);
+        sleep(2000);
+        var options_select = options_hq[i_back];
+        context_i_back = i_back;
+    } else {
+        toastLog("没有选择返回方法！");
+        dialogs_js();
+    }
+    if (i_back >= 2) {
+        var options_hd = ["200毫秒\n(默认，如果太快请选其它)", "500毫秒", "800毫秒", "1秒(1000毫秒)", "1.5秒（1500毫秒）", "2秒（2000毫秒）"]
+        var iix = dialogs.select("Ok! (・∀・) 您选择了:\n" + options_select + "\n请选择滑动速度\n单位:毫秒（1秒=1000毫秒）", options_hd);
+    }
+    if (iix == 0) {
+        context_gestures_speed = 200;
+        toastLog("滑动速度设定为\n" + context_gestures_speed + "毫秒");
+        sleep(2000);
+    }
+    if (iix == 1) {
+        context_gestures_speed = 500;
+        toastLog("滑动速度设定为\n" + context_gestures_speed + "毫秒");
+        sleep(2000);
+    }
+    if (iix == 2) {
+        context_gestures_speed = 800;
+        toastLog("滑动速度设定为\n" + context_gestures_speed + "毫秒");
+        sleep(2000);
+    }
+    if (iix == 3) {
+        context_gestures_speed = 1000;
+        toastLog("滑动速度设定为\n" + context_gestures_speed + "毫秒");
+        sleep(2000);
+    }
+    if (iix == 4) {
+        context_gestures_speed = 1500;
+        toastLog("滑动速度设定为\n" + context_gestures_speed + "毫秒");
+        sleep(2000);
+    }
+    if (iix == 5) {
+        context_gestures_speed = 2000;
+        toastLog("滑动速度设定为\n" + context_gestures_speed + "毫秒");
+        sleep(2000);
+    }
+    if (iix < 0) {
+        toastLog("没有选择滑动速度");
+        exit();
+    }
 }
 
+function wait_Time_over() {
+    var i_wait = dialogs.singleChoice("🕗 定时运行\n\n(＾∇＾)ﾉ♪\n请选择一个选项\n计时结束会自动运行", ["1分钟后运行", "5分钟后运行", "10分钟后运行", "30分钟后运行", "一小时后运行", "两小时后运行", "三小时后运行", "五小时后运行", "八小时后运行"], 2);
+    if (i_wait < 0) {
+        toast("您取消了选择");
+        dialogs_js();
+    }
+    if (i_wait >= 0) {
+        context_i_wait = i_wait;
+    }
+    if (i_wait == 0) {
+        var choice_confirm = dialogs.confirm("您选择了1分钟后运行", "点击确定进行一次设定返回操作的方法后，脚本将在您设定的时间结束后开始自动运行\n请不要清理本软件的后台或者锁屏手机等，否则可能会造成定时任务失效");
+        if (choice_confirm == false) {
+            toastLog("取消了定时运行确认");
+            wait_Time_over();
+        } else {
+            Set_Back_way();
+            waiting_time();
+        }
+    }
+    if (i_wait == 1) {
+        var choice_confirm = dialogs.confirm("您选择了5分钟后运行", "点击确定进行一次设定返回操作的方法后，脚本将在您设定的时间结束后开始自动运行\n请不要清理本软件的后台或者锁屏手机等，否则可能会造成定时任务失效");
+        if (choice_confirm == false) {
+            toastLog("取消了定时运行确认");
+            wait_Time_over();
+        } else {
+            Set_Back_way();
+            waiting_time();
+        }
+    }
+    if (i_wait == 2) {
+        var choice_confirm = dialogs.confirm("您选择了10分钟后运行", "点击确定进行一次设定返回操作的方法后，脚本将在您设定的时间结束后开始自动运行\n请不要清理本软件的后台或者锁屏手机等，否则可能会造成定时任务失效");
+        if (choice_confirm == false) {
+            toastLog("取消了定时运行确认");
+            wait_Time_over();
+        } else {
+            Set_Back_way();
+            waiting_time();
+        }
+    }
+    if (i_wait == 3) {
+        var choice_confirm = dialogs.confirm("您选择了30分钟后运行", "点击确定进行一次设定返回操作的方法后，脚本将在您设定的时间结束后开始自动运行\n请不要清理本软件的后台或者锁屏手机等，否则可能会造成定时任务失效");
+        if (choice_confirm == false) {
+            toastLog("取消了定时运行确认");
+            wait_Time_over();
+        } else {
+            Set_Back_way();
+            waiting_time();
+        }
+    }
+    if (i_wait == 4) {
+        var choice_confirm = dialogs.confirm("您选择了一小时后运行", "点击确定进行一次设定返回操作的方法后，脚本将在您设定的时间结束后开始自动运行\n请不要清理本软件的后台或者锁屏手机等，否则可能会造成定时任务失效");
+        if (choice_confirm == false) {
+            toastLog("取消了定时运行确认");
+            wait_Time_over();
+        } else {
+            Set_Back_way();
+            waiting_time();
+        }
+    }
+    if (i_wait == 5) {
+        var choice_confirm = dialogs.confirm("您选择了两小时后运行","点击确定进行一次设定返回操作的方法后，脚本将在您设定的时间结束后开始自动运行\n请不要清理本软件的后台或者锁屏手机等，否则可能会造成定时任务失效");
+        if (choice_confirm == false) {
+            toastLog("取消了定时运行确认");
+            wait_Time_over();
+        } else {
+            Set_Back_way();
+            waiting_time();
+        }
+    }
+    if (i_wait == 6) {
+        var choice_confirm = dialogs.confirm("您选择了三小时后运行", "点击确定进行一次设定返回操作的方法后，脚本将在您设定的时间结束后开始自动运行\n请不要清理本软件的后台或者锁屏手机等，否则可能会造成定时任务失效");
+        if (choice_confirm == false) {
+            toastLog("取消了定时运行确认");
+            wait_Time_over();
+        } else {
+            Set_Back_way();
+            waiting_time();
+        }
+    }
+    if (i_wait == 7) {
+        var choice_confirm = dialogs.confirm("您选择了五小时后运行", "点击确定进行一次设定返回操作的方法后，脚本将在您设定的时间结束后开始自动运行\n请不要清理本软件的后台或者锁屏手机等，否则可能会造成定时任务失效");
+        if (choice_confirm == false) {
+            toastLog("取消了定时运行确认");
+            wait_Time_over
+        } else {
+            Set_Back_way();
+            waiting_time();
+        }
+    }
+    if (i_wait == 8) {
+        var choice_confirm = dialogs.confirm("您选择了八小时后运行", "点击确定进行一次设定返回操作的方法后，脚本将在您设定的时间结束后开始自动运行\n请不要清理本软件的后台或者锁屏手机等，否则可能会造成定时任务失效");
+        if (choice_confirm == false) {
+            toastLog("取消了定时运行确认");
+            wait_Time_over();
+        } else {
+            Set_Back_way();
+            waiting_time();
+        }
+    }
+}
 
+function waiting_time() {
+    //计时运行脚本
+    if (context_i_wait == 0) {
+        var Seconds = 60;
+        for (Seconds == 60; Seconds > 0; Seconds--) {
+            console.warn("【定时运行】计时中……\n" + Seconds + "秒后开始运行");
+            sleep(1000);
+        }
+    }
+    if (context_i_wait == 1) {
+        var Minutes = 4;
+        for (Minutes == 4; Minutes >= 0; Minutes--) {
+            if (Minutes >= 0) {
+                var Seconds = 60;
+                for (Seconds == 60; Seconds > 0; Seconds--) {
+                    console.warn("【定时运行】计时中……\n" + Minutes + "分钟" + Seconds + "秒后开始运行");
+                    sleep(1000);
+                }
+            }
+        }
+    }
+    if (context_i_wait == 2) {
+        var Minutes = 9;
+        for (Minutes == 9; Minutes >= 0; Minutes--) {
+            if (Minutes >= 0) {
+                var Seconds = 60;
+                for (Seconds == 60; Seconds > 0; Seconds--) {
+                    console.warn("【定时运行】计时中……\n" + Minutes + "分钟" + Seconds + "秒后开始运行");
+                    sleep(1000);
+                }
+            }
+        }
+    }
+    if (context_i_wait == 3) {
+        var Minutes = 29;
+        for (Minutes == 29; Minutes >= 0; Minutes--) {
+            if (Minutes >= 0) {
+                var Seconds = 60;
+                for (Seconds == 60; Seconds > 0; Seconds--) {
+                    console.warn("【定时运行】计时中……\n" + Minutes + "分钟" + Seconds + "秒后开始运行");
+                    sleep(1000);
+                }
+            }
+        }
+    }
+    if (context_i_wait == 4) {
+        var Minutes = 59;
+        for (Minutes == 59; Minutes >= 0; Minutes--) {
+            if (Minutes >= 0) {
+                var Seconds = 60;
+                for (Seconds == 60; Seconds > 0; Seconds--) {
+                    console.warn("【定时运行】计时中……\n" + Minutes + "分钟" + Seconds + "秒后开始运行");
+                    sleep(1000);
+                }
+            }
+        }
+    }
+    if (context_i_wait == 5) {
+        var Hours = 1;
+        for (Hours == 1; Hours >= 0; Hours--) {
+            var Minutes = 59;
+            for (Minutes == 59; Minutes >= 0; Minutes--) {
+                if (Minutes >= 0) {
+                    var Seconds = 60;
+                    for (Seconds == 60; Seconds > 0; Seconds--) {
+                        console.warn("【定时运行】计时中……\n" + Hours + "小时" + Minutes + "分钟" + Seconds + "秒后开始运行");
+                        sleep(1000);
+                    }
+                }
+            }
+        }
+    }
+    if (context_i_wait == 6) {
+        var Hours = 2;
+        for (Hours == 2; Hours >= 0; Hours--) {
+            var Minutes = 59;
+            for (Minutes == 59; Minutes >= 0; Minutes--) {
+                if (Minutes >= 0) {
+                    var Seconds = 60;
+                    for (Seconds == 60; Seconds > 0; Seconds--) {
+                        console.warn("【定时运行】计时中……\n" + Hours + "小时" + Minutes + "分钟" + Seconds + "秒后开始运行");
+                        sleep(1000);
+                    }
+                }
+            }
+        }
+    }
+    if (context_i_wait == 7) {
+        var Hours = 4;
+        for (Hours == 4; Hours >= 0; Hours--) {
+            var Minutes = 59;
+            for (Minutes == 59; Minutes >= 0; Minutes--) {
+                if (Minutes >= 0) {
+                    var Seconds = 60;
+                    for (Seconds == 60; Seconds > 0; Seconds--) {
+                        console.warn("【定时运行】计时中……\n" + Hours + "小时" + Minutes + "分钟" + Seconds + "秒后开始运行");
+                        sleep(1000);
+                    }
+                }
+            }
+        }
+    }
+    if (context_i_wait == 8) {
+        var Hours = 7;
+        for (Hours == 7; Hours >= 0; Hours--) {
+            var Minutes = 59;
+            for (Minutes == 59; Minutes >= 0; Minutes--) {
+                if (Minutes >= 0) {
+                    var Seconds = 60;
+                    for (Seconds == 60; Seconds > 0; Seconds--) {
+                        console.warn("【定时运行】计时中……\n" + Hours + "小时" + Minutes + "分钟" + Seconds + "秒后开始运行");
+                        sleep(1000);
+                    }
+                }
+            }
+        }
+    }
+}
 //下面是悬浮窗
 var window = floaty.window(
     <frame>
@@ -137,10 +380,7 @@ function onClick() {
     engines.stopAllAndToast();
 }
 
-toastLog("等待无障碍权限开启……\n您必须手动授予本软件无障碍权限\n否则本软件将无法工作！");
-auto.waitFor();
-toastLog("无障碍权限已开启" + "\n" + "继续运行脚本……");
-sleep(3000);
+/*❌❌❌❌❌❌为了更快的打开淘宝这些代码不要了
 app.openAppSetting("com.taobao.taobao");
 if(app.openAppSetting("com.taobao.taobao")){
     toastLog("脚本打开手机淘宝设置页面失败！");
@@ -152,7 +392,7 @@ for (deng_AppSetting == 20; deng_AppSetting > 0; deng_AppSetting--) {
     sleep(1000);
     toastLog("请先手动强行停止手机淘宝\n" + deng_AppSetting + "秒后将打开手机淘宝……\n不强行停止可以继续运行，但可能会有问题！");
 }
-
+*/
 
 var height = device.height;
 var width = device.width;
@@ -239,8 +479,19 @@ if (width==1080,height==1920){
 currentActivity();
 
 function openTBandsearch() {
-    toastLog("正在打开手机淘宝……");
     sleep(1000);
+    app.startActivity({
+        packageName: "com.taobao.taobao",
+        className: "com.taobao.search.searchdoor.SearchDoorActivity"
+    });
+    toastLog("若长时间没有打开淘宝\n请自行打开淘宝至搜索界面！");
+    waitForActivity("com.taobao.search.searchdoor.SearchDoorActivity");
+    sleep(1000);
+    setText("双十一合伙人");
+    if (text("搜索").exists()) {
+        text("搜索").findOne().click();
+    }
+    /*❌❌❌❌❌
     launch("com.taobao.taobao");
     if(launch("com.taobao.taobao")==false){
         toastLog("第一种方法启动手机淘宝失败！\n即将使用第二种方法重新启动淘宝");
@@ -256,6 +507,7 @@ function openTBandsearch() {
                 }
             }
         }
+        */
     /*
     ❌❌❌❌❌有人反馈明明有淘宝还有这个错误，所以这里不检测了
     if (launch("com.taobao.taobao") == false) {
@@ -266,37 +518,39 @@ function openTBandsearch() {
     不再用这种waitFor……的代码了，因为会一直等下去
     waitForActivity("com.taobao.tao.TBMainActivity");
     */
-    var deng_TbApp = 10;
-    for (deng_TbApp == 10; deng_TbApp > 0; deng_TbApp--) {
-        toastLog("正在等待淘宝主界面打开\n剩余" + deng_TbApp + "秒……\n若已处于淘宝请返回淘宝主界面");
-        sleep(2000);
-    }
-    if (currentActivity() == "com.taobao.tao.TBMainActivity") {
-        sleep(2000);
-        if (text("立即登录").exists()) {
-            dialogs.alert("Ops(･o･;) \n您似乎没有登录淘宝账号哦！", "未登录淘宝账号的情况下脚本将不能正常运行，请登录淘宝之后再重新运行本脚本吧");
-            engines.stopAllAndToast();
-        }
-
-        var check_jishi = 5;
-        for (check_jishi == 5; check_jishi > 0; check_jishi--) {
-            toastLog("即将搜索进入活动,请检查淘宝主界面" + "\n" + "若屏幕上有弹窗请关闭\n即将继续，剩余" + check_jishi + "秒");
+    /*
+        var deng_TbApp = 10;
+        for (deng_TbApp == 10; deng_TbApp > 0; deng_TbApp--) {
+            toastLog("正在等待淘宝主界面打开\n剩余" + deng_TbApp + "秒……\n若已处于淘宝请返回淘宝主界面");
             sleep(2000);
-        }
-    } else {
-        dialogs.alert("检测到当前不是淘宝主界面", "若您在计时结束前已处于淘宝主界面但仍然看到此提示，您可以尝试重新运行脚本或者重启手机再试试\n点击确定停止运行脚本！\n导致错误的Activity↓\n" + currentActivity() + "\n反馈时请截图此对话框");
-        engines.stopAllAndToast();
-    }
+        }*/
+    /*❌❌❌❌❌❌❌
+        if (currentActivity() == "com.taobao.tao.TBMainActivity") {
+            sleep(2000);
+            if (text("立即登录").exists()) {
+                dialogs.alert("Ops(･o･;) \n您似乎没有登录淘宝账号哦！", "未登录淘宝账号的情况下脚本将不能正常运行，请登录淘宝之后再重新运行本脚本吧");
+                engines.stopAllAndToast();
+            }
+
+            var check_jishi = 5;
+            for (check_jishi == 5; check_jishi > 0; check_jishi--) {
+                toastLog("即将搜索进入活动,请检查淘宝主界面" + "\n" + "若屏幕上有弹窗请关闭\n即将继续，剩余" + check_jishi + "秒");
+                sleep(2000);
+            }
+        } else {
+            dialogs.alert("检测到当前不是淘宝主界面", "若您在计时结束前已处于淘宝主界面但仍然看到此提示，您可以尝试重新运行脚本或者重启手机再试试\n点击确定停止运行脚本！\n导致错误的Activity↓\n" + currentActivity() + "\n反馈时请截图此对话框");
+            engines.stopAllAndToast();
+        }*/
 
 
-    className("android.view.View").desc("搜索").clickable(true).findOne().click();
+    /*❌❌❌❌❌className("android.view.View").desc("搜索").clickable(true).findOne().click();
     sleep(2000);
     /*这几行代码在搜索框内设定文字并自动搜索进入，但一弄成App就用不了了。。。
     id("searchEdit").waitFor()
     id("searchEdit").findOne().setText("双十一合伙人")
     id("searchbtn").findOne().click()
     */
-    setClip("双十一合伙人");
+    /*setClip("双十一合伙人");
     var deng_clip = 5;
     for (deng_clip == 5; deng_clip > 0; deng_clip--) {
         sleep(1000);
@@ -306,11 +560,12 @@ function openTBandsearch() {
     sleep(1000);
     if (text("搜索").exists()) {
         text("搜索").findOne().click();
-    }
+    }*/
 }
 
 function jinhuodong() {
     sleep(3000);
+    /*
     if (currentActivity() == "com.taobao.browser.BrowserActivity") {
         toastLog("检测到正确的Activity,继续运行……");
     } else {
@@ -326,6 +581,7 @@ function jinhuodong() {
             engines.stopAllAndToast();
         }
     }
+    */
 
     var deng = 10;
     for (deng == 10; deng > 0; deng--) {
@@ -403,7 +659,79 @@ function jinhuodong() {
 }
 
 function click_mp() {
+    if (text("开心收下").exists()) {
+        text("开心收下").findOne().click();
+        sleep(1000);
+    }
+    if (text("翻倍领取").exists()) {
+        text("翻倍领取").findOne().click();
+        var deng_zhibo = 10;
+        for (deng_zhibo == 10; deng_zhibo > 0; deng_zhibo--) {
+            toastLog("点击翻倍领取会进入直播页\n请等待" + deng_zhibo + "秒");
+            sleep(2000);
+        }
+        //💝💝💝💝💝使用用户设定的返回方法
+        if (context_i_back == 0) {
+            sleep(1000);
+            toastLog("使用普通的返回");
+            back();
+            sleep(2000);
+        }
+        if (context_i_back == 1) {
+            sleep(1000);
+            toastLog("使用ROOT返回\n请确保已给ROOT权限！");
+            Back();
+            sleep(2000);
+        }
+        if (context_i_back == 2) {
+            sleep(1000);
+            toastLog("从屏幕中间向从左向内滑动来返回");
+            gestures([context_gestures_speed, [0, height / 2],
+                [500, height / 2]
+            ]);
+            sleep(2000);
+        }
+        if (context_i_back == 4) {
+            sleep(1000);
+            toastLog("从屏幕左侧下方向上滑动来返回");
+            gestures([context_gestures_speed, [width / 2 - 300, height - 1],
+                [width / 2 - 300, height - 500]
+            ]);
+            sleep(2000);
+        }
+        if (context_i_back == 3) {
+            sleep(1000);
+            toastLog("从屏幕中间向从右向内滑动来返回");
+            gestures([context_gestures_speed, [width - 1, height / 2],
+                [width - 500, height / 2]
+            ]);
+            sleep(2000);
+        }
+        if (context_i_back == 5) {
+            sleep(1000);
+            toastLog("从屏幕左侧下面向上面滑动来返回");
+            gestures([context_gestures_speed, [width / 2 + 300, height - 1],
+                [width / 2 + 300, height - 500]
+            ]);
+            sleep(2000);
+        }
+    } else if (text("直接收下").exists()) {
+        text("直接收下").findOne().click();
+        sleep(1000);
+    }
+    if (text("店长店长，我可以喊多少人帮我盖楼？").exists()) {
+        text("想喊多少喊多少").findOne().click();
+        sleep(1000);
+    }
+
+
+    sleep(2000);
+    if (textContains("升级领红包").exists()) {
+        var O = textContains("升级领红包").findOne().bounds()
+        click(O.centerX(), O.centerY() - 400);
+    }
     sleep(3000);
+    /*❌❌❌❌❌不再进行Activity检测！
     if (currentActivity() == "com.taobao.browser.BrowserActivity") {
         toastLog("检测到正确的Activity,继续运行……");
     } else {
@@ -418,9 +746,9 @@ function click_mp() {
             dialogs.alert("(๑•﹏•)\n检测不到正确的Activity", "这可能是由于误触导致的，在脚本运行时请不要进行任何操作\n\n您可以尝试重新运行一次，点击确定停止运行脚本！\n导致错误的Activity\n" + currentActivity() + "\n反馈时请截图此对话框");
             engines.stopAllAndToast();
         }
-    }
+    }*/
 
-    toastLog("寻找文字……");
+    toastLog("检测文字中……\nSearch text……");
     sleep(2000);
     if (text("收下去盖楼").exists()) {
         text("收下去盖楼").findOne().click();
@@ -428,61 +756,56 @@ function click_mp() {
         for (deng_duiwu == 10; deng_duiwu > 0; deng_duiwu--) {
             toastLog("等待加载队伍\n（盖楼大挑战）……\n剩余" + deng_duiwu + "秒");
             sleep(1000);
+        } //💝💝💝💝💝使用用户设定的返回方法
+        if (context_i_back == 0) {
+            sleep(1000);
+            toastLog("使用普通的返回");
+            back();
+            sleep(2000);
+        }
+        if (context_i_back == 1) {
+            sleep(1000);
+            toastLog("使用ROOT返回\n请确保已给ROOT权限！");
+            Back();
+            sleep(2000);
+        }
+        if (context_i_back == 2) {
+            sleep(1000);
+            toastLog("从屏幕中间向从左向内滑动来返回");
+            gestures([context_gestures_speed, [0, height / 2],
+                [500, height / 2]
+            ]);
+            sleep(2000);
+        }
+        if (context_i_back == 4) {
+            sleep(1000);
+            toastLog("从屏幕左侧下方向上滑动来返回");
+            gestures([context_gestures_speed, [width / 2 - 300, height - 1],
+                [width / 2 - 300, height - 500]
+            ]);
+            sleep(2000);
+        }
+        if (context_i_back == 3) {
+            sleep(1000);
+            toastLog("从屏幕中间向从右向内滑动来返回");
+            gestures([context_gestures_speed, [width - 1, height / 2],
+                [width - 500, height / 2]
+            ]);
+            sleep(2000);
+        }
+        if (context_i_back == 5) {
+            sleep(1000);
+            toastLog("从屏幕左侧下面向上面滑动来返回");
+            gestures([context_gestures_speed, [width / 2 + 300, height - 1],
+                [width / 2 + 300, height - 500]
+            ]);
+            sleep(2000);
         }
 
-        if (text("返回").exists()) {
-            text("返回").findOne().click();
-            sleep(3000);
-        } else {
-            //💝💝💝💝💝使用用户设定的返回方法
-            if (i_back == 0) {
-                sleep(1000);
-                toastLog("使用普通的返回");
-                back();
-                sleep(2000);
-            }
-            if (i_back == 1) {
-                sleep(1000);
-                toastLog("使用ROOT返回\n请确保已给ROOT权限！");
-                Back();
-                sleep(2000);
-            }
-            if (i_back == 2) {
-                sleep(1000);
-                toastLog("从屏幕中间向从左向内滑动来返回");
-                gestures([gestures_speed, [0, height / 2],
-                    [500, height / 2]
-                ]);
-                sleep(2000);
-            }
-            if (i_back == 4) {
-                sleep(1000);
-                toastLog("从屏幕左侧下方向上滑动来返回");
-                gestures([gestures_speed, [width / 2 - 300, height - 1],
-                    [width / 2 - 300, height - 500]
-                ]);
-                sleep(2000);
-            }
-            if (i_back == 3) {
-                sleep(1000);
-                toastLog("从屏幕中间向从右向内滑动来返回");
-                gestures([gestures_speed, [width - 1, height / 2],
-                    [width - 500, height / 2]
-                ]);
-                sleep(2000);
-            }
-            if (i_back == 5) {
-                sleep(1000);
-                toastLog("从屏幕左侧下面向上面滑动来返回");
-                gestures([gestures_speed, [width / 2 + 300, height - 1],
-                    [width / 2 + 300, height - 500]
-                ]);
-                sleep(2000);
-            }
-        }
     }
     if (text("开心收下").exists()) {
         text("开心收下").findOne().click();
+        sleep(1000);
     }
     if (text("翻倍领取").exists()) {
         text("翻倍领取").findOne().click();
@@ -492,54 +815,58 @@ function click_mp() {
             sleep(2000);
         }
         //💝💝💝💝💝使用用户设定的返回方法
-        if (i_back == 0) {
+        if (context_i_back == 0) {
             sleep(1000);
             toastLog("使用普通的返回");
             back();
             sleep(2000);
         }
-        if (i_back == 1) {
+        if (context_i_back == 1) {
             sleep(1000);
             toastLog("使用ROOT返回\n请确保已给ROOT权限！");
             Back();
             sleep(2000);
         }
-        if (i_back == 2) {
+        if (context_i_back == 2) {
             sleep(1000);
             toastLog("从屏幕中间向从左向内滑动来返回");
-            gestures([gestures_speed, [0, height / 2],
+            gestures([context_gestures_speed, [0, height / 2],
                 [500, height / 2]
             ]);
             sleep(2000);
         }
-        if (i_back == 4) {
+        if (context_i_back == 4) {
             sleep(1000);
             toastLog("从屏幕左侧下方向上滑动来返回");
-            gestures([gestures_speed, [width / 2 - 300, height - 1],
+            gestures([context_gestures_speed, [width / 2 - 300, height - 1],
                 [width / 2 - 300, height - 500]
             ]);
             sleep(2000);
         }
-        if (i_back == 3) {
+        if (context_i_back == 3) {
             sleep(1000);
             toastLog("从屏幕中间向从右向内滑动来返回");
-            gestures([gestures_speed, [width - 1, height / 2],
+            gestures([context_gestures_speed, [width - 1, height / 2],
                 [width - 500, height / 2]
             ]);
             sleep(2000);
         }
-        if (i_back == 5) {
+        if (context_i_back == 5) {
             sleep(1000);
             toastLog("从屏幕左侧下面向上面滑动来返回");
-            gestures([gestures_speed, [width / 2 + 300, height - 1],
+            gestures([context_gestures_speed, [width / 2 + 300, height - 1],
                 [width / 2 + 300, height - 500]
             ]);
             sleep(2000);
         }
     } else if (text("直接收下").exists()) {
         text("直接收下").findOne().click();
+        sleep(1000);
     }
-    sleep(2000);
+    if (text("店长店长，我可以喊多少人帮我盖楼？").exists()) {
+        text("想喊多少喊多少").findOne().click();
+        sleep(1000);
+    }
     /*❌❌❌❌❌
     if (text("盖楼赢红包").exists()) {
         text("盖楼赢红包").findOne().click();
@@ -576,6 +903,7 @@ function click_mp() {
     //❌sleep(2000);
     if (text("开心收下").exists()) {
         text("开心收下").findOne().click();
+        sleep(1000);
     }
 
     if (text("翻倍领取").exists()) {
@@ -585,46 +913,46 @@ function click_mp() {
             toastLog("点击翻倍领取会进入直播页\n请等待" + deng_zhibo + "秒");
         }
         //💝💝💝💝💝使用用户设定的返回方法
-        if (i_back == 0) {
+        if (context_i_back == 0) {
             sleep(1000);
             toastLog("使用普通的返回");
             back();
             sleep(2000);
         }
-        if (i_back == 1) {
+        if (context_i_back == 1) {
             sleep(1000);
             toastLog("使用ROOT返回\n请确保已给ROOT权限！");
             Back();
             sleep(2000);
         }
-        if (i_back == 2) {
+        if (context_i_back == 2) {
             sleep(1000);
             toastLog("从屏幕中间向从左向内滑动来返回");
-            gestures([gestures_speed, [0, height / 2],
+            gestures([context_gestures_speed, [0, height / 2],
                 [500, height / 2]
             ]);
             sleep(2000);
         }
-        if (i_back == 4) {
+        if (context_i_back == 4) {
             sleep(1000);
             toastLog("从屏幕左侧下方向上滑动来返回");
-            gestures([gestures_speed, [width / 2 - 300, height - 1],
+            gestures([context_gestures_speed, [width / 2 - 300, height - 1],
                 [width / 2 - 300, height - 500]
             ]);
             sleep(2000);
         }
-        if (i_back == 3) {
+        if (context_i_back == 3) {
             sleep(1000);
             toastLog("从屏幕中间向从右向内滑动来返回");
-            gestures([gestures_speed, [width - 1, height / 2],
+            gestures([context_gestures_speed, [width - 1, height / 2],
                 [width - 500, height / 2]
             ]);
             sleep(2000);
         }
-        if (i_back == 5) {
+        if (context_i_back == 5) {
             sleep(1000);
             toastLog("从屏幕左侧下面向上面滑动来返回");
-            gestures([gestures_speed, [width / 2 + 300, height - 1],
+            gestures([context_gestures_speed, [width / 2 + 300, height - 1],
                 [width / 2 + 300, height - 500]
             ]);
             sleep(2000);
@@ -632,21 +960,29 @@ function click_mp() {
 
     } else if (text("直接收下").exists()) {
         text("直接收下").findOne().click();
+        sleep(1000);
+    }
+    if (text("店长店长，我可以喊多少人帮我盖楼？").exists()) {
+        text("想喊多少喊多少").findOne().click();
+        sleep(1000);
     }
     /*
     textContains("升级领红包").waitFor()
     var O=textContains("升级领红包").findOne().bounds()
     click(O.centerX(),O.centerY());
     */
+    /*
     var deng_huodongjiemian = 5;
     for (deng_huodongjiemian == 5; deng_huodongjiemian > 0; deng_huodongjiemian--) {
         toastLog("(☉｡☉)!\n您现在在活动界面吗？\n如果没有则代表出问题了！\n\n如果您在活动页请稍等" + deng_huodongjiemian + "秒……");
         sleep(1000);
-    }
+    }*/
 
     clickOshengji();
 
     function clickOshengji() {
+        /*
+        ❌❌❌❌❌❌
         if (currentActivity() == "com.taobao.browser.BrowserActivity") {
             toastLog("检测到正确的Activity,继续运行……");
         } else {
@@ -661,15 +997,134 @@ function click_mp() {
                 dialogs.alert("(｡•́︿•̀｡)\n检测不到正确的Activity", "这可能是由于误触导致的，在脚本运行时请不要进行任何操作\n\n您可以尝试重新运行一次，点击确定停止运行脚本！\n导致错误的Activity↓\n" + currentActivity() + "\n反馈时请截图此对话框！");
                 engines.stopAllAndToast();
             }
-        }
+        }*/
 
 
         if (text("升级领红包").exists()) {
             text("升级领红包").findOne().click();
-            var jishi_8s = 8;
-            for (jishi_8s == 8; jishi_8s > 0; jishi_8s--) {
-                sleep(1000);
-                toastLog("由于点击喵铺可能会升级\n因此您需要等" + jishi_8s + "秒");
+            sleep(2000);
+            if (text("去找喵币").exists()) {
+                text("去找喵币").findOne().click();
+                sleep(2000);
+                if (text("签到").exists()) {
+                    text("签到").findOne().click();
+                    sleep(1600);
+                    toast("签到成功")
+                }
+            } else {
+                var jishi_8s = 8;
+                for (jishi_8s == 8; jishi_8s > 0; jishi_8s--) {
+                    sleep(1000);
+                    toastLog("由于点击喵铺可能会升级\n因此您需要等" + jishi_8s + "秒");
+                }
+
+                if (text("开心收下").exists()) {
+                    text("开心收下").findOne().click();
+                    sleep(3000);
+                    if (text("升级领红包").exists()) {
+                        text("升级领红包").findOne().click();
+                        sleep(3000);
+                        if (text("去找喵币").exists()) {
+                            text("去找喵币").findOne().click();
+                            sleep(2000);
+                            if (text("签到").exists()) {
+                                text("签到").findOne().click();
+                                sleep(1600);
+                                toast("签到成功")
+                            }
+                        } else {
+                            var jishi_8s = 8;
+                            for (jishi_8s == 8; jishi_8s > 0; jishi_8s--) {
+                                sleep(1000);
+                                toastLog("由于点击喵铺可能会升级\n因此您需要等" + jishi_8s + "秒");
+                            }
+                            if (text("开心收下").exists()) {
+                                text("开心收下").findOne().click();
+                                sleep(3000);
+                                if (text("升级领红包").exists()) {
+                                    text("升级领红包").findOne().click();
+                                    sleep(3000);
+
+                                    if (text("去找喵币").exists()) {
+                                        text("去找喵币").findOne().click();
+                                        sleep(3000);
+                                        if (text("签到").exists()) {
+                                            text("签到").findOne().click();
+                                            sleep(1600);
+                                            toast("签到成功")
+                                        }
+                                    }
+                                }
+                            }
+
+                        }
+
+
+                    }
+                    sleep(3000);
+                    if (text("开心收下").exists()) {
+                        text("开心收下").findOne().click();
+                        sleep(3000);
+                        clickOshengji();
+                        sleep(2000);
+                        if (text("开心收下").exists()) {
+                            text("开心收下").findOne().click();
+                            sleep(2000);
+                            clickOshengji();
+                        }
+                    }
+                }
+
+
+                if (text("去找喵币").exists()) {
+                    text("去找喵币").findOne().click();
+                    sleep(2000);
+                    if (text("签到").exists()) {
+                        text("签到").findOne().click();
+                        sleep(1600);
+                        toast("签到成功")
+                    }
+                } else {
+                    toastLog("找不到“去找喵币按钮”即将重找……*1")
+                    sleep(2000);
+                    if (text("去找喵币").exists()) {
+                        sleep(2000);
+                        text("去找喵币").findOne().click();
+                        sleep(2000);
+                        if (text("签到").exists()) {
+                            text("签到").findOne().click();
+                            sleep(1600);
+                            toast("签到成功")
+                        }
+                    } else {
+                        toastLog("找不到“去找喵币按钮”即将重找……*2")
+                        sleep(2000);
+                        if (text("去找喵币").exists()) {
+                            sleep(2000);
+                            text("去找喵币").findOne().click();
+                            sleep(2000);
+                            if (text("签到").exists()) {
+                                text("签到").findOne().click();
+                                sleep(1600);
+                                toast("签到成功")
+                            }
+                        } else {
+                            toastLog("找不到“去找喵币按钮”即将重找……*3")
+                            sleep(2000);
+                            if (text("去找喵币").exists()) {
+                                sleep(2000);
+                                text("去找喵币").findOne().click();
+                                sleep(2000);
+                                if (text("签到").exists()) {
+                                    text("签到").findOne().click();
+                                    sleep(1600);
+                                    toast("签到成功")
+                                }
+                            }
+
+                        }
+                    }
+                }
             }
         } else {
             toastLog("没有找到“升级领红包”*1\n即将重找……");
@@ -709,82 +1164,13 @@ function click_mp() {
                 }
             }
         }
-    }
-    sleep(2000);
+    } //从后面剪的
 
-    if (text("开心收下").exists()) {
-        text("开心收下").findOne().click();
-        sleep(2000);
-        clickOshengji();
-        sleep(2000);
-        if (text("开心收下").exists()) {
-            text("开心收下").findOne().click();
-            sleep(2000);
-            clickOshengji();
-            sleep(2000);
-            if (text("开心收下").exists()) {
-                text("开心收下").findOne().click();
-                sleep(2000);
-                clickOshengji();
-            }
-        }
-    }
+} //click_mp
 
-
-    if (text("去找喵币").exists()) {
-        text("去找喵币").findOne().click();
-        sleep(2000);
-        if (text("签到").exists()) {    
-            text("签到").findOne().click();    
-            sleep(1600);    
-            toast("签到成功")
-        }
-    } else {
-        toastLog("找不到“去找喵币按钮”即将重找……*1")
-        sleep(2000);
-        if (text("去找喵币").exists()) {
-            sleep(2000);
-            text("去找喵币").findOne().click();
-            sleep(2000);
-            if (text("签到").exists()) {    
-                text("签到").findOne().click();    
-                sleep(1600);    
-                toast("签到成功")
-            }
-        } else {
-            toastLog("找不到“去找喵币按钮”即将重找……*2")
-            sleep(2000);
-            if (text("去找喵币").exists()) {
-                sleep(2000);
-                text("去找喵币").findOne().click();
-                sleep(2000);
-                if (text("签到").exists()) {    
-                    text("签到").findOne().click();    
-                    sleep(1600);    
-                    toast("签到成功")
-                }
-            } else {
-                toastLog("找不到“去找喵币按钮”即将重找……*3")
-                sleep(2000);
-                if (text("去找喵币").exists()) {
-                    sleep(2000);
-                    text("去找喵币").findOne().click();
-                    sleep(2000);
-                    if (text("签到").exists()) {    
-                        text("签到").findOne().click();    
-                        sleep(1600);    
-                        toast("签到成功")
-                    }
-                } else {
-                    dialogs.alert("(˘･_･˘)\n找不到“去找喵币”按钮……", "正常情况下是绝对可以找到的，有时候淘宝会卡顿就会这样子。\n您可以尝试关闭手机淘宝再次运行脚本\n点击确定关闭脚本运行！");
-                    engines.stopAllAndToast();
-                }
-            }
-        }
-    }
-}
 
 function click_XX() {
+    /*❌❌❌❌❌不再进行Activity检测
     if (currentActivity() == "com.taobao.browser.BrowserActivity") {
         toastLog("检测到正确的Activity,继续运行……");
     } else {
@@ -799,7 +1185,7 @@ function click_XX() {
             dialogs.alert("⊙﹏⊙\n检测不到正确的Activity", "这可能是由于误触导致的，在脚本运行时请不要进行任何操作\n\n您可以尝试重新运行一次，点击确定停止运行脚本！\n导致错误的Activity↓\n" + currentActivity());
             engines.stopAllAndToast();
         }
-    }
+    }*/
 
 
     if (text("x7000").exists()) {
@@ -811,6 +1197,7 @@ function click_XX() {
 }
 
 function click_quqiandao() {
+    /*❌❌❌❌❌❌
     if (currentActivity() == "com.taobao.browser.BrowserActivity") {
         toastLog("检测到正确的Activity,继续运行……");
     } else {
@@ -825,7 +1212,7 @@ function click_quqiandao() {
             dialogs.alert("(๑•﹏•)\n检测不到正确的Activity", "这可能是由于误触导致的，在脚本运行时请不要进行任何操作\n\n您可以尝试重新运行一次，点击确定停止运行脚本！\n导致错误的Activity↓\n" + currentActivity());
             engines.stopAllAndToast();
         }
-    }
+    }*/
 
 
     if (text("去签到").exists()) {
@@ -852,46 +1239,46 @@ function click_quqiandao() {
         }
         sleep(2000);
         //💝💝💝💝💝使用用户设定的返回方法
-        if (i_back == 0) {
+        if (context_i_back == 0) {
             sleep(1000);
             toastLog("使用普通的返回");
             back();
             sleep(2000);
         }
-        if (i_back == 1) {
+        if (context_i_back == 1) {
             sleep(1000);
             toastLog("使用ROOT返回\n请确保已给ROOT权限！");
             Back();
             sleep(2000);
         }
-        if (i_back == 2) {
+        if (context_i_back == 2) {
             sleep(1000);
             toastLog("从屏幕中间向从左向内滑动来返回");
-            gestures([gestures_speed, [0, height / 2],
+            gestures([context_gestures_speed, [0, height / 2],
                 [500, height / 2]
             ]);
             sleep(2000);
         }
-        if (i_back == 4) {
+        if (context_i_back == 4) {
             sleep(1000);
             toastLog("从屏幕左侧下方向上滑动来返回");
-            gestures([gestures_speed, [width / 2 - 300, height - 1],
+            gestures([context_gestures_speed, [width / 2 - 300, height - 1],
                 [width / 2 - 300, height - 500]
             ]);
             sleep(2000);
         }
-        if (i_back == 3) {
+        if (context_i_back == 3) {
             sleep(1000);
             toastLog("从屏幕中间向从右向内滑动来返回");
-            gestures([gestures_speed, [width - 1, height / 2],
+            gestures([context_gestures_speed, [width - 1, height / 2],
                 [width - 500, height / 2]
             ]);
             sleep(2000);
         }
-        if (i_back == 5) {
+        if (context_i_back == 5) {
             sleep(1000);
             toastLog("从屏幕左侧下面向上面滑动来返回");
-            gestures([gestures_speed, [width / 2 + 300, height - 1],
+            gestures([context_gestures_speed, [width / 2 + 300, height - 1],
                 [width / 2 + 300, height - 500]
             ]);
             sleep(2000);
@@ -901,6 +1288,7 @@ function click_quqiandao() {
 }
 
 function click_qujindian() {
+    /*
     if (currentActivity() == "com.taobao.browser.BrowserActivity") {
         toastLog("检测到正确的Activity,继续运行……");
     } else {
@@ -915,7 +1303,7 @@ function click_qujindian() {
             dialogs.alert("(*﹏*;)\n检测不到正确的Activity", "这可能是由于误触导致的，在脚本运行时请不要进行任何操作\n\n您可以尝试重新运行一次，点击确定停止运行脚本！\n导致错误的Activity↓\n" + currentActivity());
             engines.stopAllAndToast();
         }
-    }
+    }*/
 
     while (text("去进店").exists()) {
         //要支持的动作
@@ -929,46 +1317,46 @@ function click_qujindian() {
         swipe(width / 2, height - 600, width / 2, 0, 500);
         sleep(9000);
         //💝💝💝💝💝使用用户设定的返回方法
-        if (i_back == 0) {
+        if (context_i_back == 0) {
             sleep(1000);
             toastLog("使用普通的返回");
             back();
             sleep(2000);
         }
-        if (i_back == 1) {
+        if (context_i_back == 1) {
             sleep(1000);
             toastLog("使用ROOT返回\n请确保已给ROOT权限！");
             Back();
             sleep(2000);
         }
-        if (i_back == 2) {
+        if (context_i_back == 2) {
             sleep(1000);
             toastLog("从屏幕中间向从左向内滑动来返回");
-            gestures([gestures_speed, [0, height / 2],
+            gestures([context_gestures_speed, [0, height / 2],
                 [500, height / 2]
             ]);
             sleep(2000);
         }
-        if (i_back == 4) {
+        if (context_i_back == 4) {
             sleep(1000);
             toastLog("从屏幕左侧下方向上滑动来返回");
-            gestures([gestures_speed, [width / 2 - 300, height - 1],
+            gestures([context_gestures_speed, [width / 2 - 300, height - 1],
                 [width / 2 - 300, height - 500]
             ]);
             sleep(2000);
         }
-        if (i_back == 3) {
+        if (context_i_back == 3) {
             sleep(1000);
             toastLog("从屏幕中间向从右向内滑动来返回");
-            gestures([gestures_speed, [width - 1, height / 2],
+            gestures([context_gestures_speed, [width - 1, height / 2],
                 [width - 500, height / 2]
             ]);
             sleep(2000);
         }
-        if (i_back == 5) {
+        if (context_i_back == 5) {
             sleep(1000);
             toastLog("从屏幕左侧下面向上面滑动来返回");
-            gestures([gestures_speed, [width / 2 + 300, height - 1],
+            gestures([context_gestures_speed, [width / 2 + 300, height - 1],
                 [width / 2 + 300, height - 500]
             ]);
             sleep(2000);
@@ -995,7 +1383,8 @@ function click_qujindian() {
 }
 
 function click_qujiaqun() {
-    sleep(3000);
+    sleep(2000);
+    /*
     if (currentActivity() == "com.taobao.browser.BrowserActivity") {
         toastLog("检测到正确的Activity,继续运行……");
     } else {
@@ -1010,53 +1399,53 @@ function click_qujiaqun() {
             dialogs.alert("(;;;・_・)\n检测不到正确的Activity", "这可能是由于误触导致的，在脚本运行时请不要进行任何操作\n\n您可以尝试重新运行一次，点击确定停止运行脚本！\n导致错误的Activity↓\n" + currentActivity());
             engines.stopAllAndToast();
         }
-    }
+    }*/
     while (text("去加群").exists()) {
         //要支持的动作
         toastLog("正在完成“去加群”任务……");
         text("去加群").findOne().click();
         sleep(3000);
         //💝💝💝💝💝使用用户设定的返回方法
-        if (i_back == 0) {
+        if (context_i_back == 0) {
             sleep(1000);
             toastLog("使用普通的返回");
             back();
             sleep(2000);
         }
-        if (i_back == 1) {
+        if (context_i_back == 1) {
             sleep(1000);
             toastLog("使用ROOT返回\n请确保已给ROOT权限！");
             Back();
             sleep(2000);
         }
-        if (i_back == 2) {
+        if (context_i_back == 2) {
             sleep(1000);
             toastLog("从屏幕中间向从左向内滑动来返回");
-            gestures([gestures_speed, [0, height / 2],
+            gestures([context_gestures_speed, [0, height / 2],
                 [500, height / 2]
             ]);
             sleep(2000);
         }
-        if (i_back == 4) {
+        if (context_i_back == 4) {
             sleep(1000);
             toastLog("从屏幕左侧下方向上滑动来返回");
-            gestures([gestures_speed, [width / 2 - 300, height - 1],
+            gestures([context_gestures_speed, [width / 2 - 300, height - 1],
                 [width / 2 - 300, height - 500]
             ]);
             sleep(2000);
         }
-        if (i_back == 3) {
+        if (context_i_back == 3) {
             sleep(1000);
             toastLog("从屏幕中间向从右向内滑动来返回");
-            gestures([gestures_speed, [width - 1, height / 2],
+            gestures([context_gestures_speed, [width - 1, height / 2],
                 [width - 500, height / 2]
             ]);
             sleep(2000);
         }
-        if (i_back == 5) {
+        if (context_i_back == 5) {
             sleep(1000);
             toastLog("从屏幕左侧下面向上面滑动来返回");
-            gestures([gestures_speed, [width / 2 + 300, height - 1],
+            gestures([context_gestures_speed, [width / 2 + 300, height - 1],
                 [width / 2 + 300, height - 500]
             ]);
             sleep(2000);
@@ -1077,25 +1466,26 @@ function click_qujiaqun() {
     }
 }
 
-function click_quliulan2() { 
-    if (currentActivity() == "com.taobao.browser.BrowserActivity") {
-        toastLog("检测到正确的Activity,继续运行……");
-    } else {
-        var deng_rightActivity = 10;
-        for (deng_rightActivity == 10; deng_rightActivity > 0; deng_rightActivity--) {
-            toastLog("click_quliulan2():\n检测不到对的Activity\n等待" + deng_rightActivity + "秒后将重新检测……\n请不要动手机！当前Activity\n" + currentActivity());
-            sleep(2000);
-        }
+function click_quliulan2() {
+    /*❌❌❌❌❌不再进行Activity检测
         if (currentActivity() == "com.taobao.browser.BrowserActivity") {
             toastLog("检测到正确的Activity,继续运行……");
         } else {
-            dialogs.alert("(˘･_･˘)\n检测不到正确的Activity", "这可能是由于误触导致的，在脚本运行时请不要进行任何操作\n\n您可以尝试重新运行一次，点击确定停止运行脚本！\n导致错误的Activity↓\n" + currentActivity());
-            engines.stopAllAndToast();
-        }
-    }
-    if (text("去浏览").exists()) {    
+            var deng_rightActivity = 10;
+            for (deng_rightActivity == 10; deng_rightActivity > 0; deng_rightActivity--) {
+                toastLog("click_quliulan2():\n检测不到对的Activity\n等待" + deng_rightActivity + "秒后将重新检测……\n请不要动手机！当前Activity\n" + currentActivity());
+                sleep(2000);
+            }
+            if (currentActivity() == "com.taobao.browser.BrowserActivity") {
+                toastLog("检测到正确的Activity,继续运行……");
+            } else {
+                dialogs.alert("(˘･_･˘)\n检测不到正确的Activity", "这可能是由于误触导致的，在脚本运行时请不要进行任何操作\n\n您可以尝试重新运行一次，点击确定停止运行脚本！\n导致错误的Activity↓\n" + currentActivity());
+                engines.stopAllAndToast();
+            }
+        }*/
+    if (text("去浏览").exists()) {
         while (text("去浏览").exists()) {
-            text("去浏览").findOne().click();    
+            text("去浏览").findOne().click();
             sleep(5000);
             toastLog("当前为浏览15秒的页面");
             sleep(4000);
@@ -1108,93 +1498,127 @@ function click_quliulan2() { 
             swipe(width / 2, height - 500, width / 2, 0, 500);
             sleep(10000);
             swipe(width / 2, height - 500, width / 2, 0, 500);
-            sleep(8000); //这个地方如果网络不好，自己加时间(单位是毫秒)，1000毫秒为1秒   
+            sleep(1000); //这个地方如果网络不好，自己加时间(单位是毫秒)，1000毫秒为1秒   
 
+            //💛💛💛💛💛❣️❣️❣️❣️
             if (currentActivity() == "com.taobao.tao.TBMainActivity") {
-                className("android.view.View").desc("搜索").clickable(true).findOne().click();
-
-
-                sleep(2000)
-                setClip("双十一合伙人");
-                var deng_clip = 5;
-                for (deng_clip == 5; deng_clip > 0; deng_clip--) {
-                    sleep(1000);
-                    toastLog("请等待" + deng_clip + "秒……\n因为有的设备会安装有Fv悬浮球会有5秒的弹窗");
-                }
-                setText(getClip());
+                app.startActivity({
+                    packageName: "com.taobao.taobao",
+                    className: "com.taobao.search.searchdoor.SearchDoorActivity"
+                });
+                toastLog("若长时间没有打开淘宝\n请自行打开淘宝至搜索界面！");
+                waitForActivity("com.taobao.search.searchdoor.SearchDoorActivity");
                 sleep(1000);
+                setText("双十一合伙人");
                 if (text("搜索").exists()) {
                     text("搜索").findOne().click();
-                } else {
-                    sleep(2000);
-                    if (text("搜索").exists()) {
-                        text("搜索").findOne().click();
-                    } else {
-                        sleep(2000);
-                        if (text("搜索").exists()) {
-                            text("搜索").findOne().click();
-                        } else {
-                            sleep(2000);
-                            if (text("搜索").exists()) {
-                                text("搜索").findOne().click();
-                            } else {
-                                dialogs.alert("竟然找不到搜索按钮了……\n您可以重新再试一次……\n点击确定关闭脚本");
-                                engines.stopAllAndToast();
-                            }
-                        }
-                    }
                 }
                 jinhuodong();
                 click_mp();
             } else {
                 //💝💝💝💝💝使用用户设定的返回方法
-                if (i_back == 0) {
+                if (context_i_back == 0) {
                     sleep(1000);
                     toastLog("使用普通的返回");
                     back();
                     sleep(2000);
                 }
-                if (i_back == 1) {
+                if (context_i_back == 1) {
                     sleep(1000);
                     toastLog("使用ROOT返回\n请确保已给ROOT权限！");
                     Back();
                     sleep(2000);
                 }
-                if (i_back == 2) {
+                if (context_i_back == 2) {
                     sleep(1000);
                     toastLog("从屏幕中间向从左向内滑动来返回");
-                    gestures([gestures_speed, [0, height / 2],
+                    gestures([context_gestures_speed, [0, height / 2],
                         [500, height / 2]
                     ]);
                     sleep(2000);
                 }
-                if (i_back == 4) {
+                if (context_i_back == 4) {
                     sleep(1000);
                     toastLog("从屏幕左侧下方向上滑动来返回");
-                    gestures([gestures_speed, [width / 2 - 300, height - 1],
+                    gestures([context_gestures_speed, [width / 2 - 300, height - 1],
                         [width / 2 - 300, height - 500]
                     ]);
                     sleep(2000);
                 }
-                if (i_back == 3) {
+                if (context_i_back == 3) {
                     sleep(1000);
                     toastLog("从屏幕中间向从右向内滑动来返回");
-                    gestures([gestures_speed, [width - 1, height / 2],
+                    gestures([context_gestures_speed, [width - 1, height / 2],
                         [width - 500, height / 2]
                     ]);
                     sleep(2000);
                 }
-                if (i_back == 5) {
+                if (context_i_back == 5) {
                     sleep(1000);
                     toastLog("从屏幕左侧下面向上面滑动来返回");
-                    gestures([gestures_speed, [width / 2 + 300, height - 1],
+                    gestures([context_gestures_speed, [width / 2 + 300, height - 1],
                         [width / 2 + 300, height - 500]
                     ]);
                     sleep(2000);
                 }
                 sleep(2000);
-            } 
-        }  
+            }
+        }
+    }
+}
+
+function click_quchakan() {
+    sleep(1000);
+    if (text("去查看").exists()) {
+        text("去查看").findOne().click();
+        sleep(3000);
+        //💝💝💝💝💝使用用户设定的返回方法
+        if (context_i_back == 0) {
+            sleep(1000);
+            toastLog("使用普通的返回");
+            back();
+            sleep(2000);
+        }
+        if (context_i_back == 1) {
+            sleep(1000);
+            toastLog("使用ROOT返回\n请确保已给ROOT权限！");
+            Back();
+            sleep(2000);
+        }
+        if (context_i_back == 2) {
+            sleep(1000);
+            toastLog("从屏幕中间向从左向内滑动来返回");
+            gestures([context_gestures_speed, [0, height / 2],
+                [500, height / 2]
+            ]);
+            sleep(2000);
+        }
+        if (context_i_back == 4) {
+            sleep(1000);
+            toastLog("从屏幕左侧下方向上滑动来返回");
+            gestures([context_gestures_speed, [width / 2 - 300, height - 1],
+                [width / 2 - 300, height - 500]
+            ]);
+            sleep(2000);
+        }
+        if (context_i_back == 3) {
+            sleep(1000);
+            toastLog("从屏幕中间向从右向内滑动来返回");
+            gestures([context_gestures_speed, [width - 1, height / 2],
+                [width - 500, height / 2]
+            ]);
+            sleep(2000);
+        }
+        if (context_i_back == 5) {
+            sleep(1000);
+            toastLog("从屏幕左侧下面向上面滑动来返回");
+            gestures([context_gestures_speed, [width / 2 + 300, height - 1],
+                [width / 2 + 300, height - 500]
+            ]);
+            sleep(2000);
+        }
+        //返回完成✅
+        sleep(2000);
     }
 }
 
@@ -1206,6 +1630,7 @@ var times = 1;
 for (loop == 1; loop <= 5; loop++) {
     click_mp();
     click_quliulan2();
+    click_quchakan();
     click_qujindian();
     click_quqiandao();
     click_qujiaqun();
