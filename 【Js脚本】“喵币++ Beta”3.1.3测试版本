@@ -8,12 +8,7 @@ function dialogs_js() {
         toastLog("没有选择");
         dialogs_js();
     } else if (i == 0) {
-        toastLog(options_[i]);
-        sleep(2000);
-        toastLog("等待无障碍权限开启……\n您必须手动授予本软件无障碍权限\n否则本软件将无法工作！");
-        auto.waitFor();
-        toastLog("无障碍权限已开启" + "\n" + "继续运行脚本……");
-        sleep(1000);
+        toastLog(options_[i]);        
         Set_Back_way();
     } else if (i == 2) {
         toastLog(options_[i]);
@@ -39,12 +34,14 @@ function dialogs_js() {
     } else if (i == 5) {
         alert("喵币++ 3.1.2Beta\n脚本作者⊂((・▽・))⊃\n@橘衫下邂逅的时光", "(作者人很好的～😃)\n\n\n小部分代码参考了\n@暗夜协奏者 的脚本代码\n感谢人家优秀的代码啦～(*^_^*)\n\n此脚本为兴趣制作\n仅供参考，严禁售卖");
         dialogs_js();
-    } else if (i == 1) {
+    } else if (i == 1) {        
         toastLog("等待无障碍权限开启……\n您必须手动授予本软件无障碍权限\n否则本软件将无法工作！");
+        sleep(3000);
         auto.waitFor();
         toastLog("无障碍权限已开启" + "\n" + "继续运行脚本……");
-        sleep(1000);
+        sleep(3000);
         toastLog("为保证脚本正常运行\n请授予本软件悬浮窗权限");
+        sleep(2000);
         var test_rawWindow = floaty.rawWindow(
             <frame gravity="center" bg="#00000000"/>
         );
@@ -54,10 +51,15 @@ function dialogs_js() {
             test_rawWindow.close();
         }, 1000);
         toastLog("悬浮窗权限已开启！");
+        sleep(2000);
         wait_Time_over();
     }
 }
-
+       sleep(2000);
+        toastLog("等待无障碍权限开启……\n您必须手动授予本软件无障碍权限\n否则本软件将无法工作！");
+        auto.waitFor();
+        toastLog("无障碍权限已开启" + "\n" + "继续运行脚本……");
+        sleep(1000);
 
 function Set_Back_way() {
     //💟🕎⛎设定返回方法及滑动速度的代码
@@ -726,8 +728,8 @@ function click_mp() {
 
 
     sleep(2000);
-    if (textContains("升级领红包").exists()) {
-        var O = textContains("升级领红包").findOne().bounds()
+    if (textContains("升级喵铺").exists()) {
+        var O = textContains("升级喵铺").findOne().bounds()
         click(O.centerX(), O.centerY() - 400);
     }
     sleep(3000);
@@ -967,8 +969,8 @@ function click_mp() {
         sleep(1000);
     }
     /*
-    textContains("升级领红包").waitFor()
-    var O=textContains("升级领红包").findOne().bounds()
+    textContains("升级喵铺").waitFor()
+    var O=textContains("升级喵铺").findOne().bounds()
     click(O.centerX(),O.centerY());
     */
     /*
@@ -1000,8 +1002,8 @@ function click_mp() {
         }*/
 
 
-        if (text("升级领红包").exists()) {
-            text("升级领红包").findOne().click();
+        if (text("升级喵铺").exists()) {
+            text("升级喵铺").findOne().click();
             sleep(2000);
             if (text("去找喵币").exists()) {
                 text("去找喵币").findOne().click();
@@ -1021,8 +1023,8 @@ function click_mp() {
                 if (text("开心收下").exists()) {
                     text("开心收下").findOne().click();
                     sleep(3000);
-                    if (text("升级领红包").exists()) {
-                        text("升级领红包").findOne().click();
+                    if (text("升级喵铺").exists()) {
+                        text("升级喵铺").findOne().click();
                         sleep(3000);
                         if (text("去找喵币").exists()) {
                             text("去找喵币").findOne().click();
@@ -1041,8 +1043,8 @@ function click_mp() {
                             if (text("开心收下").exists()) {
                                 text("开心收下").findOne().click();
                                 sleep(3000);
-                                if (text("升级领红包").exists()) {
-                                    text("升级领红包").findOne().click();
+                                if (text("升级喵铺").exists()) {
+                                    text("升级喵铺").findOne().click();
                                     sleep(3000);
 
                                     if (text("去找喵币").exists()) {
@@ -1127,30 +1129,30 @@ function click_mp() {
                 }
             }
         } else {
-            toastLog("没有找到“升级领红包”*1\n即将重找……");
+            toastLog("没有找到“升级喵铺”*1\n即将重找……");
             sleep(3000);
-            if (text("升级领红包").exists()) {
-                text("升级领红包").findOne().click();
+            if (text("升级喵铺").exists()) {
+                text("升级喵铺").findOne().click();
                 var jishi_8s = 8;
                 for (jishi_8s == 8; jishi_8s > 0; jishi_8s--) {
                     sleep(1000);
                     toastLog("由于点击喵铺可能会升级\n因此您需要等" + jishi_8s + "秒");
                 }
             } else {
-                toastLog("没有找到“升级领红包”*2\n即将重找……");
+                toastLog("没有找到“升级喵铺”*2\n即将重找……");
                 sleep(3000);
-                if (text("升级领红包").exists()) {
-                    text("升级领红包").findOne().click();
+                if (text("升级喵铺").exists()) {
+                    text("升级喵铺").findOne().click();
                     var jishi_8s = 8;
                     for (jishi_8s == 8; jishi_8s > 0; jishi_8s--) {
                         sleep(1000);
                         toastLog("由于点击喵铺可能会升级\n因此您需要等" + jishi_8s + "秒");
                     }
                 } else {
-                    toastLog("没有找到“升级领红包”*3\n即将重找……");
+                    toastLog("没有找到“升级喵铺”*3\n即将重找……");
                     sleep(3000);
-                    if (text("升级领红包").exists()) {
-                        text("升级领红包").findOne().click();
+                    if (text("升级喵铺").exists()) {
+                        text("升级喵铺").findOne().click();
                         var jishi_8s = 8;
                         for (jishi_8s == 8; jishi_8s > 0; jishi_8s--) {
                             sleep(1000);
@@ -1158,7 +1160,7 @@ function click_mp() {
                         }
                     } else {
                         toastLog("找了3遍了竟然还没找到……");
-                        dialogs.alert("(⊙_◎)\n找不到“升级领红包”按钮", "软件似乎在当前页面上找不到“升级领红包”按钮，建议您重试一次或者重启手机再试试，还是不行请联系作者反馈吧……");
+                        dialogs.alert("(⊙_◎)\n找不到“升级喵铺”按钮", "软件似乎在当前页面上找不到“升级喵铺”按钮，建议您重试一次或者重启手机再试试，还是不行请联系作者反馈吧……");
                         engines.stopAllAndToast();
                     }
                 }
