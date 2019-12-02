@@ -483,25 +483,25 @@ function jinhuodong() {
 click_powerˉqiandao();
 
 function click_powerˉqiandao() {
-    /*toastLog("正在找图，不要急哦");
-    var img = images.load("https://s2.ax1x.com/2019/12/02/QnNQ10.png");
-    var templ = images.load("https://s2.ax1x.com/2019/12/02/QnU38I.png");
-    var p = findImage(img, templ);
-    if (p) {
-        toastLog("找到了“充能量”图片\n坐标为" + p);
-        sleep(2000);
-        click(p.x+100, p.y);
-    } else {
-        toast("没找到“充能量”图片");
-        //哎～有些机型它不适用这个点击。
-        }*/
-    if (width == 1080,height==1920) {
-        click(width - 120, height - 320);
-    } else if (width == 720,height==1520) {
-        click(width - 90, height - 320);
-    } else if(width==1080,height==2340){
+    if (width == 1080, height == 1920) {
+        click(width - 130, height - 320);
+    } //1920*1080分辨率完美支持！（已测试通过）
+    else if (width == 720, height == 1520) {
+        click(width - 85, height - 512);
+    }//1520*720分辨率以得出计算值
+     else if (width == 1080, height == 2340) {
         click(width - 130, height - 740);
-        }
+    } //2340*1080分辨率完美支持！（已测试通过）
+    else if (width == 1080, height == 2160) {
+        click(width - 130, height - 560);
+    } //2160*1080分辨率以得出计算值
+    else if (width == 1080, height == 2244) {
+        click(width - 130, height - 644);
+    } //2244*1080分辨率以得出计算值
+    else if(width==1080,height>1600){
+        var y_1080=height-1600
+        click(width-130,-y_1080);
+        }//其它宽度为1080的设备通过计算得出y值坐标
     else {
         toastLog("正在找图，不要急哦");
         var img = images.load("https://s2.ax1x.com/2019/12/02/QnNQ10.png");
@@ -510,12 +510,13 @@ function click_powerˉqiandao() {
         if (p) {
             toastLog("找到了“充能量”图片\n坐标为" + p);
             sleep(2000);
-            click(p.x + 30, p.y + 20);
+            click(p.x + 20, p.y + 20);
         } else {
             toast("没找到“充能量”图片");
-            //哎～有些机型它不适用这个点击。
+            dialogs.alert("可能本脚本不支持您的分辨率哦～","快向作者反馈这个问题，让作者尝试为你解决吧～");
+            exit();
         }
-    }
+    }//其它不支持的的分辨率尝试找图来点击按钮
     sleep(3000);
     if (text("去签到").exists()) {
         text("去签到").findOne().click();
