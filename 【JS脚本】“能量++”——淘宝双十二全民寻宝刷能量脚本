@@ -491,7 +491,7 @@ function click_powerˉqiandao() {
     if (p) {
         toastLog("找到了“充能量”图片\n坐标为" + p);
         sleep(2000);
-        click(p.x, p.y);
+        click(p.x+100, p.y);
     } else {
         toast("没找到“充能量”图片");
         //哎～有些机型它不适用这个点击。
