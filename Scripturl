@@ -6,10 +6,10 @@ var height = device.height;
 var width = device.width;
 
 function dialogs_js() {
-var ScriptVersion=("Alpha1.1.0");//版本
+    var ScriptVersion = ("Alpha1.1.0"); //版本
     log("软件脚本已开始运行，如果没有弹出菜单请强行停止再打开本软件！");
     var options_ = ["▶️ 开始运行脚本", "🕒 定时运行脚本", "⏹ 停止运行脚本", "🌐 向作者反馈问题", "💬 QQ分享给好友", "*️⃣ 脚本介绍&作者信息"]
-    var i = dialogs.select("欢迎使用 (◍•ᴗ•◍)❤" + "\n" +"“能量++”"+ScriptVersion+ "\n请选择一个要进行的选项", options_);
+    var i = dialogs.select("欢迎使用 (◍•ᴗ•◍)❤" + "\n" + "“能量++”" + ScriptVersion + "\n请选择一个要进行的选项", options_);
     if (i < 0) {
         toastLog("没有选择，如需关闭对话框\n  请选择“停止运行脚本”");
         dialogs_js();
@@ -37,7 +37,7 @@ var ScriptVersion=("Alpha1.1.0");//版本
         });
         dialogs_js();
     } else if (i == 5) {
-        alert("“能量++”"+ScriptVersion+"\n脚本作者⊂((・▽・))⊃\n@橘衫下邂逅的时光", "(作者人很好的～😃)\n\n此脚本为兴趣制作\n仅供参考，严禁售卖\n\n如有任何问题，欢迎向作者反馈哦～");
+        alert("“能量++”" + ScriptVersion + "\n脚本作者⊂((・▽・))⊃\n@橘衫下邂逅的时光", "(作者人很好的～😃)\n\n此脚本为兴趣制作\n仅供参考，严禁售卖\n\n如有任何问题，欢迎向作者反馈哦～");
         dialogs_js();
     } else if (i == 1) {
         toastLog("等待无障碍权限开启……\n您必须手动授予本软件无障碍权限\n否则本软件将无法工作！");
@@ -490,8 +490,8 @@ function click_powerˉqiandao() {
     } //1920*1080分辨率完美支持！（已测试通过）
     else if (width == 720, height == 1520) {
         click(width - 85, height - 430);
-    }//1520*720分辨率以得出计算值（实机测试后的坐标为1090,638）
-     else if (width == 1080, height == 2340) {
+    } //1520*720分辨率以得出计算值（实机测试后的坐标为1090,638）
+    else if (width == 1080, height == 2340) {
         click(width - 130, height - 740);
     } //2340*1080分辨率完美支持！（已测试通过）
     else if (width == 1080, height == 2160) {
@@ -500,10 +500,10 @@ function click_powerˉqiandao() {
     else if (width == 1080, height == 2244) {
         click(width - 130, height - 644);
     } //2244*1080分辨率以得出计算值
-    else if(width==1080,height>1600){
-        var y_1080=height-1600;
-        click(width-130,-y_1080);
-        }//其它宽度为1080的设备通过计算得出y值坐标
+    else if (width == 1080, height > 1600) {
+        var y_1080 = height - 1600;
+        click(width - 130, -y_1080);
+    } //其它宽度为1080的设备通过计算得出y值坐标
     else {
         toastLog("正在找图，不要急哦");
         var img = images.load("https://s2.ax1x.com/2019/12/02/QnNQ10.png");
@@ -515,10 +515,10 @@ function click_powerˉqiandao() {
             click(p.x + 20, p.y + 20);
         } else {
             toast("没找到“充能量”图片");
-            dialogs.alert("可能本脚本不支持您的分辨率哦～","快向作者反馈这个问题，让作者尝试为你解决吧～");
+            dialogs.alert("可能本脚本不支持您的分辨率哦～", "快向作者反馈这个问题，让作者尝试为你解决吧～");
             exit();
         }
-    }//其它不支持的的分辨率尝试找图来点击按钮
+    } //其它不支持的的分辨率尝试找图来点击按钮
     sleep(3000);
     if (text("去签到").exists()) {
         text("去签到").findOne().click();
@@ -631,6 +631,7 @@ function main_js_clickAll15s() {
         }
         Justback();
     }
+
     if (textContains("淘宝人生").exists()) {
         textContains("淘宝人生").findOne().click();
         var dengdai10s = 10;
@@ -645,7 +646,25 @@ function main_js_clickAll15s() {
             Justback();
         }
     }
+        if (textContains("前往双12互动群签到(0/1) 签到得10000能量 去签到").exists()) {
+        textContains("前往双12互动群签到(0/1) 签到得10000能量 去签到").findOne().click();
+        var dengdai10s = 5;
+        for (dengdai10s == 5; dengdai10s > 0; dengdai10s--) {
+            toastLog("正在完成“去签到”任务\n剩余" + dengdai10s + "秒……")
+            sleep(2000);
+        }
+        if (text("签到打卡").exists()) {
+            text("签到打卡").findOne().click();
+        } else if (textContains("签到打卡").exists()) {
+            textContains("签到打卡").findOne().click();
+        }
+        jinhuodong();
+        click_powerˉqiandao();
+    }
 }
-
+sleep(1000);
+main_js_clickAll15s();
+sleep(1000);
+main_js_clickAll15s();
 dialogs.alert("(☞ﾟ∀ﾟ)☞\n(☞^o^) ☞     脚本已运行完毕\n(☞ ͡° ͜ʖ ͡°)☞    赶快去掷骰子吧", "检测不到任务喽～\n如有遗漏请自行操作或再次运行\n如有任何问题欢迎向作者反馈哦～\n\n脚本作者@橘衫下邂逅的时光");
 exit();
