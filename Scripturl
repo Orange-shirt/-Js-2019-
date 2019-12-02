@@ -15,6 +15,7 @@ function dialogs_js() {
         dialogs_js();
     } else if (i == 0) {
         toastLog(options_[i]);
+        context_Manualstate = 0;
         Set_Back_way();
     } else if (i == 2) {
         toastLog(options_[i]);
@@ -48,6 +49,7 @@ function dialogs_js() {
             dialogs_js();
         }
     } else if (i == 1) {
+        context_Manualstate = 0;
         toastLog("等待无障碍权限开启……\n您必须手动授予本软件无障碍权限\n否则本软件将无法工作！");
         sleep(3000);
         auto.waitFor();
