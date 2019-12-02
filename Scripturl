@@ -3,7 +3,6 @@ dialogs_js();
 var xiazai = ("软件下载链接戳 https://www.lanzous.com/i7sb57i");
 var height = device.height;
 var width = device.width;
-setScreenMetrics(1080, 1920);
 
 function dialogs_js() {
     log("软件脚本已开始运行，如果没有弹出菜单请强行停止再打开本软件！");
@@ -496,7 +495,24 @@ function click_powerˉqiandao() {
         toast("没找到“充能量”图片");
         //哎～有些机型它不适用这个点击。
         }*/
-    click(width - 120, height - 320);
+    if (width == 1080) {
+        click(width - 120, height - 320);
+    } else if (width == 720) {
+        click(width - 90, height - 320);
+    } else {
+        toastLog("正在找图，不要急哦");
+        var img = images.load("https://s2.ax1x.com/2019/12/02/QnNQ10.png");
+        var templ = images.load("https://s2.ax1x.com/2019/12/02/QnU38I.png");
+        var p = findImage(img, templ);
+        if (p) {
+            toastLog("找到了“充能量”图片\n坐标为" + p);
+            sleep(2000);
+            click(p.x + 30, p.y + 20);
+        } else {
+            toast("没找到“充能量”图片");
+            //哎～有些机型它不适用这个点击。
+        }
+    }
     sleep(3000);
     if (text("去签到").exists()) {
         text("去签到").findOne().click();
@@ -557,6 +573,7 @@ function main_js_clickAll15s() {
         text("去签到").findOne().click();
         sleep(2000);
     }
+    var y_half = height / 2;
     if (textContains("淘宝人生").exists()) {
         textContains("淘宝人生").findOne().click();
         var dengdai10s = 10;
@@ -564,8 +581,13 @@ function main_js_clickAll15s() {
             toastLog("正在完成“淘宝人生”任务\n剩余" + dengdai10s + "秒……");
             sleep(2000);
         }
-        click(width / 2, height / 2 + 300);
+        var y_half = width / 2;
+        click(width / 2, y_half + y_half / 3);
         Justback();
+        if (currentActivity() == "com.taobao.browser.MultiBrowserActivity") {
+            click(width / 2, y_half + y_half / 3);
+            Justback();
+        }
     }
     while (textContains("去浏览").exists()) {
         textContains("去浏览").findOne().click();
@@ -610,10 +632,10 @@ function main_js_clickAll15s() {
             toastLog("正在完成“淘宝人生”任务\n剩余" + dengdai10s + "秒……");
             sleep(2000);
         }
-        click(width / 2, height / 2 + 300);
+        click(width / 2, y_half + y_half / 3);
         Justback();
         if (currentActivity() == "com.taobao.browser.MultiBrowserActivity") {
-            click(width / 2, height / 2 + 300);
+            click(width / 2, y_half + y_half / 3);
             Justback();
         }
     }
