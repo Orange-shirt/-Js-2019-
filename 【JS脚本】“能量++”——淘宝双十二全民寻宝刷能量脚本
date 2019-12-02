@@ -522,7 +522,10 @@ function click_powerˉqiandao() {
     else if (width == 1080, height == 2400) {
         click(width - 130, height - 800);
     } //2400*1080分辨率已得出计算值
-    else if (width == 1080, height > 1600) {
+    else if (width == 1080, height == 2248) {
+        click(width - 130, height - 648);
+    } //2248*1080分辨率已得出计算值
+    else if (width == 1080, height >= 1600) {
         var y_1080 = height - 1600;
         click(width - 130, 0 - y_1080);
     } //其它宽度为1080的设备通过计算得出y值坐标
