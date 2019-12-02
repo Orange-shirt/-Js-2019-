@@ -20,3 +20,5 @@
 
 联网获取脚本的脚本代码 http://t.cn/AigEgCuY 
 主脚本代码 http://t.cn/AigEgRFQ 
+
+酷安动态地址http://t.cn/Aigm5aJ1
