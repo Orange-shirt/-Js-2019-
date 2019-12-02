@@ -8,7 +8,7 @@ var width = device.width;
 function dialogs_js() {
     var ScriptVersion = ("Alpha1.1.0"); //版本
     log("软件脚本已开始运行，如果没有弹出菜单请强行停止再打开本软件！");
-    var options_ = ["▶️ 开始运行脚本", "🕒 定时运行脚本", "⏹ 停止运行脚本", "🌐 向作者反馈问题", "💬 QQ分享给好友", "*️⃣ 脚本介绍&作者信息"]
+    var options_ = ["▶️ 开始运行脚本", "🕒 定时运行脚本", "⏹ 停止运行脚本", "🌐 向作者反馈问题", "💬 QQ分享给好友", "*️⃣ 脚本介绍&作者信息", "🔧 手动调用界面运行模式"]
     var i = dialogs.select("欢迎使用 (◍•ᴗ•◍)❤" + "\n" + "“能量++”" + ScriptVersion + "\n请选择一个要进行的选项", options_);
     if (i < 0) {
         toastLog("没有选择，如需关闭对话框\n  请选择“停止运行脚本”");
@@ -39,6 +39,14 @@ function dialogs_js() {
     } else if (i == 5) {
         alert("“能量++”" + ScriptVersion + "\n脚本作者⊂((・▽・))⊃\n@橘衫下邂逅的时光", "(作者人很好的～😃)\n\n此脚本为兴趣制作\n仅供参考，严禁售卖\n\n如有任何问题，欢迎向作者反馈哦～");
         dialogs_js();
+    } else if (i == 6) {
+        var Manual_auto = confirm("(*・～・*)\n要以手动调用界面模式运行吗？", "点击“确定”后请等待气泡提示之后\n再打开淘宝全民寻宝活动中的\n【充能量中心】界面\n然后静待脚本完成任务即可！\n\nQ:我不知道该不该用这个模式？\nA:若您在全自动运行过程中遇到错误未得到解决时可尝试以此模式运行且效果与全自动模式没有差别");
+        if (Manual_auto) {
+            toastLog("已手动调用模式运行");
+            context_Manualstate=1;
+        } else {
+            dialogs_js();
+        }
     } else if (i == 1) {
         toastLog("等待无障碍权限开启……\n您必须手动授予本软件无障碍权限\n否则本软件将无法工作！");
         sleep(3000);
@@ -482,7 +490,16 @@ function jinhuodong() {
         sleep(1000);
     }
 }
+if (context_Manualstate==1){
+    dialogs.alert("您当前已手动调用界面模式运行！\n请准备点击“充能量”按钮进入“充能量中心”即可！\n\n准备好了就点“确定”哦～");
+    var Tips_clickbutton=5;
+    for(Tips_clickbutton==5;Tips_clickbutton>0;Tips_clickbutton--){
+        toastLog("请点击“充能量”按钮进入充能量中心即可\n剩余"+Tips_clickbutton+"秒后开始进行自动任务……");
+        sleep(2000);
+        }
+    }else{
 click_powerˉqiandao();
+}
 
 function click_powerˉqiandao() {
     if (width == 1080, height == 1920) {
