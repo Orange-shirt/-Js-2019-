@@ -487,7 +487,7 @@ function click_powerˉqiandao() {
         click(width - 130, height - 320);
     } //1920*1080分辨率完美支持！（已测试通过）
     else if (width == 720, height == 1520) {
-        click(width - 85, height - 512);
+        click(width - 85, height - 430);
     }//1520*720分辨率以得出计算值
      else if (width == 1080, height == 2340) {
         click(width - 130, height - 740);
