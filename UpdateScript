@@ -1,0 +1,32 @@
+//用于在线获取脚本，省去了各位不停更新软件的烦恼，也方便我给各位更新
+var url = "https://raw.githubusercontent.com/Orange-shirt/-Js-2019-/master/url";
+var res = http.get(url,{
+    headers: {
+        'Accept-Language': 'en-us,en;q=0.5',
+        'User-Agent': 'Mozilla/5.0(Macintosh;IntelMacOSX10_7_0)AppleWebKit/535.11(KHTML,likeGecko)Chrome/17.0.963.56Safari/535.11'
+    }
+});
+if (res.statusCode == 200) {
+    toastLog("脚本网址请求成功");
+    context_url = res.body.string();
+    console.info(context_url);
+}else {
+    toastLog("脚本网址请求失败:" + res.statusMessage);
+}
+sleep(2000);
+var res_script = http.get(context_url,{
+    headers: {
+        'Accept-Language': 'en-us,en;q=0.5',
+        'User-Agent': 'Mozilla/5.0(Macintosh;IntelMacOSX10_7_0)AppleWebKit/535.11(KHTML,likeGecko)Chrome/17.0.963.56Safari/535.11'
+    }
+});
+
+if (res_script.statusCode == 200) {
+    toastLog("脚本获取成功");    
+    var Script_1212 = res_script.body.string();
+    engines.execScript("能量++", Script_1212);
+} else {
+    toast("脚本获取失败:" + res_script.statusMessage);
+}
+
+//脚本作者@橘衫下邂逅的时光
