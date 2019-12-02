@@ -1,9 +1,9 @@
 dialogs_js();
 /*⏬⏬⏬*/
-var xiazai = ("软件下载链接戳 https:");
+var xiazai = ("软件下载链接戳 https://www.lanzous.com/i7sb57i");
 var height = device.height;
 var width = device.width;
-setScreenMetrics(1080,height);
+setScreenMetrics(1080,1920);
 
 function dialogs_js() {
     log("软件脚本已开始运行，如果没有弹出菜单请强行停止再打开本软件！");
@@ -484,7 +484,19 @@ function jinhuodong() {
 click_powerˉqiandao();
 
 function click_powerˉqiandao() {
+toastLog("正在找图，不要急哦");
+var img = images.load("https://s2.ax1x.com/2019/12/02/QnNQ10.png");
+var templ = images.load("https://s2.ax1x.com/2019/12/02/QnU38I.png");
+var p = findImage(img,templ);
+if(p){
+    toastLog("找到了“充能量”图片\n坐标为"+p);
+    sleep(2000);
+    click(p.x,p.y);
+}else{
+    toast("没找到“充能量”图片");
+    //哎～有些机型它不适用这个点击。
     click(955, 1600);
+}
     sleep(3000);
     if (text("去签到").exists()) {
         text("去签到").findOne().click();
