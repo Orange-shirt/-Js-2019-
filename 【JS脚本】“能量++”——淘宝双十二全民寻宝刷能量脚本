@@ -1,6 +1,6 @@
 dialogs_js();
 /*⏬⏬⏬*/
-var xiazai = ("软件下载链接戳 https:");
+var xiazai = ("软件下载链接戳 https:https://www.lanzous.com/i7sb57i");
 var height = device.height;
 var width = device.width;
 setScreenMetrics(1080,height);
