@@ -43,7 +43,7 @@ function dialogs_js() {
         var Manual_auto = confirm("(*・～・*)\n要以手动调用界面模式运行吗？", "点击“确定”后请等待气泡提示之后\n再打开淘宝全民寻宝活动中的\n【充能量中心】界面\n然后静待脚本完成任务即可！\n\nQ:我不知道该不该用这个模式？\nA:若您在全自动运行过程中遇到错误未得到解决时可尝试以此模式运行且效果与全自动模式没有差别");
         if (Manual_auto) {
             toastLog("已手动调用模式运行");
-            context_Manualstate=1;
+            context_Manualstate = 1;
         } else {
             dialogs_js();
         }
@@ -490,15 +490,15 @@ function jinhuodong() {
         sleep(1000);
     }
 }
-if (context_Manualstate==1){
+if (context_Manualstate == 1) {
     dialogs.alert("您当前已手动调用界面模式运行！\n请准备点击“充能量”按钮进入“充能量中心”即可！\n\n准备好了就点“确定”哦～");
-    var Tips_clickbutton=5;
-    for(Tips_clickbutton==5;Tips_clickbutton>0;Tips_clickbutton--){
-        toastLog("请点击“充能量”按钮进入充能量中心即可\n剩余"+Tips_clickbutton+"秒后开始进行自动任务……");
+    var Tips_clickbutton = 5;
+    for (Tips_clickbutton == 5; Tips_clickbutton > 0; Tips_clickbutton--) {
+        toastLog("请点击“充能量”按钮进入充能量中心即可\n剩余" + Tips_clickbutton + "秒后开始进行自动任务……");
         sleep(2000);
-        }
-    }else{
-click_powerˉqiandao();
+    }
+} else {
+    click_powerˉqiandao();
 }
 
 function click_powerˉqiandao() {
@@ -636,7 +636,16 @@ function main_js_clickAll15s() {
                 text("搜索").findOne().click();
             }
             jinhuodong();
-            click_powerˉqiandao();
+            if (context_Manualstate == 1) {
+                dialogs.alert("您当前已手动调用界面模式运行！\n请准备点击“充能量”按钮进入“充能量中心”即可！\n\n准备好了就点“确定”哦～");
+                var Tips_clickbutton = 5;
+                for (Tips_clickbutton == 5; Tips_clickbutton > 0; Tips_clickbutton--) {
+                    toastLog("请点击“充能量”按钮进入充能量中心即可\n剩余" + Tips_clickbutton + "秒后开始进行自动任务……");
+                    sleep(2000);
+                }
+            } else {
+                click_powerˉqiandao();
+            }
         } else {
             Justback();
         }
@@ -679,7 +688,16 @@ function main_js_clickAll15s() {
             textContains("签到打卡").findOne().click();
         }
         jinhuodong();
-        click_powerˉqiandao();
+        if (context_Manualstate == 1) {
+            dialogs.alert("您当前已手动调用界面模式运行！\n请准备点击“充能量”按钮进入“充能量中心”即可！\n\n准备好了就点“确定”哦～");
+            var Tips_clickbutton = 5;
+            for (Tips_clickbutton == 5; Tips_clickbutton > 0; Tips_clickbutton--) {
+                toastLog("请点击“充能量”按钮进入充能量中心即可\n剩余" + Tips_clickbutton + "秒后开始进行自动任务……");
+                sleep(2000);
+            }
+        } else {
+            click_powerˉqiandao();
+        }
     }
 }
 sleep(1000);
