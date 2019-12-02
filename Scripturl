@@ -500,7 +500,7 @@ function click_powerˉqiandao() {
     } else if (width == 720,height==1520) {
         click(width - 90, height - 320);
     } else if(width==1080,height==2340){
-        click(width - 120, height - 740);
+        click(width - 130, height - 740);
         }
     else {
         toastLog("正在找图，不要急哦");
