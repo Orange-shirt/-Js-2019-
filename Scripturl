@@ -484,7 +484,7 @@ function jinhuodong() {
 click_powerˉqiandao();
 
 function click_powerˉqiandao() {
-    toastLog("正在找图，不要急哦");
+    /*toastLog("正在找图，不要急哦");
     var img = images.load("https://s2.ax1x.com/2019/12/02/QnNQ10.png");
     var templ = images.load("https://s2.ax1x.com/2019/12/02/QnU38I.png");
     var p = findImage(img, templ);
@@ -495,8 +495,8 @@ function click_powerˉqiandao() {
     } else {
         toast("没找到“充能量”图片");
         //哎～有些机型它不适用这个点击。
-        click(955, 1600);
-    }
+        }*/
+    click(width - 120, height - 320);
     sleep(3000);
     if (text("去签到").exists()) {
         text("去签到").findOne().click();
@@ -557,6 +557,16 @@ function main_js_clickAll15s() {
         text("去签到").findOne().click();
         sleep(2000);
     }
+    if (textContains("淘宝人生").exists()) {
+        textContains("淘宝人生").findOne().click();
+        var dengdai10s = 10;
+        for (dengdai10s == 10; dengdai10s > 0; dengdai10s--) {
+            toastLog("正在完成“淘宝人生”任务\n剩余" + dengdai10s + "秒……");
+            sleep(2000);
+        }
+        click(width / 2, height / 2 + 300);
+        Justback();
+    }
     while (textContains("去浏览").exists()) {
         textContains("去浏览").findOne().click();
         var dengdai10s = 10;
@@ -592,6 +602,20 @@ function main_js_clickAll15s() {
             swipe(width / 2, height - 600, width / 2, 0, 500);
         }
         Justback();
+    }
+    if (textContains("淘宝人生").exists()) {
+        textContains("淘宝人生").findOne().click();
+        var dengdai10s = 10;
+        for (dengdai10s == 10; dengdai10s > 0; dengdai10s--) {
+            toastLog("正在完成“淘宝人生”任务\n剩余" + dengdai10s + "秒……");
+            sleep(2000);
+        }
+        click(width / 2, height / 2 + 300);
+        Justback();
+        if (currentActivity() == "com.taobao.browser.MultiBrowserActivity") {
+            click(width / 2, height / 2 + 300);
+            Justback();
+        }
     }
 }
 
