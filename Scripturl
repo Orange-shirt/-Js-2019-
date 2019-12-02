@@ -495,11 +495,14 @@ function click_powerˉqiandao() {
         toast("没找到“充能量”图片");
         //哎～有些机型它不适用这个点击。
         }*/
-    if (width == 1080) {
+    if (width == 1080,height==1920) {
         click(width - 120, height - 320);
-    } else if (width == 720) {
+    } else if (width == 720,height==1520) {
         click(width - 90, height - 320);
-    } else {
+    } else if(width==1080,height==2340){
+        click(width - 120, height - 740);
+        }
+    else {
         toastLog("正在找图，不要急哦");
         var img = images.load("https://s2.ax1x.com/2019/12/02/QnNQ10.png");
         var templ = images.load("https://s2.ax1x.com/2019/12/02/QnU38I.png");
