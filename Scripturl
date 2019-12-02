@@ -488,7 +488,7 @@ function click_powerˉqiandao() {
     } //1920*1080分辨率完美支持！（已测试通过）
     else if (width == 720, height == 1520) {
         click(width - 85, height - 430);
-    }//1520*720分辨率以得出计算值
+    }//1520*720分辨率以得出计算值（实机测试后的坐标为1090,638）
      else if (width == 1080, height == 2340) {
         click(width - 130, height - 740);
     } //2340*1080分辨率完美支持！（已测试通过）
@@ -499,7 +499,7 @@ function click_powerˉqiandao() {
         click(width - 130, height - 644);
     } //2244*1080分辨率以得出计算值
     else if(width==1080,height>1600){
-        var y_1080=height-1600
+        var y_1080=height-1600;
         click(width-130,-y_1080);
         }//其它宽度为1080的设备通过计算得出y值坐标
     else {
