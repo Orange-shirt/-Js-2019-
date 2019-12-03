@@ -613,6 +613,7 @@ function main_js_clickAll15s() {
         text("去签到").findOne().click();
         sleep(2000);
     }
+    /*
     var y_half = height / 2;
     if (textContains("淘宝人生").exists()) {
         textContains("淘宝人生").findOne().click();
@@ -628,12 +629,12 @@ function main_js_clickAll15s() {
             click(width / 2, y_half + y_half / 3);
             Justback();
         }
-    }
-    while (textContains("去浏览").exists()) {
-        textContains("去浏览").findOne().click();
+    }*/
+    while (textContains("浏览15秒").exists()) {
+        textContains("浏览15秒").findOne().click();
         var dengdai10s = 10;
         for (dengdai10s == 10; dengdai10s > 0; dengdai10s--) {
-            toastLog("正在完成“去浏览”任务\n剩余" + dengdai10s + "秒……")
+            toastLog("正在完成“浏览15秒”任务\n剩余" + dengdai10s + "秒……")
             sleep(2000);
             swipe(width / 2, height - 600, width / 2, 0, 500);
         }
@@ -668,14 +669,14 @@ function main_js_clickAll15s() {
         textContains("去搜索").findOne().click();
         var dengdai10s = 10;
         for (dengdai10s == 10; dengdai10s > 0; dengdai10s--) {
-            toastLog("正在完成“去浏览”任务\n剩余" + dengdai10s + "秒……")
+            toastLog("正在完成“去搜索”任务\n剩余" + dengdai10s + "秒……")
             sleep(2000);
             swipe(width / 2, height - 600, width / 2, 0, 500);
         }
         Justback();
     }
 
-    if (textContains("淘宝人生").exists()) {
+    /*if (textContains("淘宝人生").exists()) {
         textContains("淘宝人生").findOne().click();
         var dengdai10s = 10;
         for (dengdai10s == 10; dengdai10s > 0; dengdai10s--) {
@@ -688,7 +689,7 @@ function main_js_clickAll15s() {
             click(width / 2, y_half + y_half / 3);
             Justback();
         }
-    }
+    }*/
     if (textContains("前往双12互动群签到(0/1) 签到得10000能量 去签到").exists()) {
         textContains("前往双12互动群签到(0/1) 签到得10000能量 去签到").findOne().click();
         var dengdai10s = 5;
