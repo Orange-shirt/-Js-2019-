@@ -510,6 +510,9 @@ function click_powerˉqiandao() {
     if (width == 1080, height == 1920) {
         click(width - 130, height - 320);
     } //1920*1080分辨率完美支持！（已测试通过）
+    else if (width == 1440, height == 2880) {
+        click(width - 170, height - 700)
+    } //2880*1440分辨率采用反馈坐标
     else if (width == 720, height == 1520) {
         click(width - 85, height - 430);
     } //1520*720分辨率以得出计算值（实机测试后的坐标为1090,638）
