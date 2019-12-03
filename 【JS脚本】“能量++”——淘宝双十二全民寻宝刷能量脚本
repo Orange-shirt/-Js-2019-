@@ -630,39 +630,62 @@ function main_js_clickAll15s() {
             Justback();
         }
     }*/
-    while (textContains("浏览15秒").exists()) {
-        textContains("浏览15秒").findOne().click();
-        var dengdai10s = 10;
-        for (dengdai10s == 10; dengdai10s > 0; dengdai10s--) {
-            toastLog("正在完成“浏览15秒”任务\n剩余" + dengdai10s + "秒……")
-            sleep(2000);
-            swipe(width / 2, height - 600, width / 2, 0, 500);
-        }
-        if (currentActivity() == "com.taobao.tao.TBMainActivity") {
-            app.startActivity({
-                packageName: "com.taobao.taobao",
-                className: "com.taobao.search.searchdoor.SearchDoorActivity"
-            });
-            toastLog("若长时间没有打开淘宝搜索\n请自行打开淘宝至搜索界面！");
-            waitForActivity("com.taobao.search.searchdoor.SearchDoorActivity");
-            sleep(1000);
-            setText("双十二全民寻宝");
-            if (text("搜索").exists()) {
-                text("搜索").findOne().click();
+    while (textContains("去浏览").exists()) {
+        textContains("去浏览").findOne().click();
+        sleep(2000);
+        if (currentActivity() == "com.taobao.browser.MultiBrowserActivity") {
+            Justback();
+            if (textContains("离开").exists()) {
+                textContains("离开").findOne().click();
             }
-            jinhuodong();
-            if (context_Manualstate == 1) {
-                dialogs.alert("您当前已手动调用界面模式运行！\n请准备点击“充能量”按钮进入“充能量中心”即可！\n\n准备好了就点“确定”哦～");
-                var Tips_clickbutton = 5;
-                for (Tips_clickbutton == 5; Tips_clickbutton > 0; Tips_clickbutton--) {
-                    toastLog("请点击“充能量”按钮进入充能量中心即可\n剩余" + Tips_clickbutton + "秒后开始进行自动任务……");
-                    sleep(2000);
+            sleep(1000);
+            if (currentActivity() == "com.taobao.browser.MultiBrowserActivity") {
+                Justback();
+                if (textContains("离开").exists()) {
+                    textContains("离开").findOne().click();
                 }
-            } else {
-                click_powerˉqiandao();
+                sleep(1000);
+                if (currentActivity() == "com.taobao.browser.MultiBrowserActivity") {
+                    Justback();
+                    if (textContains("离开").exists()) {
+                        textContains("离开").findOne().click();
+                    }
+                    sleep(1000);
+                }
             }
         } else {
-            Justback();
+            var dengdai10s = 10;
+            for (dengdai10s == 10; dengdai10s > 0; dengdai10s--) {
+                toastLog("正在完成“浏览15秒”任务\n剩余" + dengdai10s + "秒……")
+                sleep(2000);
+                swipe(width / 2, height - 600, width / 2, 0, 500);
+            }
+            if (currentActivity() == "com.taobao.tao.TBMainActivity") {
+                app.startActivity({
+                    packageName: "com.taobao.taobao",
+                    className: "com.taobao.search.searchdoor.SearchDoorActivity"
+                });
+                toastLog("若长时间没有打开淘宝搜索\n请自行打开淘宝至搜索界面！");
+                waitForActivity("com.taobao.search.searchdoor.SearchDoorActivity");
+                sleep(1000);
+                setText("双十二全民寻宝");
+                if (text("搜索").exists()) {
+                    text("搜索").findOne().click();
+                }
+                jinhuodong();
+                if (context_Manualstate == 1) {
+                    dialogs.alert("您当前已手动调用界面模式运行！\n请准备点击“充能量”按钮进入“充能量中心”即可！\n\n准备好了就点“确定”哦～");
+                    var Tips_clickbutton = 5;
+                    for (Tips_clickbutton == 5; Tips_clickbutton > 0; Tips_clickbutton--) {
+                        toastLog("请点击“充能量”按钮进入充能量中心即可\n剩余" + Tips_clickbutton + "秒后开始进行自动任务……");
+                        sleep(2000);
+                    }
+                } else {
+                    click_powerˉqiandao();
+                }
+            } else {
+                Justback();
+            }
         }
     }
     while (textContains("去搜索").exists()) {
