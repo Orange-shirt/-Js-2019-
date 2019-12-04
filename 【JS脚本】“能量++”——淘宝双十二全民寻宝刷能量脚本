@@ -618,9 +618,9 @@ function main_js_clickAll15s() {
     }
     while (textContains("去浏览").exists()) {
         textContains("去浏览").findOne().click();
-        sleep(2000);
+        sleep(3000);
         if (currentActivity() == "com.taobao.tao.TBMainActivity") {
-            sleep(1000);
+            sleep(3000);
             if (text("每日首次点击频道卡片，领惊喜能量值").exists()) {
                 sleep(1000);
                 if (text("支付宝").exists()) {
@@ -670,6 +670,26 @@ function main_js_clickAll15s() {
                     }
                 }
             } //判断是不是在进行“去我的淘宝点击访问频道(0/1) 点击频道得10000能量 去浏览”任务
+            if (text("猜你喜欢").exists()) {
+                var dengdai10s = 10;
+                for (dengdai10s == 10; dengdai10s > 0; dengdai10s--) {
+                    toastLog("正在完成“浏览15秒”任务\n剩余" + dengdai10s + "秒……")
+                    sleep(2000);
+                    swipe(width / 2, height - 600, width / 2, 0, 500);
+                }
+                openTBandsearch();
+                jinhuodong();
+                if (context_Manualstate == 1) {
+                    dialogs.alert("您当前已手动调用界面模式运行！\n请准备点击“充能量”按钮进入“充能量中心”即可！\n\n准备好了就点“确定”哦～");
+                    var Tips_clickbutton = 5;
+                    for (Tips_clickbutton == 5; Tips_clickbutton > 0; Tips_clickbutton--) {
+                        toastLog("请点击“充能量”按钮进入充能量中心即可\n剩余" + Tips_clickbutton + "秒后开始进行自动任务……");
+                        sleep(2000);
+                    }
+                } else {
+                    click_powerˉqiandao();
+                }
+            } //判断是不是在进行浏览15秒“猜你喜欢”页面
         } else if (currentActivity() == "com.taobao.browser.MultiBrowserActivity") {
             Justback();
             if (textContains("离开").exists()) {
@@ -684,8 +704,9 @@ function main_js_clickAll15s() {
                 sleep(1000);
                 if (currentActivity() == "com.taobao.browser.MultiBrowserActivity") {
                     Justback();
-                    if (textContains("离开").exists()) {
-                        textContains("离开").findOne().click();
+                    if (id("button2").exists()) {
+                        var H = id("button2").findOne().bounds();
+                        click(H.centerX(), H.centerY());
                     }
                     sleep(1000);
                 }
@@ -763,6 +784,28 @@ function main_js_clickAll15s() {
             }
         } else {
             click_powerˉqiandao();
+        }
+    }
+    if (textContains("去拍摄").exists()) {
+        textContains("去拍摄").findOne().click();
+        sleep(3000);
+        if (id("scan_icon").exists()) {
+            toastLog("正在完成“去拍摄”任务\n已找到了“扫描按钮”");
+            var G = id("scan_icon").findOne().bounds();
+            click(G.centerX(), G.centerY());
+            sleep(3000);
+            openTBandsearch();
+            jinhuodong();
+            if (context_Manualstate == 1) {
+                dialogs.alert("您当前已手动调用界面模式运行！\n请准备点击“充能量”按钮进入“充能量中心”即可！\n\n准备好了就点“确定”哦～");
+                var Tips_clickbutton = 5;
+                for (Tips_clickbutton == 5; Tips_clickbutton > 0; Tips_clickbutton--) {
+                    toastLog("请点击“充能量”按钮进入充能量中心即可\n剩余" + Tips_clickbutton + "秒后开始进行自动任务……");
+                    sleep(2000);
+                }
+            } else {
+                click_powerˉqiandao();
+            }
         }
     }
 }
