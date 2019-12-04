@@ -692,14 +692,16 @@ function main_js_clickAll15s() {
             } //判断是不是在进行浏览15秒“猜你喜欢”页面
         } else if (currentActivity() == "com.taobao.browser.MultiBrowserActivity") {
             Justback();
-            if (textContains("离开").exists()) {
-                textContains("离开").findOne().click();
+            if (id("button2").exists()) {
+                var H = id("button2").findOne().bounds();
+                click(H.centerX(), H.centerY());
             }
             sleep(1000);
             if (currentActivity() == "com.taobao.browser.MultiBrowserActivity") {
                 Justback();
-                if (textContains("离开").exists()) {
-                    textContains("离开").findOne().click();
+                if (id("button2").exists()) {
+                    var H = id("button2").findOne().bounds();
+                    click(H.centerX(), H.centerY());
                 }
                 sleep(1000);
                 if (currentActivity() == "com.taobao.browser.MultiBrowserActivity") {
