@@ -507,41 +507,13 @@ if (context_Manualstate == 1) {
 }
 
 function click_powerˉqiandao() {
-    if (width == 1080, height == 1920) {
-        click(width - 130, height - 320);
-    } //1920*1080分辨率完美支持！（已测试通过）
-    else if (width == 1440, height == 2880) {
-        click(width - 170, height - 700)
-    } //2880*1440分辨率采用反馈坐标
-    else if (width == 720, height == 1520) {
-        click(width - 85, height - 430);
-    } //1520*720分辨率以得出计算值（实机测试后的坐标为1090,638）
-    else if (width == 1080, height == 2340) {
-        click(width - 130, height - 740);
-    } //2340*1080分辨率完美支持！（已测试通过）
-    else if (width == 1080, height == 2280) {
-        click(width - 130, height - 680);
-    } //2280*1080分辨率已得出计算值
-    else if (width == 1080, height == 2232) {
-        click(width - 130, height - 632);
-    } //2232*1080分辨率已得出计算值
-    else if (width == 1080, height == 2160) {
-        click(width - 130, height - 560);
-    } //2160*1080分辨率以得出计算值
-    else if (width == 1080, height == 2244) {
-        click(width - 130, height - 644);
-    } //2244*1080分辨率以得出计算值
-    else if (width == 1080, height == 2400) {
-        click(width - 130, height - 800);
-    } //2400*1080分辨率已得出计算值
-    else if (width == 1080, height == 2248) {
-        click(width - 130, height - 648);
-    } //2248*1080分辨率已得出计算值
-    else if (width == 1080, height >= 1600) {
-        var y_1080 = height - 1600;
-        click(width - 130, 0 - y_1080);
-    } //其它宽度为1080的设备通过计算得出y值坐标
-    else {
+    if (width == 1080) {
+        click(950, 1600);
+    } else if (width == 1440) {
+        click(1270, 2180);
+    } else if (width == 720) {
+        click(638, 1090);
+    } else {
         toastLog("正在找图，不要急哦");
         var img = images.load("https://s2.ax1x.com/2019/12/02/QnNQ10.png");
         var templ = images.load("https://s2.ax1x.com/2019/12/02/QnU38I.png");
