@@ -8,7 +8,7 @@ var width = device.width;
 function dialogs_js() {
     var ScriptVersion = ("Alpha1.1.0"); //版本
     log("软件脚本已开始运行，如果没有弹出菜单请强行停止再打开本软件！");
-    var options_ = ["▶️ 开始运行脚本", "🕒 定时运行脚本", "⏹ 停止运行脚本", "🌐 向作者反馈问题", "💬 QQ分享给好友", "*️⃣ 脚本介绍&作者信息", "🔧 手动调用界面运行模式"]
+    var options_ = ["▶️ 开始运行脚本\nᴰᵉᵛⁱᶜᵉ ʷⁱᵈᵗʰ ┄ ⁷²⁰'¹⁰⁸⁰'¹⁴⁴⁰ √", "🕒 定时运行脚本", "⏹ 停止运行脚本", "🌐 向作者反馈问题", "💬 QQ分享给好友", "*️⃣ 脚本介绍&作者信息", "🔧 手动调用界面运行模式"]
     var i = dialogs.select("欢迎使用 (◍•ᴗ•◍)❤" + "\n" + "“能量++”" + ScriptVersion + "\n请选择一个要进行的选项", options_);
     if (i < 0) {
         toastLog("没有选择，如需关闭对话框\n  请选择“停止运行脚本”");
@@ -411,9 +411,20 @@ function openTBandsearch() {
         className: "com.taobao.search.searchdoor.SearchDoorActivity"
     });
     toastLog("若长时间没有打开淘宝\n请自行打开淘宝至搜索界面！");
-    waitForActivity("com.taobao.search.searchdoor.SearchDoorActivity");
-    sleep(1000);
-    setText("双十二全民寻宝");
+    sleep(2000);
+    if (id("searchbar_inner").exists()) {
+        setClip("双十二全民寻宝");
+        var deng_clip = 5;
+        for (deng_clip == 5; deng_clip > 0; deng_clip--) {
+            sleep(1000);
+            toastLog("请等待" + deng_clip + "秒……\n因为有的设备会安装有Fv悬浮球会有5秒的弹窗");
+        }
+        setText(getClip());
+    } else {
+        waitForActivity("com.taobao.search.searchdoor.SearchDoorActivity");
+        sleep(1000);
+        setText("双十二全民寻宝");
+    }
     if (text("搜索").exists()) {
         text("搜索").findOne().click();
     }
