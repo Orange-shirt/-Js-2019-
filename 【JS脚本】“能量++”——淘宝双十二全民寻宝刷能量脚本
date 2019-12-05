@@ -947,4 +947,5 @@ main_js_clickAll15s();
 sleep(1000);
 main_js_clickAll15s();
 dialogs.alert("(☞ﾟ∀ﾟ)☞\n(☞^o^) ☞     脚本已运行完毕\n(☞ ͡° ͜ʖ ͡°)☞    赶快去掷骰子吧", "检测不到任务喽～\n如有遗漏请自行操作或再次运行\n如有任何问题欢迎向作者反馈哦～\n\n脚本作者@橘衫下邂逅的时光");
+device.cancelKeepingAwake();
 exit();
