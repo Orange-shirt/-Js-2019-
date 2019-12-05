@@ -52,6 +52,8 @@ function dialogs_js() {
             dialogs_js();
         }
     } else if (i == 1) {
+        device.keepScreenDim();
+        toastLog("检测权限设置……");
         context_Manualstate = 0;
         toastLog("等待无障碍权限开启……\n您必须手动授予本软件无障碍权限\n否则本软件将无法工作！");
         sleep(3000);
@@ -142,6 +144,7 @@ function Set_Back_way() {
         context_i_back = i_back;
     } else {
         toastLog("没有选择返回方法！");
+        device.cancelKeepingAwake();
         dialogs_js();
     }
     if (i_back >= 2) {
@@ -180,7 +183,7 @@ function Set_Back_way() {
     }
     if (iix < 0) {
         toastLog("没有选择滑动速度");
-        exit();
+        Set_Back_way();
     }
 }
 sleep(1000);
@@ -193,6 +196,7 @@ function wait_Time_over() {
     var i_wait = dialogs.singleChoice("🕗 定时运行\n\n(＾∇＾)ﾉ♪\n请选择一个选项\n计时结束会自动运行", ["1分钟后运行", "5分钟后运行", "10分钟后运行", "30分钟后运行", "一小时后运行", "两小时后运行", "三小时后运行", "五小时后运行", "八小时后运行"], 2);
     if (i_wait < 0) {
         toast("您取消了选择");
+        device.cancelKeepingAwake();
         dialogs_js();
     }
     if (i_wait >= 0) {
