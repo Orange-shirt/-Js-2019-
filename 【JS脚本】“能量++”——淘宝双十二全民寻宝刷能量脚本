@@ -724,7 +724,7 @@ function main_js_clickAll15s() {
                 }
             } //判断是不是在进行浏览15秒“猜你喜欢”页面
         } else if (currentActivity() == "com.taobao.browser.MultiBrowserActivity") {
-            Justback();
+            /*Justback();
             sleep(2000);
             if (text("已完成").exists()) {
                 toastLog("已返回活动界面")
@@ -750,6 +750,24 @@ function main_js_clickAll15s() {
                         sleep(1000);
                     }
                 }
+            }*/
+            var dengdai10s = 10;
+            for (dengdai10s == 10; dengdai10s > 0; dengdai10s--) {
+                toastLog("正在完成“去看看淘宝人生”任务\n等待加载剩余" + dengdai10s + "秒……")
+                sleep(2000);
+            }
+            toastLog("已完成“淘宝人生”任务");
+            openTBandsearch();
+            jinhuodong();
+            if (context_Manualstate == 1) {
+                dialogs.alert("您当前已手动调用界面模式运行！\n请准备点击“充能量”按钮进入“充能量中心”即可！\n\n准备好了就点“确定”哦～");
+                var Tips_clickbutton = 5;
+                for (Tips_clickbutton == 5; Tips_clickbutton > 0; Tips_clickbutton--) {
+                    toastLog("请点击“充能量”按钮进入充能量中心即可\n剩余" + Tips_clickbutton + "秒后开始进行自动任务……");
+                    sleep(2000);
+                }
+            } else {
+                click_powerˉqiandao();
             }
         } else {
             var dengdai10s = 10;
