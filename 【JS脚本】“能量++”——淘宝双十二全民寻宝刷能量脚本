@@ -2,6 +2,7 @@ if (app.versionName == "Alpha1.0") {
         var Update_app=dialogs.confirm("(*^ω^*)\n有更稳定的版本可用哦～", "目前本软件有两个版本哦～ 您使用的是Github脚本源的版本，由于Github服务器的原因，您可能会遇到“无法获取脚本”的问题，建议您下载新的阿里云脚本源的Alpha1.1.0版本哦～\n两个版本的脚本保持一致并同步更新的，体验会更好的内～但如果您能正常使用的话也可以不用下载\n\n如需下载请点击“确定”");
         if (Update_app) {
             app.openUrl("https://www.lanzous.com/i7t4oqf");
+            exit();
         }
     }
 
