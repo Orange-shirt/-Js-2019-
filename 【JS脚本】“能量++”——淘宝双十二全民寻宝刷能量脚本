@@ -26,7 +26,7 @@ function dialogs_js() {
         dialogs_js();
     } else if (i == 4) {
         toastLog(options_[i]);
-        var content = ("嘿！分享一个好用的软件给你“能量++”，它几乎可以完美代替双手完成“淘宝双十二全民寻宝”的任务并增加能量哦，该软件使用“Auto.js”制作，且作者开放了脚本代码，绝对安全可靠！一键运行，支持安卓7及以上系统且屏幕宽度为720/1080/1440的所有设备哦，快来下载试试看吧～"+xiazai);
+        var content = ("嘿！分享一个好用的软件给你，软件名叫“能量++”，它可以完美代替双手完成“淘宝双十二全民寻宝”的任务并增加能量哦，该软件使用“Auto.js”制作，且作者开放了脚本代码，绝对安全可靠！一键运行，支持安卓7及以上系统且屏幕宽度为720/1080/1440的所有设备哦，快来下载试试看吧～"+xiazai);
         app.startActivity({
             action: "android.intent.action.SEND",
             type: "text/*",
