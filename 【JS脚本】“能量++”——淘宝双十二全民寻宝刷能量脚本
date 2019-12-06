@@ -1,11 +1,11 @@
 dialogs_js();
 
 /*⏬⏬⏬*/
-var xiazai = ("软件下载链接戳 https://www.lanzous.com/i7sb57i");
 var height = device.height;
 var width = device.width;
 
 function dialogs_js() {
+    var xiazai = ("软件下载链接戳 https://www.lanzous.com/i7t4oqf");
     var ScriptVersion = ("Alpha1.2.0"); //版本
     log("软件脚本已开始运行，如果没有弹出菜单请强行停止再打开本软件！");
     var options_ = ["▶️ 开始运行脚本", "🕒 定时运行脚本", "⏹ 停止运行脚本", "🌐 向作者反馈问题", "💬 QQ分享给好友", "*️⃣ 脚本介绍&作者信息", "🔧 手动调用界面运行模式", "ℹ️ Q&A常见问题解答"]
@@ -26,7 +26,7 @@ function dialogs_js() {
         dialogs_js();
     } else if (i == 4) {
         toastLog(options_[i]);
-        var content = ("嘿！分享一个好用的软件给你，它几乎可以完美代替双手完成“淘宝双十二全民寻宝”的任务并增加能量哦，该软件使用“Auto.js”制作，且作者开放了脚本代码，绝对安全可靠！快来下载试试看吧～" + xiazai);
+        var content = ("嘿！分享一个好用的软件给你“能量++”，它几乎可以完美代替双手完成“淘宝双十二全民寻宝”的任务并增加能量哦，该软件使用“Auto.js”制作，且作者开放了脚本代码，绝对安全可靠！一键运行，支持安卓7及以上系统且屏幕宽度为720/1080/1440的所有设备哦，快来下载试试看吧～"+xiazai);
         app.startActivity({
             action: "android.intent.action.SEND",
             type: "text/*",
