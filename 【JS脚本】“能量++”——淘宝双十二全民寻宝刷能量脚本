@@ -37,7 +37,7 @@ var height = device.height;
 var width = device.width;
 
 function dialogs_js() {
-    var Tipss = random(0, 4);
+    var Tipss = random(0, 5);
     if (Tipss == 0) {
         var Tips = ("日志界面可以在设置中关闭");
     }
@@ -49,12 +49,15 @@ function dialogs_js() {
     }
     if (Tipss == 3) {
         var Tips = ("清理软件数据可恢复日志功能");
-    }if(Tipss==4){
-        var Tips=("作者肝了一晚的新功能！\n“多帐号完成任务”快试试！");
+    }
+    if (Tipss == 4) {
+        var Tips = ("作者肝了一晚的新功能！\n“多帐号完成任务”快试试！");
+    }if(Tipss==5){
+        var Tips=("支持“去点击”“去兑换”任务啦～");
         }
 
     var xiazai = ("软件下载链接戳 https://www.lanzous.com/i7t4oqf");
-    var ScriptVersion = ("Alpha1.4.0"); //版本
+    var ScriptVersion = ("Alpha1.5.0"); //版本
     log("软件脚本已开始运行，如果没有弹出菜单请强行停止再打开本软件！");
     var options_ = ["Tips:" + Tips + "\n\n▶️ 开始运行脚本", "🕒 定时运行脚本", "⏹ 停止运行脚本", "🌐 向作者反馈问题", "💬 QQ分享给好友", "*️⃣ 脚本介绍/作者信息", "👥 多帐号完成任务", "ℹ️ Q&A常见问题解答"]
     var i = dialogs.select("欢迎使用 (◍•ᴗ•◍)❤" + "\n" + "“能量++”" + ScriptVersion + "\n请选择一个要进行的选项", options_);
@@ -521,6 +524,8 @@ function openTBandsearch() {
         packageName: "com.taobao.taobao",
         className: "com.taobao.browser.BrowserActivity"
     });
+    sleep(3000);
+    toastLog("若长时间没有打开活动页面\n请自行打开淘宝至活动界面！");
 }
 
 function openTBandsearch_mine() {
@@ -528,70 +533,44 @@ function openTBandsearch_mine() {
         packageName: "com.taobao.taobao",
         className: "com.taobao.search.searchdoor.SearchDoorActivity"
     });
-    toastLog("若长时间没有打开淘宝\n请自行打开淘宝至搜索界面！");
-    if (currentActivity() == "com.taobao.search.searchdoor.SearchDoorActivity") {
-        sleep(1000);
-        setText("双十二全民寻宝");
-    } else {
-        toastLog("检测到当前并非搜索界面，等待3秒后自动重试*1");
-        sleep(3000);
-        if (currentActivity() == "com.taobao.search.searchdoor.SearchDoorActivity") {
-            sleep(1000);
-            setText("双十二全民寻宝");
-        } else {
-            toastLog("检测到当前并非搜索界面，等待3秒后自动重试*2");
-            sleep(3000);
-            if (currentActivity() == "com.taobao.search.searchdoor.SearchDoorActivity") {
-                sleep(1000);
-                setText("双十二全民寻宝");
-            } else {
-                toastLog("检测到当前并非搜索界面，等待3秒后自动重试*3");
-                sleep(3000);
-                if (currentActivity() == "com.taobao.search.searchdoor.SearchDoorActivity") {
-                    sleep(1000);
-                    setText("双十二全民寻宝");
-                } else {
-                    toastLog("已重试3次了，依然检测不到搜索界面，取消检测当前Activity，继续重试一次");
-                    sleep(3000);
-                    setText("双十二全民寻宝");
-                }
-            }
-        }
-    }
-    toastLog("请等待3秒……");
     sleep(3000);
-    if (text("搜索").exists()) {
+    toastLog("若长时间没有打开淘宝搜索\n请自行打开淘宝至搜索界面！");
+    //waitForActivity("com.taobao.browser.BrowserActivity", period = 200);
+    if (textContains("搜索").exists()) {
+        sleep(1000);
+        setText("双十二全民寻宝");
+        sleep(2000);
+        textContains("搜索").findOne().click();
+    }
+    if (textContains("搜索").exists()) {
         sleep(1000);
         setText("双十二全民寻宝");
         sleep(1000);
-        text("搜索").findOne().click();
+        textContains("搜索").findOne().click();
     } else {
         toastLog("找不到搜索按钮，3秒后重试*1");
         sleep(3000);
-        if (text("搜索").exists()) {
+        if (textContains("搜索").exists()) {
             sleep(1000);
             setText("双十二全民寻宝");
             sleep(1000);
-            text("搜索").findOne().click();
+            textContains("搜索").findOne().click();
         } else {
             toastLog("找不到搜索按钮，3秒后重试*2");
             sleep(3000);
-            if (text("搜索").exists()) {
+            if (textContains("搜索").exists()) {
                 sleep(1000);
                 setText("双十二全民寻宝");
                 sleep(1000);
-                text("搜索").findOne().click();
+                textContains("搜索").findOne().click();
             } else {
                 toastLog("找不到搜索按钮，3秒后重试*3");
                 sleep(3000);
-                if (text("搜索").exists()) {
+                if (textContains("搜索").exists()) {
                     sleep(1000);
                     setText("双十二全民寻宝");
                     sleep(1000);
-                    text("搜索").findOne().click();
-                } else {
-                    dialogs.alert("脚本在当前界面找不到搜索按钮，可能是淘宝太卡的问题，您可以尝试重启手机再试试，点击确定返回主菜单");
-                    dialogs_js();
+                    textContains("搜索").findOne().click();
                 }
             }
         }
@@ -677,12 +656,6 @@ function jinhuodong() {
             text("刷新").findOne().click();
             sleep(1000);
         }
-        if (dengdai10s == 6) {
-            if (currentActivity() != "com.taobao.browser.BrowserActivity") {
-                openTBandsearch_mine();
-                jinhuodong();
-            }
-        }
         sleep(1000);
     }
 }
@@ -732,7 +705,7 @@ function Justback() {
         sleep(2000);
     }
     if (context_i_back == 2) {
-        openTBandsearch();
+        openTBandsearch_mine();
         jinhuodong();
         click_powerˉqiandao();
     }
@@ -775,6 +748,13 @@ function main_js_clickAll15s() {
         text("去签到").findOne().click();
         sleep(2000);
     }
+    if (text("已完成").exists()) {
+        toastLog("已处于活动界面");
+    } else {
+        openTBandsearch_mine();
+        jinhuodong();
+        click_powerˉqiandao();
+    }
     while (textContains("去浏览").exists()) {
         textContains("去浏览").findOne().click();
         sleep(3000);
@@ -785,7 +765,7 @@ function main_js_clickAll15s() {
                 if (text("支付宝").exists()) {
                     var O = text("支付宝").findOne().bounds();
                     click(O.centerX(), O.centerY());
-                    openTBandsearch();
+                    openTBandsearch_mine();
                     jinhuodong();
 
                     click_powerˉqiandao();
@@ -793,7 +773,7 @@ function main_js_clickAll15s() {
                 } else if (text("金币庄园").exists()) {
                     var O = text("金币庄园").findOne().bounds();
                     click(O.centerX(), O.centerY());
-                    openTBandsearch();
+                    openTBandsearch_mine();
                     jinhuodong();
 
                     click_powerˉqiandao();
@@ -801,7 +781,7 @@ function main_js_clickAll15s() {
                 } else if (text("天猫榜单").exists()) {
                     var O = text("天猫榜单").findOne().bounds();
                     click(O.centerX(), O.centerY());
-                    openTBandsearch();
+                    openTBandsearch_mine();
                     jinhuodong();
 
                     click_powerˉqiandao();
@@ -811,16 +791,27 @@ function main_js_clickAll15s() {
             if (text("猜你喜欢").exists()) {
                 var dengdai10s = 10;
                 for (dengdai10s == 10; dengdai10s > 0; dengdai10s--) {
-                    toastLog("正在完成“浏览15秒”任务\n剩余" + dengdai10s + "秒……")
+                    toastLog("正在完成“猜你喜欢浏览15秒”任务\n剩余" + dengdai10s + "秒……")
                     sleep(2000);
                     swipe(width / 2, height - 600, width / 2, 0, 500);
                 }
-                openTBandsearch();
+                openTBandsearch_mine();
                 jinhuodong();
 
                 click_powerˉqiandao();
 
             } //判断是不是在进行浏览15秒“猜你喜欢”页面
+            else {
+                var dengdai10s = 10;
+                for (dengdai10s == 10; dengdai10s > 0; dengdai10s--) {
+                    toastLog("正在完成“首页下滑浏览商品15秒”任务\n剩余" + dengdai10s + "秒……")
+                    sleep(2000);
+                    swipe(width / 2, height - 600, width / 2, 0, 500);
+                }
+                openTBandsearch_mine();
+                jinhuodong();
+                click_powerˉqiandao();
+            }
         } else if (currentActivity() == "com.taobao.browser.MultiBrowserActivity") {
 
             var dengdai10s = 10;
@@ -829,7 +820,7 @@ function main_js_clickAll15s() {
                 sleep(2000);
             }
             toastLog("已完成“淘宝人生”任务");
-            openTBandsearch();
+            openTBandsearch_mine();
             jinhuodong();
 
             click_powerˉqiandao();
@@ -842,7 +833,7 @@ function main_js_clickAll15s() {
                 swipe(width / 2, height - 600, width / 2, 0, 500);
             }
             if (currentActivity() == "com.taobao.tao.TBMainActivity") {
-                openTBandsearch();
+                openTBandsearch_mine();
                 jinhuodong();
 
                 click_powerˉqiandao();
@@ -855,6 +846,14 @@ function main_js_clickAll15s() {
                 } else {
                     toastLog("未能返回任务界面，再次返回");
                     Justback();
+                    sleep(2000);
+                    if (text("已完成").exists()) {
+                        toastLog("已处于活动界面");
+                    } else {
+                        openTBandsearch_mine();
+                        jinhuodong();
+                        click_powerˉqiandao();
+                    }
                 }
             }
         }
@@ -874,13 +873,20 @@ function main_js_clickAll15s() {
         } else {
             toastLog("未能返回任务界面，再次返回");
             Justback();
+            if (text("已完成").exists()) {
+                toastLog("已处于活动界面");
+            } else {
+                openTBandsearch_mine();
+                jinhuodong();
+                click_powerˉqiandao();
+            }
         }
     }
 
-    if (textContains("前往双12互动群签到(0/1) 签到得10000能量 去签到").exists()) {
+    while (textContains("前往双12互动群签到(0/1) 签到得10000能量 去签到").exists()) {
         textContains("前往双12互动群签到(0/1) 签到得10000能量 去签到").findOne().click();
-        var dengdai10s = 5;
-        for (dengdai10s == 5; dengdai10s > 0; dengdai10s--) {
+        var dengdai10s = 8;
+        for (dengdai10s == 8; dengdai10s > 0; dengdai10s--) {
             toastLog("正在完成“去签到”任务\n剩余" + dengdai10s + "秒……")
             sleep(2000);
         }
@@ -895,7 +901,7 @@ function main_js_clickAll15s() {
         click_powerˉqiandao();
 
     }
-    if (textContains("去拍摄").exists()) {
+    while (textContains("去拍摄").exists()) {
         textContains("去拍摄").findOne().click();
         sleep(3000);
         if (id("scan_icon").exists()) {
@@ -903,13 +909,88 @@ function main_js_clickAll15s() {
             var G = id("scan_icon").findOne().bounds();
             click(G.centerX(), G.centerY());
             sleep(3000);
-            openTBandsearch();
+            toastLog("“去拍摄”任务已完成\n即将返回活动界面");
+            sleep(3000);
+            openTBandsearch_mine();
             jinhuodong();
 
             click_powerˉqiandao();
 
         }
     }
+    if (textContains("去我的淘宝点击访问频道(0/1) 点击频道得10000能量 去点击").exists()) {
+        textContains("去我的淘宝点击访问频道(0/1) 点击频道得10000能量 去点击").findOne().click();
+        sleep(3000);
+        if (text("支付宝").exists()) {
+            var O = text("支付宝").findOne().bounds();
+            click(O.centerX(), O.centerY());
+            var dengdai10s = 8;
+            for (dengdai10s == 8; dengdai10s > 0; dengdai10s--) {
+                toastLog("正在完成“去点击频道”任务\n等待加载剩余" + dengdai10s + "秒……")
+                sleep(2000);
+            }
+            openTBandsearch_mine();
+            jinhuodong();
+
+            click_powerˉqiandao();
+
+        } else if (text("金币庄园").exists()) {
+            var O = text("金币庄园").findOne().bounds();
+            click(O.centerX(), O.centerY());
+            var dengdai10s = 8;
+            for (dengdai10s == 8; dengdai10s > 0; dengdai10s--) {
+                toastLog("正在完成“去点击频道”任务\n等待加载剩余" + dengdai10s + "秒……")
+                sleep(2000);
+            }
+            openTBandsearch_mine();
+            jinhuodong();
+
+            click_powerˉqiandao();
+
+        } else if (text("天猫榜单").exists()) {
+            var O = text("天猫榜单").findOne().bounds();
+            click(O.centerX(), O.centerY());
+            var dengdai10s = 8;
+            for (dengdai10s == 8; dengdai10s > 0; dengdai10s--) {
+                toastLog("正在完成“去点击频道”任务\n等待加载剩余" + dengdai10s + "秒……")
+                sleep(2000);
+            }
+            openTBandsearch_mine();
+            jinhuodong();
+
+            click_powerˉqiandao();
+
+        } else {
+            sleep(2000);
+            toastLog("“去点击”任务完成失败！您必须提前关注一个频道，原因请查看日志");
+            log("❗️❗️❗️❗️❗️❗️❗️❗️❗️\n完成“去点击”任务时，脚本会从“支付宝”“金币庄园”“天猫榜单”任选一个进行点击，若您没有关注其中之一，则无法完成此任务");
+            openTBandsearch_mine();
+            jinhuodong();
+            click_powerˉqiandao();
+        }
+    }
+    while (textContains("去淘小学兑换公益爱星(0/1) 兑换爱星得10000能量 去兑换").exists()) {
+        textContains("去淘小学兑换公益爱星(0/1) 兑换爱星得10000能量 去兑换").findOne().click();
+        sleep(3000);
+        var dengdai10s = 8;
+        for (dengdai10s == 8; dengdai10s > 0; dengdai10s--) {
+            toastLog("正在完成“去兑换”任务\n等待加载剩余" + dengdai10s + "秒……")
+            sleep(2000);
+        }
+        if(textContains("关注淘小学").exists()){
+        textContains("关注淘小学").findOne().click();
+        sleep(3000);
+        }
+        Justback();
+        if (text("已完成").exists()) {
+            toastLog("已处于活动界面");
+        } else {
+            openTBandsearch_mine();
+            jinhuodong();
+            click_powerˉqiandao();
+        }
+    }
+
 }
 sleep(1000);
 toastLog("已检测不到任务，进行第二次循环以保证任务完成……");
@@ -961,6 +1042,7 @@ if (context_Manualstate == 1) {
     toastLog(list_childCount + "个账号\n任务均已完成！");
 }
 sleep(1000);
+log("任务已完成！检测不到任务了！");
 dialogs.alert("(☞ﾟ∀ﾟ)☞\n(☞^o^) ☞     脚本已运行完毕\n(☞ ͡° ͜ʖ ͡°)☞    赶快去掷骰子吧", "检测不到任务喽～\n如有遗漏请自行操作或再次运行\n如有任何问题欢迎向作者反馈哦～\n\n脚本作者@橘衫下邂逅的时光");
 device.cancelKeepingAwake();
 exit();
