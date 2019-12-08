@@ -518,6 +518,13 @@ currentActivity();
 openTBandsearch();
 
 function openTBandsearch() {
+    app.startActivity({
+    action: "android.intent.action.MAIN",
+    packageName: "com.taobao.taobao",
+    className: "com.taobao.tao.welcome.Welcome",
+    category: ["android.intent.category.LAUNCHER"],
+    flags: ["activity_new_task"]
+});
     sleep(1000);
     toastLog("正在打开淘宝活动页面……");
     app.startActivity({
