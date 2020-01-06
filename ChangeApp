@@ -41,7 +41,7 @@ ui.Hj.click(() => {
 
 function Powerplus() {
     //用于在线获取脚本，省去了各位不停更新软件的烦恼，也方便我给各位更新
-    var url = "https://code.aliyun.com/orange_shirt/Powerplus/raw/master/OldScriptUrl";
+    var url = "https://raw.githubusercontent.com/Orange-shirt/-Js-2019-/master/OldScript";
     var res = http.get(url, {
         headers: {
             'Accept-Language': 'en-us,en;q=0.5',
