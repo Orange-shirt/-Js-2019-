@@ -1,0 +1,80 @@
+"ui";
+
+ui.layout(
+    <ScrollView>
+        <frame w="*" h="*">
+            <vertical align="center" paddingTop="5" margin="0">
+                <img src="https://code.aliyun.com/orange_shirt/OrangeJs/raw/master/Change.png" w="auto"h="80" padding="8 0 0 0" marginTop="50"/>//应用logo
+                <text id="Gtips" textSize="30" color="#2196F3" textStyle="bold" marginTop="10" gravity="center"/>
+                <text id="Atips" textSize="15" textStyle="bold" marginTop="5" gravity="center"/>
+                <text id="Btips" textSize="20" textStyle="bold" marginTop="10" gravity="center"/>
+                <text id="Ctips" textSize="10" color="#F44336" textStyle="bold" marginTop="10" gravity="center"/>
+                <card  h="50" margin="10 10 10 0" cardCornerRadius="5dp"
+                cardElevation="0dp" gravity="center_vertical">
+                <vertical padding="0 0" h="auto">
+                </vertical>
+                <View bg="#FFFABB06" h="*" w="*"/>//卡片颜色1
+                <text id="download" text="立即下载新软件" color="#FFFFFF" textSize="20" textStyle="bold" gravity="center"/>
+            </card>
+            <card  h="50" margin="10 10 10 0" cardCornerRadius="5dp"
+            cardElevation="0dp" gravity="center_vertical">
+            <vertical padding="0 0" h="auto">
+            </vertical>
+            <View bg="#FF9E9E9E" h="*" w="*"/>//卡片颜色1
+            <text id="Hj" text="我要看看原来的脚本" color="#FFFFFF" textSize="15" textStyle="bold" gravity="center"/>
+        </card>
+        
+        
+    </vertical>
+    </frame>
+    </ScrollView>
+);
+ui.download.click(() => {
+    toastLog("跳转到浏览器下载");
+    app.openUrl("https://www.lanzous.com/i8gs5li");
+});
+
+ui.Hj.click(() => {
+    toastLog("即将运行旧脚本");
+    engines.execScript("能量++", "Powerplus();\n" + Powerplus.toString());
+})
+
+function Powerplus() {
+    //用于在线获取脚本，省去了各位不停更新软件的烦恼，也方便我给各位更新
+    var url = "https://code.aliyun.com/orange_shirt/Powerplus/raw/master/OldScriptUrl";
+    var res = http.get(url, {
+        headers: {
+            'Accept-Language': 'en-us,en;q=0.5',
+            'User-Agent': 'Mozilla/5.0(Macintosh;IntelMacOSX10_7_0)AppleWebKit/535.11(KHTML,likeGecko)Chrome/17.0.963.56Safari/535.11'
+        }
+    });
+    if (res.statusCode == 200) {
+        toastLog("脚本网址请求成功");
+        context_url = res.body.string();
+        console.info(context_url);
+    } else {
+        toastLog("脚本网址请求失败:" + res.statusMessage);
+    }
+    sleep(2000);
+    var res_script = http.get(context_url, {
+        headers: {
+            'Accept-Language': 'en-us,en;q=0.5',
+            'User-Agent': 'Mozilla/5.0(Macintosh;IntelMacOSX10_7_0)AppleWebKit/535.11(KHTML,likeGecko)Chrome/17.0.963.56Safari/535.11'
+        }
+    });
+
+    if (res_script.statusCode == 200) {
+        toastLog("脚本获取成功");
+        var Script_1212 = res_script.body.string();
+        engines.execScript("能量++", Script_1212);
+    } else {
+        toast("脚本获取失败:" + res_script.statusMessage);
+    }
+
+    //脚本作者@橘衫下邂逅的时光
+}
+
+ui.Ctips.text("Tips：新软件已支持最新的淘宝活动了哦～");
+ui.Btips.text("更好用！更强大！更多的脚本！\n快来下载体验吧～")
+ui.Atips.text("“能量++”（淘宝双十二脚本）\n作者的新软件\n“橘衫の脚本（Orange Js）”来啦～");
+ui.Gtips.text("新软件来啦！");
